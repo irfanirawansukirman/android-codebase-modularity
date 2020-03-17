@@ -13,3 +13,4 @@ include ':domain'
 
 // libraries
 include ':libraries:abstraction'
+include ':libraries:network'
