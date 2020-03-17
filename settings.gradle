@@ -4,6 +4,7 @@ rootProject.name='Codebase Modularity'
 include ':installer'
 
 // feature modular
+include ':features:home'
 include ':features:movielist'
 include ':features:moviedetail'
 
