@@ -1,0 +1,15 @@
+rootProject.name='Codebase Modularity'
+
+// feature - base
+include ':installer'
+
+// feature modular
+include ':features:movielist'
+include ':features:moviedetail'
+
+// data, domain, etc
+include ':data'
+include ':domain'
+
+// libraries
+include ':libraries:abstraction'

@@ -1,0 +1,2 @@
+apply from: "$rootDir/build-systems/feature-app-depends.gradle"
+apply from: "$rootDir/build-systems/feature-test-depends.gradle"
