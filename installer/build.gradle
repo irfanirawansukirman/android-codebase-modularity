@@ -1,28 +1,32 @@
+apply from: "$rootDir/build-systems/dependencies.gradle"
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion appConfig.sdkTarget
+    buildToolsVersion appConfig.buildToolsV
 
     defaultConfig {
-        applicationId "com.irfanirawansukirman.codebasemodularity"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        applicationId appConfig.appId
+        minSdkVersion appConfig.sdkMin
+        targetSdkVersion appConfig.sdkTarget
+        versionCode appConfig.buildNumber
+        versionName appConfig.nameVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-
+            minifyEnabled false
         }
     }
 
@@ -39,11 +43,22 @@ android {
         abortOnError false
     }
 
-    flavorDimensions "mode"
+    flavorDimensions appConfig.flavorMode
     productFlavors {
         dev {
+            dimension appConfig.flavorMode
+            applicationIdSuffix appConfig.idSuffixDev
+            resValue "string", "app_name", appConfig.nameTitleDev
+
+            buildConfigField("String", "BASE_URL", '"https://api.themoviedb.org/3/"')
+            buildConfigField("String", "MOVIE_API_KEY", '"1b2f29d43bf2e4f3142530bc6929d341"')
         }
         prod {
+            dimension appConfig.flavorMode
+            resValue "string", "app_name", appConfig.nameTitle
+
+            buildConfigField("String", "BASE_URL", '"https://api.themoviedb.org/3/"')
+            buildConfigField("String", "MOVIE_API_KEY", '"1b2f29d43bf2e4f3142530bc6929d341"')
         }
     }
 
@@ -72,10 +87,14 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation kotlinLibrary.languagePluginX
+    implementation androidSupportLibrary.appCompatX
+
+    /**
+     * Airbnb deeplink
+     */
+    implementation utils.deeplinkDispatch
+    kapt utils.deeplinkProcessor
 
     /**
      * Data n' Domain Put Here
@@ -91,10 +110,8 @@ dependencies {
     /**
      * Feature Module Put Here
      */
-    implementation project(":features:movielist")
-    implementation project(":features:moviedetail")
-
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation project(":features:home")
+    implementation project(":features:chat")
 }
+
+apply from: "$rootDir/build-systems/feature-test-depends.gradle"

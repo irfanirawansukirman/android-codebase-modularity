@@ -9,7 +9,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -63,4 +63,18 @@ dependencies {
 
     implementation 'com.airbnb:deeplinkdispatch:4.1.0'
     kapt 'com.airbnb:deeplinkdispatch-processor:4.1.0'
+
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
+
+    /**
+     * Data n' Domain Put Here
+     */
+    implementation project(":domain")
+    implementation project(":data")
+
+    /**
+     * Base n' Common Put Here
+     */
+    implementation project(":libraries:abstraction")
 }

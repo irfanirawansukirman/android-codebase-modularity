@@ -1,0 +1,201 @@
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+ext {
+    gradlePluginV = '3.6.1'
+    kotXPluginV = '1.3.61'
+    project = [
+            gradlePlugin             : "com.android.tools.build:gradle:${gradlePluginV}",
+            kotlinPlugin             : "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotXPluginV}",
+            kotlinSerializationPlugin: "org.jetbrains.kotlin:kotlin-serialization:${kotXPluginV}"
+    ]
+
+    appConfig = [
+            appId       : "com.irfanirawansukirman.codebasemodularity",
+            nameTitle   : "Your App Title",
+            nameTitleDev: "Your App Title - Dev",
+            nameVersion : "1.0.0",
+            buildNumber : 1,
+            sdkMin      : 16,
+            sdkTarget   : 29,
+            buildToolsV : "29.0.3",
+            flavorMode  : "mode",
+            idSuffixDev : ".dev"
+    ]
+
+    supportXLibraryV = '1.1.0'
+    constraintXLibV = '1.1.3'
+    supportDesignXLibV = '1.1.0'
+    cardXLibV = '1.1.0'
+    recyclerXLibV = '1.1.0'
+    coordinatorXLibV = '1.0.0'
+    swipeRefreshLibV = '1.0.0'
+    navigationLibV = '2.1.0'
+    legacySupportV4LibV = '1.0.0'
+    //==================================
+    androidSupportLibrary = [
+            appCompatX      : "androidx.appcompat:appcompat:${supportXLibraryV}", // appCompat v7
+            designX         : "com.google.android.material:material:${supportDesignXLibV}",
+            recyclerX       : "androidx.recyclerview:recyclerview:${recyclerXLibV}",
+            cardX           : "androidx.cardview:cardview:${cardXLibV}",
+            constraintX     : "androidx.constraintlayout:constraintlayout:${constraintXLibV}",
+            coordinatorX    : "com.android.support:coordinatorlayout:${coordinatorXLibV}",
+            legacySupportV4X: "androidx.legacy:legacy-support-v4:${legacySupportV4LibV}"
+    ]
+    //==================================
+
+    retrofitLibV = '2.6.0'
+    okHttpLibV = '3.12.0'
+    picassoLibV = '2.71828'
+    leakCanaryLibV = '1.6.3'
+    //==================================
+    squareLibrary = [
+            retrofit     : "com.squareup.retrofit2:retrofit:${retrofitLibV}",
+            okHttp       : "com.squareup.okhttp3:okhttp:${okHttpLibV}",
+            okHttpIntcpt : "com.squareup.okhttp3:logging-interceptor:${okHttpLibV}",
+            picasso      : "com.squareup.picasso:picasso:${picassoLibV}",
+            debLeakCanary: "com.squareup.leakcanary:leakcanary-android:${leakCanaryLibV}", // using it only debug mode. [debugImplementation]
+            relLeakCanary: "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryLibV}"
+    ]
+    //==================================
+
+    kotXSerLibV = '0.11.0'
+    kotXTenLibV = '1.2.0'
+    kotXCorAndroidLibV = '1.3.2'
+    kotXCorCorelibV = '1.3.2'
+    kotXCorTestLibV = '1.3.2'
+    //==================================
+    kotlinLibrary = [
+            serializableX     : "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${kotXSerLibV}",
+            languagePluginX   : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotXPluginV}",
+            extCoreX          : "androidx.core:core-ktx:${kotXTenLibV}",
+            coroutinesAndroidX: "org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotXCorAndroidLibV}",
+            coroutinesCoreX   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotXCorCorelibV}"
+    ]
+    //==================================
+
+    aacXLifeVMExtLibV = '2.2.0'
+    aacXLifeExtLibV = '2.2.0' // include livedata, viewmodel
+    aacXLifeJava8LibV = '2.2.0' // if using java 8
+    aacXLifeRuntLibV = '2.0.0'
+    aacXLifeCompLibV = '2.0.0'
+    //==================================
+    aacLibrary = [
+            lifecycleVmExt      : "androidx.lifecycle:lifecycle-viewmodel-ktx:${aacXLifeVMExtLibV}", // vm ext, provides a viewModelScope() function that makes it easier to launch coroutines from your ViewModel
+            lifecycleExt        : "androidx.lifecycle:lifecycle-extensions:${aacXLifeExtLibV}", // lifecycle, vm, and livedata
+            lifecycleJava8      : "androidx.lifecycle:lifecycle-common-java8:${aacXLifeJava8LibV}",
+            lifecycleRuntime    : "androidx.lifecycle:lifecycle-runtime:${aacXLifeRuntLibV}", // only lifecycle without vm and livedata
+            lifecycleComp       : "androidx.lifecycle:lifecycle-compiler:${aacXLifeCompLibV}" // using kapt
+    ]
+    //==================================
+
+    gpsAuthLibV = '17.0.0'
+    //==================================
+    gPlayLibrary = [
+            gpsAuth: "com.google.android.gms:play-services-auth:${gpsAuthLibV}"
+    ]
+    //==================================
+
+    fbreCrashLibV = ''
+    fbAuthLibV = '19.0.0'
+    //==================================
+    firebaseLibrary = [
+            fbAuth       : "com.google.firebase:firebase-auth:${fbAuthLibV}"
+    ]
+    //==================================
+
+    fbLoginLibV = '5.2.0'
+    //==================================
+    facebookLibrary = [
+            fbLogin: "com.facebook.android:facebook-login:${fbLoginLibV}"
+    ]
+    //==================================
+
+    oneSignalLibV = '3.11.2'
+    //==================================
+    pushNotification = [
+            oneSignal: "com.onesignal:OneSignal:${oneSignalLibV}"
+    ]
+    //==================================
+
+    shapeViewLibV = '1.3.2'
+    circleImageLibV = '3.0.0'
+    arthurBottomSheetsLibV = '1.0.0'
+    pagerIndicatorLibV = '1.0.1'
+    touchImageViewLibV = '2.2.0'
+    //==================================
+    customView = [
+            shapeView         : "com.github.florent37:shapeofview:${shapeViewLibV}",
+            circleImageView   : "de.hdodenhof:circleimageview:${circleImageLibV}",
+            arthurBottomSheets: "com.arthurivanets.bottomsheet:bottomsheets-core:${arthurBottomSheetsLibV}",
+            pagerIndicator    : "com.romandanylyk:pageindicatorview:${pagerIndicatorLibV}",
+            touchImageView    : "com.github.MikeOrtiz:TouchImageView:${touchImageViewLibV}"
+    ]
+    //==================================
+
+    daggerLibV = '2.21'
+    koinLibV = '2.0.1'
+    koinScopeLibV = '2.0.1'
+    koinVMLibV = '2.0.1'
+    koinExtLibV = '2.0.1'
+    koinTestLlibV = '2.0.1'
+    //==================================
+    diLibrary = [
+            koinCore  : "org.koin:koin-core:${koinLibV}",
+            koinAndoid: "org.koin:koin-android:${koinLibV}",
+            koinVM    : "org.koin:koin-android-viewmodel:${koinVMLibV}",
+            koinScope : "org.koin:koin-android-scope:${koinScopeLibV}",
+            koinExt   : "org.koin:koin-core-ext:${koinExtLibV}" // experimental features
+    ]
+    //==================================
+
+    chuckDebugLibV = '1.1.0'
+    chuckReleaseLibV = '1.1.0'
+    //==================================
+    debugging = [
+            chuckDebug  : "com.readystatesoftware.chuck:library:${chuckDebugLibV}",
+            chuckRelease: "com.readystatesoftware.chuck:library-no-op:${chuckReleaseLibV}"
+            // stethoDebug : "com.facebook.stetho:stetho:${stetho}" // deprecated. Change it with fbflipper
+    ]
+    //==================================
+
+    jUnitLibV = '4.13'
+    jUnitXLibV = '1.1.1'
+    espressoCoreLibV = '3.1.1'
+    mockitoInlineLibV = '3.0.0'
+    kotlinRunnerJunit4LibV = '0.3.1'
+    archCoreTestXLibV = '2.0.1'
+    //==================================
+    testing = [
+            jUnit              : "junit:junit:${jUnitLibV}",
+            jUnitX             : "androidx.test.ext:junit:${jUnitXLibV}",
+            espressoCore       : "androidx.test.espresso:espresso-core:${espressoCoreLibV}",
+            koinTest           : "org.koin:koin-test:${koinTestLlibV}",
+            mockitoInline      : "org.mockito:mockito-inline:${mockitoInlineLibV}",
+            kotlinXRunnerJunit4: "de.jodamob.kotlin:kotlin-runner-junit4:${kotlinRunnerJunit4LibV}",
+            archCoreTestX      : "androidx.arch.core:core-testing:${archCoreTestXLibV}",
+            coroutinesTextX    : "org.jetbrains.kotlinx:kotlinx-coroutines-test:${kotXCorTestLibV}"
+    ]
+    //==================================
+
+    branchIoLib = '4.+'
+    //==================================
+    branchIo = [
+            branchIoInit: "io.branch.sdk.android:library:${branchIoLib}"
+    ]
+    //==================================
+
+    deeplinkDispatchV = '4.1.0'
+    //==================================
+    utils = [
+            deeplinkDispatch : "com.airbnb:deeplinkdispatch:${deeplinkDispatchV}",
+            deeplinkProcessor : "com.airbnb:deeplinkdispatch-processor:${deeplinkDispatchV}"
+    ]
+    //==================================
+
+}
