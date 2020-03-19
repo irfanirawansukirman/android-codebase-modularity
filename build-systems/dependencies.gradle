@@ -49,33 +49,33 @@ ext {
     ]
     //==================================
 
-    retrofitLibV = '2.6.0'
+    retrofitLibV = '2.7.2'
     okHttpLibV = '3.12.0'
-    picassoLibV = '2.71828'
     leakCanaryLibV = '1.6.3'
     //==================================
     squareLibrary = [
             retrofit     : "com.squareup.retrofit2:retrofit:${retrofitLibV}",
             okHttp       : "com.squareup.okhttp3:okhttp:${okHttpLibV}",
             okHttpIntcpt : "com.squareup.okhttp3:logging-interceptor:${okHttpLibV}",
-            picasso      : "com.squareup.picasso:picasso:${picassoLibV}",
             debLeakCanary: "com.squareup.leakcanary:leakcanary-android:${leakCanaryLibV}", // using it only debug mode. [debugImplementation]
             relLeakCanary: "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryLibV}"
     ]
     //==================================
 
-    kotXSerLibV = '0.11.0'
+    kotXSerLibV = '0.20.0'
     kotXTenLibV = '1.2.0'
     kotXCorAndroidLibV = '1.3.2'
     kotXCorCorelibV = '1.3.2'
     kotXCorTestLibV = '1.3.2'
+    kotXAdapSerialConX = '0.5.0'
     //==================================
     kotlinLibrary = [
-            serializableX     : "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${kotXSerLibV}",
-            languagePluginX   : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotXPluginV}",
-            extCoreX          : "androidx.core:core-ktx:${kotXTenLibV}",
-            coroutinesAndroidX: "org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotXCorAndroidLibV}",
-            coroutinesCoreX   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotXCorCorelibV}"
+            serializableX                : "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${kotXSerLibV}",
+            languagePluginX              : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotXPluginV}",
+            extCoreX                     : "androidx.core:core-ktx:${kotXTenLibV}",
+            coroutinesAndroidX           : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotXCorAndroidLibV}",
+            coroutinesCoreX              : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotXCorCorelibV}",
+            kotlinAdapterSerialConverterX: "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${kotXAdapSerialConX}"
     ]
     //==================================
 
@@ -163,6 +163,15 @@ ext {
             // stethoDebug : "com.facebook.stetho:stetho:${stetho}" // deprecated. Change it with fbflipper
     ]
     //==================================
+
+    glideLibV = '4.11.0'
+    picassoLibV = '2.71828'
+    //==================================
+    imageLoader = [
+            picasso      : "com.squareup.picasso:picasso:${picassoLibV}",
+            glide        : "com.github.bumptech.glide:glide:${glideLibV}",
+            glidCompiler : "com.github.bumptech.glide:compiler:${glideLibV}"
+    ]
 
     jUnitLibV = '4.13'
     jUnitXLibV = '1.1.1'

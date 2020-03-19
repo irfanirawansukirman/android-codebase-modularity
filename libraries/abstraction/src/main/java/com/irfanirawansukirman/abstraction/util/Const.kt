@@ -9,7 +9,9 @@ object Const {
         const val BASE_MOVIE = "myapp://movie/"
         const val TO_MOVIE = "$BASE_MOVIE{movieId}"
         const val PARAM_MOVIE_ID = "movieId"
+    }
 
-        const val TO_MOVIE_DETAIL = "myapp://moviedetail/"
+    object DateTime {
+        const val DATE_TIME_DEFAULT = "yyyy-MM-dd HH:mm:ss" // HH (24) hh (12)
     }
 }

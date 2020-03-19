@@ -1,0 +1,3 @@
+package com.irfanirawansukirman.codebasemodularity.presentation
+
+sealed class MainViewEffects

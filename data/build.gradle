@@ -1,25 +1,50 @@
+apply from: "$rootDir/build-systems/dependencies.gradle"
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlinx-serialization'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion appConfig.sdkTarget
+    buildToolsVersion appConfig.buildToolsV
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion appConfig.sdkMin
+        targetSdkVersion appConfig.sdkTarget
+        versionCode appConfig.buildNumber
+        versionName appConfig.nameVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
         release {
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    flavorDimensions appConfig.flavorMode
+    productFlavors {
+        dev {
+            buildConfigField("String", "BASE_URL", '\"https://api.themoviedb.org/3/\"')
+            buildConfigField("String", "BASE_IMAGE_MOVIE", '\"https://image.tmdb.org/t/p/w500/\"')
+            buildConfigField("String", "MOVIE_API_KEY", '"1b2f29d43bf2e4f3142530bc6929d341"')
+
+            buildConfigField "boolean", "STRICT_MODE", "true"
+        }
+        prod {
+            buildConfigField("String", "BASE_URL", '\"https://api.themoviedb.org/3/\"')
+            buildConfigField("String", "BASE_IMAGE_MOVIE", '\"https://image.tmdb.org/t/p/w500/\"')
+            buildConfigField("String", "MOVIE_API_KEY", '"1b2f29d43bf2e4f3142530bc6929d341"')
+
+            buildConfigField "boolean", "STRICT_MODE", "false"
         }
     }
 
@@ -30,7 +55,20 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation aacLibrary.lifecycleVmExt
+
+    implementation diLibrary.koinAndoid
+
+    implementation kotlinLibrary.coroutinesCoreX
+    implementation kotlinLibrary.coroutinesAndroidX
+    implementation kotlinLibrary.serializableX
+
+    implementation squareLibrary.okHttpIntcpt
+    implementation squareLibrary.retrofit
+
+    implementation project(':libraries:abstraction')
+    implementation project(":libraries:network")
+
+    implementation project(':domain')
 }

@@ -49,16 +49,10 @@ android {
             dimension appConfig.flavorMode
             applicationIdSuffix appConfig.idSuffixDev
             resValue "string", "app_name", appConfig.nameTitleDev
-
-            buildConfigField("String", "BASE_URL", '"https://api.themoviedb.org/3/"')
-            buildConfigField("String", "MOVIE_API_KEY", '"1b2f29d43bf2e4f3142530bc6929d341"')
         }
         prod {
             dimension appConfig.flavorMode
             resValue "string", "app_name", appConfig.nameTitle
-
-            buildConfigField("String", "BASE_URL", '"https://api.themoviedb.org/3/"')
-            buildConfigField("String", "MOVIE_API_KEY", '"1b2f29d43bf2e4f3142530bc6929d341"')
         }
     }
 
@@ -106,6 +100,9 @@ dependencies {
      * Base n' Common Put Here
      */
     implementation project(":libraries:abstraction")
+
+    implementation diLibrary.koinAndoid
+    implementation diLibrary.koinVM
 
     /**
      * Feature Module Put Here
