@@ -9,6 +9,7 @@ import com.irfanirawansukirman.abstraction.util.state.ConnectionLost
 import com.irfanirawansukirman.abstraction.util.state.Loading
 import com.irfanirawansukirman.abstraction.util.state.Success
 import com.irfanirawansukirman.abstraction.util.state.ViewState
+import com.irfanirawansukirman.codebasemodularity.BuildConfig
 import com.irfanirawansukirman.codebasemodularity.R
 import com.irfanirawansukirman.data.network.model.MoviesResult
 import com.irfanirawansukirman.domain.model.response.MovieInfo
@@ -24,8 +25,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         viewModel.uiState.subscribe(this, ::renderMovieList)
         viewModel.getMovieList()
-
-        throw RuntimeException("Test Crash")
     }
 
     private fun renderMovieList(viewState: ViewState<MovieInfo>) {
