@@ -109,6 +109,16 @@ dependencies {
      */
     implementation project(":features:home")
     implementation project(":features:chat")
+
+    // Firebase Analytics
+    implementation 'com.google.firebase:firebase-analytics:17.2.3'
+
+    // Firebase SDK for Crashlytics.
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta02'
 }
 
 apply from: "$rootDir/build-systems/feature-test-depends.gradle"
+
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
