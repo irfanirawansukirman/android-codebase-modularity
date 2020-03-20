@@ -13,6 +13,7 @@ import com.irfanirawansukirman.codebasemodularity.R
 import com.irfanirawansukirman.data.network.model.MoviesResult
 import com.irfanirawansukirman.domain.model.response.MovieInfo
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.lang.RuntimeException
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +24,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         viewModel.uiState.subscribe(this, ::renderMovieList)
         viewModel.getMovieList()
+
+        throw RuntimeException("Test Crash")
     }
 
     private fun renderMovieList(viewState: ViewState<MovieInfo>) {
