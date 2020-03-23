@@ -28,6 +28,7 @@
 
                 <data android:scheme="myapp" />
                 <data android:host="movie" />
+                <data android:host="chat" />
             </intent-filter>
         </activity>
     </application>

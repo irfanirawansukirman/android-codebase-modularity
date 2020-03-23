@@ -91,12 +91,17 @@ android {
             outputFileName = "${appTitle}-${flavor}-${versionName}#${versionCode}-${appBuildDate}.apk"
         }
     }
+
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation kotlinLibrary.languagePluginX
     implementation androidSupportLibrary.appCompatX
+    implementation androidSupportLibrary.recyclerX
 
     /**
      * Airbnb deeplink

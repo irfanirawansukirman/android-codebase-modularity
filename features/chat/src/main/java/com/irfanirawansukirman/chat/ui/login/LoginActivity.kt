@@ -14,8 +14,12 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.airbnb.deeplinkdispatch.DeepLink
+import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_CHAT
+import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_MOVIE
 import com.irfanirawansukirman.chat.R
 
+@DeepLink(TO_CHAT)
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
