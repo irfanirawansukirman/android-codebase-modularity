@@ -42,6 +42,7 @@ ext {
             appCompatX      : "androidx.appcompat:appcompat:${supportXLibraryV}", // appCompat v7
             designX         : "com.google.android.material:material:${supportDesignXLibV}",
             recyclerX       : "androidx.recyclerview:recyclerview:${recyclerXLibV}",
+            swipeX          : "androidx.swiperefreshlayout:swiperefreshlayout:${swipeRefreshLibV}",
             cardX           : "androidx.cardview:cardview:${cardXLibV}",
             constraintX     : "androidx.constraintlayout:constraintlayout:${constraintXLibV}",
             coordinatorX    : "com.android.support:coordinatorlayout:${coordinatorXLibV}",

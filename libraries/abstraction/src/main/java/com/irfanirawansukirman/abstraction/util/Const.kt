@@ -15,6 +15,8 @@ object Const {
     object Navigation {
         const val BASE = "myapp://"
         const val TO_MOVIE = "${BASE}movie"
+        const val MOVIE_TITLE = "MOVIE_TITLE"
+
         const val TO_CHAT = "${BASE}chat"
     }
 

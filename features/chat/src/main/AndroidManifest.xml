@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".LoginActivity"
             android:label="@string/title_activity_login"/>
     </application>
 

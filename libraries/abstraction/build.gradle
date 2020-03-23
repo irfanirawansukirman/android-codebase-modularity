@@ -44,6 +44,7 @@ dependencies {
 
     implementation androidSupportLibrary.designX
     implementation androidSupportLibrary.appCompatX
+    implementation androidSupportLibrary.swipeX
 
     implementation kotlinLibrary.extCoreX
 }

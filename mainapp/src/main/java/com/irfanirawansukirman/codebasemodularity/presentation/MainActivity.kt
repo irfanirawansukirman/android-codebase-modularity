@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.irfanirawansukirman.abstraction.base.BaseActivity
-import com.irfanirawansukirman.abstraction.util.Const.KeyParam.TEST
+import com.irfanirawansukirman.abstraction.util.Const.Navigation.MOVIE_TITLE
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_CHAT
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_MOVIE
 import com.irfanirawansukirman.abstraction.util.ext.asListOfType
@@ -31,7 +31,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun getViewBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
     override fun loadObservers() {
-        viewModel.uiState.subscribe(this, ::renderMoviesList)
+         viewModel.uiState.subscribe(this, ::renderMoviesList)
     }
 
     override fun onFirstLaunch(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             linearLayoutManager = LinearLayoutManager(this)
             mainAdapter = MainAdapter { movie, pos ->
                 navigate(if (pos % 2 == 0) TO_MOVIE else TO_CHAT) {
-                    putExtra(TEST, "Hahaha")
+                    putExtra(MOVIE_TITLE, movie.originalTitle)
                 }
             }
         }
@@ -64,7 +64,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun bindToolbar(): Toolbar? = mViewBinding.root.findViewById(R.id.toolbar)
 
-    override fun enableBackButton(): Boolean = true
+    override fun enableBackButton(): Boolean = false
 
     private fun getMoviesList() {
         viewModel.getMovieList()

@@ -8,22 +8,33 @@
         android:layout_height="wrap_content"
         app:cardElevation="4dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Halo Bro"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+            <View
+                android:id="@+id/viewInsetToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-        </androidx.appcompat.widget.Toolbar>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Halo Bro"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </androidx.appcompat.widget.Toolbar>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

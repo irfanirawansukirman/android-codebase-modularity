@@ -1,18 +1,19 @@
-package com.irfanirawansukirman.home
+package com.irfanirawansukirman.chat
 
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.irfanirawansukirman.abstraction.base.BaseActivity
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.MOVIE_TITLE
-import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_MOVIE
+import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_CHAT
 import com.irfanirawansukirman.abstraction.util.ext.showToast
-import com.irfanirawansukirman.home.databinding.HomeActivityBinding
+import com.irfanirawansukirman.chat.databinding.LoginActivityBinding
 
-@DeepLink(TO_MOVIE)
-class HomeActivity : BaseActivity<HomeActivityBinding>() {
+@DeepLink(TO_CHAT)
+class LoginActivity : BaseActivity<LoginActivityBinding>() {
 
-    override fun getViewBinding(): HomeActivityBinding = HomeActivityBinding.inflate(layoutInflater)
+    override fun getViewBinding(): LoginActivityBinding =
+        LoginActivityBinding.inflate(layoutInflater)
 
     override fun loadObservers() {
 
@@ -38,3 +39,4 @@ class HomeActivity : BaseActivity<HomeActivityBinding>() {
     override fun enableBackButton(): Boolean = true
 
 }
+

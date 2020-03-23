@@ -2,26 +2,35 @@ package com.irfanirawansukirman.abstraction.base
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
 import androidx.viewbinding.ViewBinding
 import com.irfanirawansukirman.abstraction.R
-
+import com.irfanirawansukirman.abstraction.util.ext.makeStatusBarTransparent
+import com.irfanirawansukirman.abstraction.util.ext.overridePendingTransitionExit
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     protected lateinit var mViewBinding: VB
 
-    var mToolbar: Toolbar? = null
+    private var mToolbar: Toolbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mViewBinding = getViewBinding()
         setContentView(mViewBinding.root)
+        makeStatusBarTransparent()
         setupToolbar()
         setupViewListener()
         onFirstLaunch(savedInstanceState)
         loadObservers()
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransitionExit()
     }
 
     /**
@@ -74,6 +83,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
      */
     private fun setupToolbar() {
         bindToolbar()?.let {
+            setupToolbarTopInset()
             mToolbar = it
             setSupportActionBar(mToolbar)
             supportActionBar?.apply {
@@ -96,5 +106,13 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     }
 
     fun getParentToolbar(): Toolbar? = mToolbar
+
+    private fun setupToolbarTopInset() {
+        ViewCompat.setOnApplyWindowInsetsListener(mViewBinding.root) { _, insets ->
+            val viewInsetToolbar = mViewBinding.root.findViewById<View>(R.id.viewInsetToolbar)
+            viewInsetToolbar.layoutParams.height = insets.systemWindowInsetTop
+            insets.consumeSystemWindowInsets()
+        }
+    }
 
 }

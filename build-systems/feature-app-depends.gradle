@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-allopen'
 
 android {
     compileSdkVersion 29
@@ -65,12 +64,6 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
-    implementation 'com.airbnb:deeplinkdispatch:4.1.0'
-    kapt 'com.airbnb:deeplinkdispatch-processor:4.1.0'
-
-    // alternately - if using Java8, use the following instead of lifecycle-compiler
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
-
     /**
      * Data n' Domain Put Here
      */
@@ -81,4 +74,10 @@ dependencies {
      * Base n' Common Put Here
      */
     implementation project(":libraries:abstraction")
+
+    implementation 'com.airbnb:deeplinkdispatch:4.1.0'
+    kapt 'com.airbnb:deeplinkdispatch-processor:4.1.0'
+
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
 }
