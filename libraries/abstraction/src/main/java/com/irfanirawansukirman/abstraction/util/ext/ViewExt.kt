@@ -2,7 +2,7 @@ package com.irfanirawansukirman.abstraction.util.ext
 
 import android.view.View
 import android.view.ViewGroup
-import com.tokodistributor.android.util.view.ThrottledOnClickListener
+import com.irfanirawansukirman.abstraction.util.view.ThrottledOnClickListener
 
 fun View.defaultDisable() {
     isEnabled = false

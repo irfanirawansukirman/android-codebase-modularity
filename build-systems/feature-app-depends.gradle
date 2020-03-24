@@ -80,4 +80,6 @@ dependencies {
 
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
+
+    implementation 'com.karumi:dexter:6.0.2'
 }

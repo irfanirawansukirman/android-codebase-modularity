@@ -1,4 +1,4 @@
-package com.tokodistributor.android.util.view
+package com.irfanirawansukirman.abstraction.util.view;
 
 import android.os.SystemClock
 import android.view.View

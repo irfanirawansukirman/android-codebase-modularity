@@ -13,12 +13,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 public class RecyclerViewInfiniteScrollProvider {
 
-//    private OnWhenScroll onWhenScroll;
-
-//    public InfiniteScrollProvider(OnWhenScroll onWhenScroll) {
-//        this.onWhenScroll = onWhenScroll;
-//    }
-
     public RecyclerViewInfiniteScrollProvider() {
     }
 
@@ -133,8 +127,8 @@ public class RecyclerViewInfiniteScrollProvider {
         void onLoadMore();
     }
 
-//    public interface OnWhenScroll {
-//        void onWhenScroll();
-//    }
+    public interface OnWhenScroll {
+        void onWhenScroll();
+    }
 
 }

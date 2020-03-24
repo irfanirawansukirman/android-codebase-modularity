@@ -1,5 +1,7 @@
 package com.irfanirawansukirman.abstraction.util
 
+import android.Manifest
+
 object Const {
     object Code {
         const val REQUEST_CODE = 1234
@@ -26,5 +28,13 @@ object Const {
 
     object KeyParam {
         const val TEST = "TEST"
+    }
+
+    object Permission {
+        const val CAMERA = Manifest.permission.CAMERA
+        const val WRITE_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE
+        const val READ_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE
+        const val FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
+        const val COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION
     }
 }

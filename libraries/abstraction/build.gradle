@@ -47,4 +47,6 @@ dependencies {
     implementation androidSupportLibrary.swipeX
 
     implementation kotlinLibrary.extCoreX
+
+    implementation 'com.karumi:dexter:6.0.2'
 }
