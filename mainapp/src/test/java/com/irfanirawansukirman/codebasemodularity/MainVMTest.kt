@@ -4,30 +4,21 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.irfanirawansukirman.abstraction.util.ext.asListOfType
 import com.irfanirawansukirman.codebasemodularity.presentation.MainVM
-import com.irfanirawansukirman.data.common.coroutine.TestCoroutineContextProvider
 import com.irfanirawansukirman.data.network.model.MoviesResult
 import com.irfanirawansukirman.domain.interaction.movies.MoviesUseCase
 import com.irfanirawansukirman.domain.model.Result
-import com.irfanirawansukirman.domain.model.response.MovieInfo
-import com.nhaarman.mockitokotlin2.mock
+import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
-import org.koin.core.logger.Level
 import org.mockito.*
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
-import org.mockito.junit.MockitoJUnit
-import org.mockito.junit.MockitoRule
 
 class MainVMTest {
 //    private val getMoviesList: MoviesUseCase = mock()
@@ -68,7 +59,7 @@ class MainVMTest {
 
     @Test
     fun `test getMoviesList sets liveData value when success`() = runBlocking {
-        val returnValue = Result.Success(MovieInfo(movies))
+        val returnValue = Result.Success(MovieInfoMapper(movies))
         `when`(useCase.invoke("")).thenReturn(returnValue)
         viewModel.getMovieList()
         verify(result, Mockito.atLeastOnce()).onChanged(argResultCaptor.capture())

@@ -1,6 +1,7 @@
 package com.irfanirawansukirman.data.di
 
 import com.irfanirawansukirman.data.BuildConfig
+import com.irfanirawansukirman.data.network.service.LanguageApi
 import com.irfanirawansukirman.data.network.service.MovieApi
 import com.irfanirawansukirman.network.createApiService
 import com.irfanirawansukirman.network.createOkHttpClient
@@ -15,4 +16,5 @@ val networkModule = module {
     single { createOkHttpClient(get<HttpLoggingInterceptor>()) }
 
     single { createApiService<MovieApi>(get(), BuildConfig.BASE_URL) }
+    single { createApiService<LanguageApi>(get(), BuildConfig.MOCK_BASE_URL) }
 }

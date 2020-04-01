@@ -1,23 +1,22 @@
-package com.irfanirawansukirman.codebasemodularity.presentation
+package com.irfanirawansukirman.home.presentation
 
 import com.irfanirawansukirman.abstraction.util.state.ConnectionLost
 import com.irfanirawansukirman.abstraction.util.state.Error
 import com.irfanirawansukirman.abstraction.util.state.Success
 import com.irfanirawansukirman.data.common.base.BaseVM
-import com.irfanirawansukirman.domain.interaction.movies.MoviesUseCase
+import com.irfanirawansukirman.domain.interaction.language.LanguageUseCase
 import com.irfanirawansukirman.domain.model.onFailure
 import com.irfanirawansukirman.domain.model.onSuccess
-import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
+import com.irfanirawansukirman.domain.model.response.LanguangeMapper
 
-interface MainContract {
-    fun getMovieList()
+interface HomeContract {
+    fun getLanguage()
 }
 
-class MainVM(private val moviesUseCase: MoviesUseCase) : BaseVM<MovieInfoMapper, MainViewEffects>(),
-    MainContract {
-
-    override fun getMovieList() = executeUseCase({
-        moviesUseCase("")
+class HomeVM(private val languageUseCase: LanguageUseCase) :
+    BaseVM<LanguangeMapper, HomeViewEffects>(), HomeContract {
+    override fun getLanguage() = executeUseCase({
+        languageUseCase()
             .onSuccess {
                 _uiState.value = Success(it)
             }

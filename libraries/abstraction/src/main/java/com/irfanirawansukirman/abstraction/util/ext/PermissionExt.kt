@@ -9,7 +9,7 @@ fun requestSinglePermission(
     permission: String,
     listener: PermissionListener,
     activity: Activity,
-    isSameThread: Boolean
+    isSameThread: Boolean = true
 ) {
     Dexter.withActivity(activity)
         .withPermission(permission)
@@ -22,7 +22,7 @@ fun requestMultiplePermission(
     permissions: List<String>,
     listener: MultiplePermissionsListener,
     activity: Activity,
-    isSameThread: Boolean
+    isSameThread: Boolean = true
 ) {
     Dexter.withActivity(activity)
         .withPermissions(permissions)

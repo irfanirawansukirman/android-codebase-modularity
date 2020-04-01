@@ -1,7 +1,7 @@
 package com.irfanirawansukirman.data.network.model
 
 import com.irfanirawansukirman.data.network.base.DomainMapper
-import com.irfanirawansukirman.domain.model.response.MovieInfo
+import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -15,9 +15,9 @@ data class MoviesResponse(
     val totalPages: Int?,
     @SerialName("total_results")
     val totalResults: Int?
-) : DomainMapper<MovieInfo> {
+) : DomainMapper<MovieInfoMapper> {
     override fun mapToDomainModel() =
-        MovieInfo(results)
+        MovieInfoMapper(results)
 }
 
 @Serializable

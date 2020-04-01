@@ -87,11 +87,11 @@ ext {
     aacXLifeCompLibV = '2.0.0'
     //==================================
     aacLibrary = [
-            lifecycleVmExt      : "androidx.lifecycle:lifecycle-viewmodel-ktx:${aacXLifeVMExtLibV}", // vm ext, provides a viewModelScope() function that makes it easier to launch coroutines from your ViewModel
-            lifecycleExt        : "androidx.lifecycle:lifecycle-extensions:${aacXLifeExtLibV}", // lifecycle, vm, and livedata
-            lifecycleJava8      : "androidx.lifecycle:lifecycle-common-java8:${aacXLifeJava8LibV}",
-            lifecycleRuntime    : "androidx.lifecycle:lifecycle-runtime:${aacXLifeRuntLibV}", // only lifecycle without vm and livedata
-            lifecycleComp       : "androidx.lifecycle:lifecycle-compiler:${aacXLifeCompLibV}" // using kapt
+            lifecycleVmExt  : "androidx.lifecycle:lifecycle-viewmodel-ktx:${aacXLifeVMExtLibV}", // vm ext, provides a viewModelScope() function that makes it easier to launch coroutines from your ViewModel
+            lifecycleExt    : "androidx.lifecycle:lifecycle-extensions:${aacXLifeExtLibV}", // lifecycle, vm, and livedata
+            lifecycleJava8  : "androidx.lifecycle:lifecycle-common-java8:${aacXLifeJava8LibV}",
+            lifecycleRuntime: "androidx.lifecycle:lifecycle-runtime:${aacXLifeRuntLibV}", // only lifecycle without vm and livedata
+            lifecycleComp   : "androidx.lifecycle:lifecycle-compiler:${aacXLifeCompLibV}" // using kapt
     ]
     //==================================
 
@@ -102,11 +102,14 @@ ext {
     ]
     //==================================
 
-    fbreCrashLibV = ''
+    fbreCrashLibV = '17.0.0-beta03'
     fbAuthLibV = '19.0.0'
+    fbAnalLibV = '17.3.0'
     //==================================
     firebaseLibrary = [
-            fbAuth       : "com.google.firebase:firebase-auth:${fbAuthLibV}"
+            fbAuth: "com.google.firebase:firebase-auth:${fbAuthLibV}",
+            fbCrash: "com.google.firebase:firebase-crashlytics:${fbreCrashLibV}",
+            fbAnal: "com.google.firebase:firebase-analytics:${fbAnalLibV}"
     ]
     //==================================
 
@@ -117,7 +120,7 @@ ext {
     ]
     //==================================
 
-    oneSignalLibV = '3.11.2'
+    oneSignalLibV = '3.13.0'
     //==================================
     pushNotification = [
             oneSignal: "com.onesignal:OneSignal:${oneSignalLibV}"
@@ -169,9 +172,9 @@ ext {
     picassoLibV = '2.71828'
     //==================================
     imageLoader = [
-            picasso      : "com.squareup.picasso:picasso:${picassoLibV}",
-            glide        : "com.github.bumptech.glide:glide:${glideLibV}",
-            glidCompiler : "com.github.bumptech.glide:compiler:${glideLibV}"
+            picasso     : "com.squareup.picasso:picasso:${picassoLibV}",
+            glide       : "com.github.bumptech.glide:glide:${glideLibV}",
+            glidCompiler: "com.github.bumptech.glide:compiler:${glideLibV}"
     ]
 
     jUnitLibV = '4.13'
@@ -201,10 +204,19 @@ ext {
     //==================================
 
     deeplinkDispatchV = '4.1.0'
+    dexterV = '6.0.2'
+    multidexV = '1.0.3'
     //==================================
     utils = [
+            // navigation
             deeplinkDispatch : "com.airbnb:deeplinkdispatch:${deeplinkDispatchV}",
-            deeplinkProcessor : "com.airbnb:deeplinkdispatch-processor:${deeplinkDispatchV}"
+            deeplinkProcessor: "com.airbnb:deeplinkdispatch-processor:${deeplinkDispatchV}",
+
+            // permission
+            dexterPermission : "com.karumi:dexter:${dexterV}",
+
+            // multidex
+            supportMultidex : "com.android.support:multidex:${multidexV}"
     ]
     //==================================
 

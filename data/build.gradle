@@ -33,6 +33,7 @@ android {
     flavorDimensions appConfig.flavorMode
     productFlavors {
         dev {
+            buildConfigField("String", "MOCK_BASE_URL", '\"https://private-41eb3c-andromaxgitsindonesia.apiary-mock.com/\"')
             buildConfigField("String", "BASE_URL", '\"https://api.themoviedb.org/3/\"')
             buildConfigField("String", "BASE_IMAGE_MOVIE", '\"https://image.tmdb.org/t/p/w500/\"')
             buildConfigField("String", "MOVIE_API_KEY", '"1b2f29d43bf2e4f3142530bc6929d341"')
@@ -40,6 +41,7 @@ android {
             buildConfigField "boolean", "STRICT_MODE", "true"
         }
         prod {
+            buildConfigField("String", "MOCK_BASE_URL", '\"https://private-41eb3c-andromaxgitsindonesia.apiary-mock.com/\"')
             buildConfigField("String", "BASE_URL", '\"https://api.themoviedb.org/3/\"')
             buildConfigField("String", "BASE_IMAGE_MOVIE", '\"https://image.tmdb.org/t/p/w500/\"')
             buildConfigField("String", "MOVIE_API_KEY", '"1b2f29d43bf2e4f3142530bc6929d341"')

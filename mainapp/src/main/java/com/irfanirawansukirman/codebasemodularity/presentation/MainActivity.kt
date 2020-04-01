@@ -2,7 +2,6 @@ package com.irfanirawansukirman.codebasemodularity.presentation
 
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
-import com.google.firebase.crashlytics.internal.common.CommonUtils.hideKeyboard
 import com.irfanirawansukirman.abstraction.base.BaseActivity
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.MOVIE_TITLE
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_CHAT
@@ -15,7 +14,7 @@ import com.irfanirawansukirman.abstraction.util.state.ViewState
 import com.irfanirawansukirman.codebasemodularity.R
 import com.irfanirawansukirman.codebasemodularity.databinding.ActivityMainBinding
 import com.irfanirawansukirman.data.network.model.MoviesResult
-import com.irfanirawansukirman.domain.model.response.MovieInfo
+import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
@@ -74,7 +73,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
         viewModel.getMovieList()
     }
 
-    private fun renderMoviesList(viewState: ViewState<MovieInfo>) {
+    private fun renderMoviesList(viewState: ViewState<MovieInfoMapper>) {
         when (viewState) {
             is Loading -> {
 
@@ -104,7 +103,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
         permissions: MutableList<PermissionRequest>?,
         token: PermissionToken?
     ) {
-
+        token?.continuePermissionRequest()
     }
 
 }

@@ -100,14 +100,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation kotlinLibrary.languagePluginX
+    implementation kotlinLibrary.extCoreX
+
     implementation androidSupportLibrary.appCompatX
     implementation androidSupportLibrary.recyclerX
-
-    /**
-     * Airbnb deeplink
-     */
-    implementation utils.deeplinkDispatch
-    kapt utils.deeplinkProcessor
 
     /**
      * Data n' Domain Put Here
@@ -130,16 +126,22 @@ dependencies {
     implementation project(":features:chat")
 
     // Firebase Analytics
-    implementation 'com.google.firebase:firebase-analytics:17.2.3'
+    implementation firebaseLibrary.fbAnal
 
     // Firebase SDK for Crashlytics.
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta02'
+    implementation firebaseLibrary.fbCrash
 
-    implementation 'com.onesignal:OneSignal:3.11.2'
+    implementation pushNotification.oneSignal
 
-    implementation 'com.android.support:multidex:1.0.3'
+    // Support multidex
+    implementation utils.supportMultidex
 
-    implementation 'com.karumi:dexter:6.0.2'
+    // Dexter permission
+    implementation utils.dexterPermission
+
+    // Deeplink for navigating between page
+    implementation utils.deeplinkDispatch
+    kapt utils.deeplinkProcessor
 }
 
 apply from: "$rootDir/build-systems/feature-test-depends.gradle"
