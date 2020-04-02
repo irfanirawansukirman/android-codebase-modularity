@@ -4,24 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<VB : ViewBinding, PA : AppCompatActivity> : Fragment() {
+abstract class BaseFragment<VB : ViewBinding, PA : AppCompatActivity>(private val viewBinder: (LayoutInflater) -> ViewBinding) :
+    Fragment() {
 
-    protected lateinit var mViewBinding: VB
     protected lateinit var mParentActivity: PA
+
+    val mViewBinding by lazy { viewBinder.invoke(LayoutInflater.from(requireContext())) as VB }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        mViewBinding = getViewBinding()
-        return mViewBinding.root
-    }
+    ): View? = mViewBinding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,11 +27,6 @@ abstract class BaseFragment<VB : ViewBinding, PA : AppCompatActivity> : Fragment
         onFirstLaunch(savedInstanceState)
         loadObservers()
     }
-
-    /**
-     * It returns [ViewBinding] [VB] which is assigned to [mViewBinding] and used in [onCreate]
-     */
-    abstract fun getViewBinding(): VB
 
     /**
      * Function for load livedata observer from viewmodel

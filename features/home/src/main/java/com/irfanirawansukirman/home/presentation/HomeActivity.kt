@@ -17,11 +17,9 @@ import com.irfanirawansukirman.home.databinding.HomeActivityBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 
 @DeepLink(TO_MOVIE)
-class HomeActivity : BaseActivity<HomeActivityBinding>() {
+class HomeActivity : BaseActivity<HomeActivityBinding>(HomeActivityBinding::inflate) {
 
     private val viewModel: HomeVM by viewModel()
-
-    override fun getViewBinding(): HomeActivityBinding = HomeActivityBinding.inflate(layoutInflater)
 
     override fun loadObservers() {
         viewModel.uiState.subscribe(this, ::renderMoviesList)

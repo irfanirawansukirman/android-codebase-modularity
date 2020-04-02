@@ -21,14 +21,12 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<ActivityMainBinding>(),
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
     MultiplePermissionsListener {
 
     private val viewModel: MainVM by viewModel()
 
     private lateinit var mainAdapter: MainAdapter
-
-    override fun getViewBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
     override fun loadObservers() {
         viewModel.uiState.subscribe(this, ::renderMoviesList)

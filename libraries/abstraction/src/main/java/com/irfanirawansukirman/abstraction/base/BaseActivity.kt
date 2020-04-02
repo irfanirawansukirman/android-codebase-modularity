@@ -1,6 +1,7 @@
 package com.irfanirawansukirman.abstraction.base
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,15 +12,14 @@ import com.irfanirawansukirman.abstraction.R
 import com.irfanirawansukirman.abstraction.util.ext.makeStatusBarTransparent
 import com.irfanirawansukirman.abstraction.util.ext.overridePendingTransitionExit
 
-abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
+abstract class BaseActivity<VB : ViewBinding>(private val viewBinder: (LayoutInflater) -> ViewBinding) : AppCompatActivity() {
 
-    protected lateinit var mViewBinding: VB
+    val mViewBinding by lazy { viewBinder.invoke(layoutInflater) as VB }
 
     private var mToolbar: Toolbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewBinding = getViewBinding()
         setContentView(mViewBinding.root)
         makeStatusBarTransparent()
         setupToolbar()
@@ -32,11 +32,6 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         super.finish()
         overridePendingTransitionExit()
     }
-
-    /**
-     * It returns [ViewBinding] [VB] which is assigned to [mViewBinding] and used in [onCreate]
-     */
-    abstract fun getViewBinding(): VB
 
     /**
      * Function for load livedata observer from viewmodel
