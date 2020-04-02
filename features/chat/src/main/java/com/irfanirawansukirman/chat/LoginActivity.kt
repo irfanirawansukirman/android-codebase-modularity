@@ -24,6 +24,11 @@ class LoginActivity : BaseActivity<LoginActivityBinding>() {
             val params = intent.extras ?: Bundle()
             showToast(this, params.getString(MOVIE_TITLE))
         }
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.frame_container, LoginFragment())
+            .commit()
     }
 
     override fun continuousCall() {
