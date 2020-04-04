@@ -7,10 +7,8 @@ import com.irfanirawansukirman.abstraction.util.Const.Navigation.MOVIE_TITLE
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_CHAT
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_MOVIE
 import com.irfanirawansukirman.abstraction.util.ext.*
-import com.irfanirawansukirman.abstraction.util.state.ConnectionLost
-import com.irfanirawansukirman.abstraction.util.state.Loading
-import com.irfanirawansukirman.abstraction.util.state.Success
 import com.irfanirawansukirman.abstraction.util.state.ViewState
+import com.irfanirawansukirman.abstraction.util.state.ViewState.Status.*
 import com.irfanirawansukirman.codebasemodularity.R
 import com.irfanirawansukirman.codebasemodularity.databinding.ActivityMainBinding
 import com.irfanirawansukirman.data.network.model.MoviesResult
@@ -72,21 +70,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     private fun renderMoviesList(viewState: ViewState<MovieInfoMapper>) {
-        when (viewState) {
-            is Loading -> {
+        with(viewState) {
+            when (status) {
+                LOADING -> {
 
-            }
-            is Success -> {
-                val data = viewState.data.movieList?.asListOfType<MoviesResult>()
-                data?.let {
-                    mainAdapter.setupMoviesList(it)
                 }
-            }
-            is Error -> {
+                SUCCESS -> {
+                    val data = viewState.data?.movieList?.asListOfType<MoviesResult>()
+                    data?.let {
+                        mainAdapter.setupMoviesList(it)
+                    }
+                }
+                ERROR -> {
 
-            }
-            is ConnectionLost -> {
+                }
+                CONNECTION_LOST -> {
 
+                }
             }
         }
     }

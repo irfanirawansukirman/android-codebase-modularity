@@ -3,7 +3,6 @@ package com.irfanirawansukirman.data.common.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.irfanirawansukirman.abstraction.util.state.Loading
 import com.irfanirawansukirman.abstraction.util.state.ViewState
 import com.irfanirawansukirman.data.common.coroutine.CoroutineContextProvider
 import com.irfanirawansukirman.data.common.ext.launch
@@ -26,7 +25,7 @@ abstract class BaseVM<T : Any, E> : ViewModel(), KoinComponent {
         get() = _uiEffects
 
     protected fun executeUseCase(action: suspend () -> Unit, noInternetAction: () -> Unit) {
-        _uiState.value = Loading()
+        _uiState.value = ViewState.loading()
         if (connectivity.isNetworkAvailable()) {
             launch { action() }
         } else {
@@ -35,7 +34,7 @@ abstract class BaseVM<T : Any, E> : ViewModel(), KoinComponent {
     }
 
     protected fun executeUseCase(action: suspend () -> Unit) {
-        _uiState.value = Loading()
+        _uiState.value = ViewState.loading()
         launch { action() }
     }
 

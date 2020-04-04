@@ -1,8 +1,6 @@
 package com.irfanirawansukirman.codebasemodularity.presentation
 
-import com.irfanirawansukirman.abstraction.util.state.ConnectionLost
-import com.irfanirawansukirman.abstraction.util.state.Error
-import com.irfanirawansukirman.abstraction.util.state.Success
+import com.irfanirawansukirman.abstraction.util.state.ViewState
 import com.irfanirawansukirman.data.common.base.BaseVM
 import com.irfanirawansukirman.domain.interaction.movies.MoviesUseCase
 import com.irfanirawansukirman.domain.model.onFailure
@@ -19,13 +17,13 @@ class MainVM(private val moviesUseCase: MoviesUseCase) : BaseVM<MovieInfoMapper,
     override fun getMovieList() = executeUseCase({
         moviesUseCase("")
             .onSuccess {
-                _uiState.value = Success(it)
+                _uiState.value = ViewState.success(it)
             }
             .onFailure {
-                _uiState.value = Error(it.throwable)
+                _uiState.value = ViewState.error(it.throwable)
             }
     }, {
-        _uiState.value = ConnectionLost()
+        _uiState.value = ViewState.connectionLost()
     })
 
 }

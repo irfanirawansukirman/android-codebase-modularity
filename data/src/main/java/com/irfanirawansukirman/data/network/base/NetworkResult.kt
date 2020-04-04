@@ -1,7 +1,9 @@
 package com.irfanirawansukirman.data.network.base
 
+import com.irfanirawansukirman.domain.model.Failure
 import com.irfanirawansukirman.domain.model.HttpError
 import com.irfanirawansukirman.domain.model.Result
+import com.irfanirawansukirman.domain.model.Success
 import retrofit2.Response
 import java.io.IOException
 
@@ -33,15 +35,15 @@ inline fun <T : RoomMapper<R>, R : DomainMapper<U>, U : Any> Response<T>.getData
         onSuccess {
             val databaseEntity = it.mapToRoomEntity()
             cacheAction(databaseEntity)
-            return Result.Success(databaseEntity.mapToDomainModel())
+            return Success(databaseEntity.mapToDomainModel())
         }
         onFailure {
             val cachedModel = fetchFromCacheAction()
-            if (cachedModel != null) Result.Success(cachedModel.mapToDomainModel()) else Result.Failure(HttpError(Throwable("")))
+            if (cachedModel != null) Success(cachedModel.mapToDomainModel()) else Failure(HttpError(Throwable("")))
         }
-        return Result.Failure(HttpError(Throwable("")))
+        return Failure(HttpError(Throwable("")))
     } catch (e: IOException) {
-        return Result.Failure(HttpError(Throwable("")))
+        return Failure(HttpError(Throwable("")))
     }
 }
 
@@ -50,10 +52,10 @@ inline fun <T : RoomMapper<R>, R : DomainMapper<U>, U : Any> Response<T>.getData
  */
 fun <T : DomainMapper<R>, R : Any> Response<T>.getData(): Result<R> {
     try {
-        onSuccess { return Result.Success(it.mapToDomainModel()) }
-        onFailure { return Result.Failure(it) }
-        return Result.Failure(HttpError(Throwable("")))
+        onSuccess { return Success(it.mapToDomainModel()) }
+        onFailure { return Failure(it) }
+        return Failure(HttpError(Throwable("")))
     } catch (e: IOException) {
-        return Result.Failure(HttpError(Throwable("")))
+        return Failure(HttpError(Throwable("")))
     }
 }

@@ -48,9 +48,16 @@ abstract class BaseFragment<VB : ViewBinding, PA : AppCompatActivity>(private va
      */
     abstract fun setupViewListener()
 
+    abstract fun onDestroyActivities()
+
     override fun onStart() {
         super.onStart()
         continuousCall()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        onDestroyActivities()
     }
 
     fun getMyParentActivity(): PA = requireActivity() as PA

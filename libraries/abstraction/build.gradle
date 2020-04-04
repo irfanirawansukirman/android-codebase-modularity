@@ -49,4 +49,6 @@ dependencies {
     implementation kotlinLibrary.extCoreX
 
     implementation 'com.karumi:dexter:6.0.2'
+
+    api project(":libraries:easyimage")
 }

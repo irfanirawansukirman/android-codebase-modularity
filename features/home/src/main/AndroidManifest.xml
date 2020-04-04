@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.irfanirawansukirman.home">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
     <application>
-        <activity android:name=".presentation.HomeActivity"></activity>
+        <activity android:name=".presentation.HomeActivity"/>
     </application>
 
 </manifest>

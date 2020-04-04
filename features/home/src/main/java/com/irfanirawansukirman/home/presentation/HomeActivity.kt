@@ -1,23 +1,31 @@
 package com.irfanirawansukirman.home.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.irfanirawansukirman.abstraction.base.BaseActivity
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_MOVIE
-import com.irfanirawansukirman.abstraction.util.ext.showToast
-import com.irfanirawansukirman.abstraction.util.ext.subscribe
-import com.irfanirawansukirman.abstraction.util.state.ConnectionLost
-import com.irfanirawansukirman.abstraction.util.state.Loading
-import com.irfanirawansukirman.abstraction.util.state.Success
+import com.irfanirawansukirman.abstraction.util.Const.Permission.CAMERA_NAME
+import com.irfanirawansukirman.abstraction.util.ext.*
 import com.irfanirawansukirman.abstraction.util.state.ViewState
+import com.irfanirawansukirman.abstraction.util.state.ViewState.Status.*
 import com.irfanirawansukirman.domain.model.response.LanguangeMapper
 import com.irfanirawansukirman.home.R
 import com.irfanirawansukirman.home.databinding.HomeActivityBinding
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import org.koin.android.viewmodel.ext.android.viewModel
+import pl.aprilapps.easyphotopicker.DefaultCallback
+import pl.aprilapps.easyphotopicker.MediaFile
+import pl.aprilapps.easyphotopicker.MediaSource
 
 @DeepLink(TO_MOVIE)
-class HomeActivity : BaseActivity<HomeActivityBinding>(HomeActivityBinding::inflate) {
+class HomeActivity : BaseActivity<HomeActivityBinding>(HomeActivityBinding::inflate),
+    PermissionListener {
 
     private val viewModel: HomeVM by viewModel()
 
@@ -30,11 +38,18 @@ class HomeActivity : BaseActivity<HomeActivityBinding>(HomeActivityBinding::infl
             // val params = intent.extras ?: Bundle()
 
             getLanguage()
+
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frame_container, HomeFragment())
+                .commit()
+
+            createEasyImageBuilder(this)
         }
     }
 
     override fun continuousCall() {
-        // do nothing
+
     }
 
     override fun setupViewListener() {
@@ -45,26 +60,89 @@ class HomeActivity : BaseActivity<HomeActivityBinding>(HomeActivityBinding::infl
 
     override fun enableBackButton(): Boolean = true
 
+    override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+        response?.let {
+            if (it.permissionName == CAMERA_NAME) { // open camera
+                openCamera()
+            } else { // open gallery
+                openGallery()
+            }
+        }
+    }
+
+    override fun onPermissionRationaleShouldBeShown(
+        permission: PermissionRequest?,
+        token: PermissionToken?
+    ) {
+        showRationaleCameraDialog(token)
+    }
+
+    override fun onPermissionDenied(response: PermissionDeniedResponse?) {
+        response?.let {
+            if (it.isPermanentlyDenied) {
+                showToast(
+                    this,
+                    "Masuk ke setting aplikasi untuk mengizinkan penggunaan kamera secara manual"
+                )
+            } else {
+                showToast(this, "Fitur tidak akan berjalan semestinya jika kamera tidak diizinkan")
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        getEasyImage().handleActivityResult(
+            requestCode,
+            resultCode,
+            data,
+            this,
+            object : DefaultCallback() {
+                override fun onMediaFilesPicked(imageFiles: Array<MediaFile>, source: MediaSource) {
+                    showImageSelected(imageFiles[0].file.absolutePath)
+                }
+            })
+    }
+
     private fun getLanguage() {
         viewModel.getLanguage()
     }
 
     private fun renderMoviesList(viewState: ViewState<LanguangeMapper>) {
-        when (viewState) {
-            is Loading -> {
+        with(viewState) {
+            when (status) {
+                LOADING -> {
 
-            }
-            is Success -> {
-                val data = viewState.data.question
-                showToast(this, data)
-            }
-            is Error -> {
+                }
+                SUCCESS -> {
+                    val data = viewState.data?.question
+                    data?.let {
+                        showToast(this@HomeActivity, it)
+                    }
+                }
+                ERROR -> {
 
-            }
-            is ConnectionLost -> {
+                }
+                CONNECTION_LOST -> {
 
+                }
             }
         }
+    }
+
+    private fun showRationaleCameraDialog(token: PermissionToken?) {
+        showAlertDialog(
+            this,
+            "Permission",
+            "Anda harus mengizinkan penggunaan kamera untuk fitur ini",
+            "Batal",
+            "Izinkan",
+            token
+        )
+    }
+
+    private fun showImageSelected(imagePath: String) {
+        viewModel.setupImagePath(imagePath)
     }
 
 }
