@@ -7,6 +7,8 @@ import com.irfanirawansukirman.codebasemodularity.presentation.MainVM
 import com.irfanirawansukirman.data.common.coroutine.TestCoroutineContextProvider
 import com.irfanirawansukirman.data.network.model.MoviesResult
 import com.irfanirawansukirman.domain.interaction.movies.MoviesUseCase
+import com.irfanirawansukirman.domain.model.Failure
+import com.irfanirawansukirman.domain.model.HttpError
 import com.irfanirawansukirman.domain.model.Success
 import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
 import com.nhaarman.mockitokotlin2.mock
@@ -21,7 +23,7 @@ class MainVMTest {
 
     private val coroutineContext = TestCoroutineContextProvider()
     private val getMoviesList: MoviesUseCase = mock()
-    private val mainVM by lazy { MainVM(getMoviesList, coroutineContext) }
+    private val viewModel by lazy { MainVM(getMoviesList, coroutineContext) }
 
     @get:Rule
     val rule: TestRule = InstantTaskExecutorRule()
@@ -50,10 +52,22 @@ class MainVMTest {
         whenever(getMoviesList("")).thenReturn(Success(MovieInfoMapper(moviesList)))
 
         // when
-        mainVM.getMoviesList()
+        viewModel.getMoviesList()
 
         // then
-        assertEquals(ViewState.Status.SUCCESS, mainVM.movieInfoState.value?.status)
+        assertEquals(ViewState.Status.SUCCESS, viewModel.movieInfoState.value?.status)
+    }
+
+    @Test
+    fun `getMoviesList with livedata status is failed`() = runBlocking {
+        // given
+        whenever(getMoviesList("")).thenReturn(Failure(HttpError(Throwable(""))))
+        
+        // when
+        viewModel.getMoviesList()
+
+        // then
+        assertEquals(ViewState.Status.ERROR, viewModel.movieInfoState.value?.status)
     }
 
     @Test
@@ -62,27 +76,13 @@ class MainVMTest {
         whenever(getMoviesList("")).thenReturn(Success(MovieInfoMapper(moviesList)))
 
         // when
-        mainVM.getMoviesList()
+        viewModel.getMoviesList()
 
         // then
         assertEquals(
             moviesList,
-            mainVM.movieInfoState.value?.data?.movieList?.asListOfType<MoviesResult>()
+            viewModel.movieInfoState.value?.data?.movieList?.asListOfType<MoviesResult>()
         )
     }
 
-    @Test
-    fun `getMovieList with failed`() = runBlocking {
-        // given
-        whenever(getMoviesList("")).thenReturn(null)
-
-        // when
-        mainVM.getMoviesList()
-
-        // then
-        assertEquals(
-            null,
-            null
-        )
-    }
 }
