@@ -10,6 +10,7 @@ import com.irfanirawansukirman.abstraction.util.Const.Permission.CAMERA_NAME
 import com.irfanirawansukirman.abstraction.util.ext.*
 import com.irfanirawansukirman.abstraction.util.state.ViewState
 import com.irfanirawansukirman.abstraction.util.state.ViewState.Status.*
+import com.irfanirawansukirman.data.common.util.Connectivity
 import com.irfanirawansukirman.domain.model.response.LanguangeMapper
 import com.irfanirawansukirman.home.R
 import com.irfanirawansukirman.home.databinding.HomeActivityBinding
@@ -18,6 +19,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import pl.aprilapps.easyphotopicker.DefaultCallback
 import pl.aprilapps.easyphotopicker.MediaFile
@@ -29,15 +31,20 @@ class HomeActivity : BaseActivity<HomeActivityBinding>(HomeActivityBinding::infl
 
     private val viewModel: HomeVM by viewModel()
 
+    private val connectivity: Connectivity by inject()
+
     override fun loadObservers() {
-        viewModel.uiState.subscribe(this, ::renderMoviesList)
+        viewModel.languageState.subscribe(this, ::renderMoviesList)
     }
 
     override fun onFirstLaunch(savedInstanceState: Bundle?) {
         if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
             // val params = intent.extras ?: Bundle()
 
-            getLanguage()
+            if (connectivity.isNetworkAvailable()) getLanguage() else showToast(
+                this,
+                "Connection is lost"
+            )
 
             supportFragmentManager
                 .beginTransaction()
@@ -109,24 +116,15 @@ class HomeActivity : BaseActivity<HomeActivityBinding>(HomeActivityBinding::infl
     }
 
     private fun renderMoviesList(viewState: ViewState<LanguangeMapper>) {
-        with(viewState) {
-            when (status) {
-                LOADING -> {
-
-                }
-                SUCCESS -> {
-                    val data = viewState.data?.question
-                    data?.let {
-                        showToast(this@HomeActivity, it)
-                    }
-                }
-                ERROR -> {
-
-                }
-                CONNECTION_LOST -> {
-
+        when (viewState.status) {
+            LOADING -> { }
+            SUCCESS -> {
+                val data = viewState.data?.question
+                data?.let {
+                    showToast(this@HomeActivity, it)
                 }
             }
+            ERROR -> { }
         }
     }
 

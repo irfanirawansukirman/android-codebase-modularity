@@ -3,7 +3,7 @@ package com.irfanirawansukirman.abstraction.util.state
 data class ViewState<T>(val status: Status, val data: T?, val error: Throwable?) {
 
     enum class Status {
-        SUCCESS, ERROR, LOADING, CONNECTION_LOST
+        SUCCESS, ERROR, LOADING
     }
 
     companion object {
@@ -19,8 +19,12 @@ data class ViewState<T>(val status: Status, val data: T?, val error: Throwable?)
             return ViewState(Status.LOADING, null, null)
         }
 
-        fun <T> connectionLost(): ViewState<T> {
-            return ViewState(Status.CONNECTION_LOST, null, null)
-        }
+//        fun <T> finish(): ViewState<T> {
+//            return ViewState(Status.FINISH, null, null)
+//        }
+//
+//        fun <T> connectionLost(): ViewState<T> {
+//            return ViewState(Status.CONNECTION_LOST, null, null)
+//        }
     }
 }

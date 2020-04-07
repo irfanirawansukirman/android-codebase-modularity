@@ -7,10 +7,12 @@ import com.irfanirawansukirman.network.createApiService
 import com.irfanirawansukirman.network.createOkHttpClient
 import kotlinx.serialization.UnstableDefault
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.core.module.Module
 import org.koin.dsl.module
 
 @UnstableDefault
-val networkModule = module {
+val networkModule: Module = module {
+
     single { HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY } }
 
     single { createOkHttpClient(get<HttpLoggingInterceptor>()) }

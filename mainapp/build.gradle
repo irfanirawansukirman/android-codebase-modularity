@@ -25,7 +25,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [
-                onesignal_app_id: '0a5af3f3-14d0-4138-a9ee-aec1546c1d51',
+                onesignal_app_id               : '0a5af3f3-14d0-4138-a9ee-aec1546c1d51',
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE'
         ]
@@ -104,6 +104,8 @@ dependencies {
 
     implementation androidSupportLibrary.appCompatX
     implementation androidSupportLibrary.recyclerX
+
+    implementation aacLibrary.lifecycleVmExt
 
     /**
      * Data n' Domain Put Here

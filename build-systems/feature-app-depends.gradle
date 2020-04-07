@@ -88,6 +88,7 @@ dependencies {
 
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     implementation aacLibrary.lifecycleJava8
+    implementation aacLibrary.lifecycleVmExt
 
     implementation utils.dexterPermission
 }

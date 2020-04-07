@@ -7,7 +7,7 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val presentationModule = module {
-    viewModel { MainVM(get()) }
-    viewModel { HomeVM(get()) }
+    viewModel { MainVM(get(), get()) }
+    viewModel { HomeVM(get(), get()) }
     viewModel { LoginVM() }
 }
