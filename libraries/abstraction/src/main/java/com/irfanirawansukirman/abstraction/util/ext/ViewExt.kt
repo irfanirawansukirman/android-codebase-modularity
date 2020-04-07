@@ -36,3 +36,4 @@ fun View.setOnSingleClickListener(action: (View) -> Unit) {
         action(it)
     })
 }
+

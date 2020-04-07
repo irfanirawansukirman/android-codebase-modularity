@@ -45,4 +45,9 @@ class MainAdapter(private val selectedMovies: (MoviesResult, Int) -> Unit) :
         notifyDataSetChanged()
     }
 
+    fun resetMoviesList() {
+        moviesList.clear()
+        notifyDataSetChanged()
+    }
+
 }

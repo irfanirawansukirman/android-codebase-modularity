@@ -1,2 +1,9 @@
 apply from: "$rootDir/build-systems/feature-app-depends.gradle"
 apply from: "$rootDir/build-systems/feature-test-depends.gradle"
+
+dependencies {
+    // Koin extended & experimental features
+    implementation "org.koin:koin-core-ext:2.0.1"
+    // Koin for Unit tests
+    testImplementation "org.koin:koin-test:2.0.1"
+}
