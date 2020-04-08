@@ -4,5 +4,5 @@ import com.irfanirawansukirman.domain.model.Result
 import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
 
 interface MoviesUseCase {
-    suspend operator fun invoke(param: String): Result<MovieInfoMapper>
+    suspend fun getMovies(apiKey: String, sortBy: String): Result<MovieInfoMapper>
 }

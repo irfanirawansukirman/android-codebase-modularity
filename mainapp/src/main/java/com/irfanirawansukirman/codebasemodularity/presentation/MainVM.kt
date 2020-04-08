@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.irfanirawansukirman.abstraction.util.state.ViewState
+import com.irfanirawansukirman.data.BuildConfig
 import com.irfanirawansukirman.data.common.base.BaseVM
 import com.irfanirawansukirman.data.common.coroutine.CoroutineContextProvider
 import com.irfanirawansukirman.domain.interaction.movies.MoviesUseCase
@@ -29,7 +30,7 @@ class MainVM(
         _movieInfoState.value = ViewState.loading()
 
         viewModelScope.launch(coroutineContextProvider.main) {
-            moviesUseCase("")
+            moviesUseCase.getMovies(BuildConfig.MOVIE_API_KEY, "popularity.desc")
                 .onSuccess { _movieInfoState.value = ViewState.success(it) }
                 .onFailure { _movieInfoState.value = ViewState.error(it.throwable) }
         }

@@ -19,6 +19,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import kotlinx.android.synthetic.main.home_activity.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import pl.aprilapps.easyphotopicker.DefaultCallback
@@ -39,19 +40,9 @@ class HomeActivity : BaseActivity<HomeActivityBinding>(HomeActivityBinding::infl
 
     override fun onFirstLaunch(savedInstanceState: Bundle?) {
         if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
-            // val params = intent.extras ?: Bundle()
-
-            if (connectivity.isNetworkAvailable()) getLanguage() else showToast(
-                this,
-                "Connection is lost"
-            )
-
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frame_container, HomeFragment())
-                .commit()
-
+            init()
             createEasyImageBuilder(this)
+            replaceFragment(mViewBinding.frameContainer.id, HomeFragment(), false)
         }
     }
 
@@ -111,20 +102,33 @@ class HomeActivity : BaseActivity<HomeActivityBinding>(HomeActivityBinding::infl
             })
     }
 
+    private fun init() {
+        if (connectivity.isNetworkAvailable()) {
+            getLanguage()
+        } else {
+            showToast(
+                this,
+                "Connection is lost"
+            )
+        }
+    }
+
     private fun getLanguage() {
         viewModel.getLanguage()
     }
 
     private fun renderMoviesList(viewState: ViewState<LanguangeMapper>) {
         when (viewState.status) {
-            LOADING -> { }
+            LOADING -> {
+            }
             SUCCESS -> {
                 val data = viewState.data?.question
                 data?.let {
                     showToast(this@HomeActivity, it)
                 }
             }
-            ERROR -> { }
+            ERROR -> {
+            }
         }
     }
 

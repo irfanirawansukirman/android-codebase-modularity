@@ -4,15 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
+import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.irfanirawansukirman.abstraction.R
 import com.irfanirawansukirman.abstraction.util.ext.makeStatusBarTransparent
 import com.irfanirawansukirman.abstraction.util.ext.overridePendingTransitionExit
 
-abstract class BaseActivity<VB : ViewBinding>(private val viewBinder: (LayoutInflater) -> ViewBinding) : AppCompatActivity() {
+abstract class BaseActivity<VB : ViewBinding>(private val viewBinder: (LayoutInflater) -> ViewBinding) :
+    AppCompatActivity() {
 
     val mViewBinding by lazy { viewBinder.invoke(layoutInflater) as VB }
 
@@ -72,6 +75,18 @@ abstract class BaseActivity<VB : ViewBinding>(private val viewBinder: (LayoutInf
     }
 
     /**
+     * Method listener for menu toolbar
+     * @return Boolean
+     */
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
+        android.R.id.home -> {
+            onBackPressed()
+            true
+        }
+        else -> false
+    }
+
+    /**
      * Function for setup toolbar [inactive|active]
      * @param void
      * @return void
@@ -88,20 +103,6 @@ abstract class BaseActivity<VB : ViewBinding>(private val viewBinder: (LayoutInf
         }
     }
 
-    /**
-     * Method listener for menu toolbar
-     * @return Boolean
-     */
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
-        android.R.id.home -> {
-            finish()
-            true
-        }
-        else -> false
-    }
-
-    fun getParentToolbar(): Toolbar? = mToolbar
-
     private fun setupToolbarTopInset() {
         ViewCompat.setOnApplyWindowInsetsListener(mViewBinding.root) { _, insets ->
             val viewInsetToolbar = mViewBinding.root.findViewById<View>(R.id.viewInsetToolbar)
@@ -109,5 +110,7 @@ abstract class BaseActivity<VB : ViewBinding>(private val viewBinder: (LayoutInf
             insets.consumeSystemWindowInsets()
         }
     }
+
+    fun getParentToolbar(): Toolbar? = mToolbar
 
 }

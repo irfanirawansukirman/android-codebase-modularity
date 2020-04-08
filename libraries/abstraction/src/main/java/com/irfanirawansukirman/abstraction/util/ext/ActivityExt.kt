@@ -8,8 +8,10 @@ import android.net.Uri
 import android.os.Build
 import android.view.View
 import android.view.WindowManager
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.irfanirawansukirman.abstraction.R
 import com.irfanirawansukirman.abstraction.util.Const.Code.REQUEST_CODE
 import com.irfanirawansukirman.abstraction.util.Const.Permission.CAMERA
@@ -17,6 +19,42 @@ import com.irfanirawansukirman.abstraction.util.Const.Permission.FINE_LOCATION
 import com.irfanirawansukirman.abstraction.util.Const.Permission.WRITE_STORAGE
 import pl.aprilapps.easyphotopicker.ChooserType
 import pl.aprilapps.easyphotopicker.EasyImage
+
+fun AppCompatActivity.replaceFragment(
+    @IdRes containerViewId: Int,
+    fragment: Fragment,
+    addToBackStack: Boolean
+) {
+    supportFragmentManager
+        .beginTransaction()
+        .replace(
+            containerViewId,
+            fragment,
+            fragment.tag
+        )
+        .apply {
+            if (addToBackStack) addToBackStack(fragment::class.java.simpleName)
+        }
+        .commit()
+}
+
+fun AppCompatActivity.addFragment(
+    @IdRes containerViewId: Int,
+    fragment: Fragment,
+    addToBackStack: Boolean
+) {
+    supportFragmentManager
+        .beginTransaction()
+        .add(
+            containerViewId,
+            fragment,
+            fragment.tag
+        )
+        .apply {
+            if (addToBackStack) addToBackStack(fragment::class.java.simpleName)
+        }
+        .commit()
+}
 
 fun AppCompatActivity.navigate(
     targetDeepLink: String,

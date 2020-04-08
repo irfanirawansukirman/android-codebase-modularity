@@ -41,3 +41,5 @@ dependencies {
     implementation kotlinLibrary.coroutinesAndroidX
     implementation kotlinLibrary.serializableX
 }
+
+apply from: "$rootDir/build-systems/feature-test-depends.gradle"

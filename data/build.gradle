@@ -74,3 +74,5 @@ dependencies {
 
     implementation project(':domain')
 }
+
+apply from: "$rootDir/build-systems/feature-test-depends.gradle"

@@ -31,7 +31,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeActivity>(HomeFragmen
     override fun setupViewListener() {
         mViewBinding.apply {
             btnCamera.setOnClickListener {
-                takePictureFromCamera()
+                getMyParentActivity().apply {
+                    addFragment(this.mViewBinding.frameContainer.id, BlankFragment(), true)
+                }
             }
             btnGallery.setOnClickListener {
                 pickPictureFromGallery()
