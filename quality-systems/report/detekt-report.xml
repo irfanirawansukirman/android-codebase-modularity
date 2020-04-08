@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+<file name="/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/mainapp/src/main/java/com/irfanirawansukirman/codebasemodularity/presentation/MainActivity.kt">
+	<error line="25" column="1" severity="warning" message="Class &apos;MainActivity&apos; with &apos;14&apos; functions detected. Defined threshold inside classes is set to &apos;11&apos;" source="detekt.TooManyFunctions" />
+	<error line="9" column="1" severity="warning" message="com.irfanirawansukirman.abstraction.util.ext.* is a wildcard import. Replace it with fully qualified imports." source="detekt.WildcardImport" />
+	<error line="11" column="1" severity="warning" message="com.irfanirawansukirman.abstraction.util.state.ViewState.Status.* is a wildcard import. Replace it with fully qualified imports." source="detekt.WildcardImport" />
+</file>
+<file name="/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/mainapp/src/androidTest/java/com/irfanirawansukirman/codebasemodularity/ExampleInstrumentedTest.kt">
+	<error line="3" column="1" severity="info" message="The class or object  ExampleInstrumentedTest is empty." source="detekt.EmptyClassBlock" />
+</file>
+</checkstyle>
