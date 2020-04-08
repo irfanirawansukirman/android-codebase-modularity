@@ -35,5 +35,4 @@ class MainVM(
                 .onFailure { _movieInfoState.value = ViewState.error(it.throwable) }
         }
     }
-
 }

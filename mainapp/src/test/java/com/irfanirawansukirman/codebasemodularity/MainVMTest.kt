@@ -22,8 +22,8 @@ import org.junit.rules.TestRule
 class MainVMTest {
 
     private val coroutineContext = TestCoroutineContextProvider()
-    private val getMoviesList: MoviesUseCase = mock()
-    private val viewModel by lazy { MainVM(getMoviesList, coroutineContext) }
+    private val useCase: MoviesUseCase = mock()
+    private val viewModel by lazy { MainVM(useCase, coroutineContext) }
 
     @get:Rule
     val rule: TestRule = InstantTaskExecutorRule()
@@ -49,7 +49,7 @@ class MainVMTest {
     @Test
     fun `getMoviesList with livedata status is success`() = runBlocking {
         // given
-        whenever(getMoviesList("")).thenReturn(Success(MovieInfoMapper(moviesList)))
+        whenever(useCase.getMovies("", "")).thenReturn(Success(MovieInfoMapper(moviesList)))
 
         // when
         viewModel.getMoviesList()
@@ -61,8 +61,8 @@ class MainVMTest {
     @Test
     fun `getMoviesList with livedata status is failed`() = runBlocking {
         // given
-        whenever(getMoviesList("")).thenReturn(Failure(HttpError(Throwable(""))))
-        
+        whenever(useCase.getMovies("", "")).thenReturn(Failure(HttpError(Throwable(""))))
+
         // when
         viewModel.getMoviesList()
 
@@ -73,7 +73,7 @@ class MainVMTest {
     @Test
     fun `getMovieList with expected list`() = runBlocking {
         // given
-        whenever(getMoviesList("")).thenReturn(Success(MovieInfoMapper(moviesList)))
+        whenever(useCase.getMovies("", "")).thenReturn(Success(MovieInfoMapper(moviesList)))
 
         // when
         viewModel.getMoviesList()
@@ -84,5 +84,4 @@ class MainVMTest {
             viewModel.movieInfoState.value?.data?.movieList?.asListOfType<MoviesResult>()
         )
     }
-
 }

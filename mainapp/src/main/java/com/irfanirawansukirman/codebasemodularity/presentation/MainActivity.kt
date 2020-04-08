@@ -121,5 +121,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             ERROR -> progress.finish()
         }
     }
-
 }

@@ -49,5 +49,4 @@ class MainAdapter(private val selectedMovies: (MoviesResult, Int) -> Unit) :
         moviesList.clear()
         notifyDataSetChanged()
     }
-
 }
