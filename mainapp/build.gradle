@@ -152,8 +152,6 @@ dependencies {
 }
 
 apply from: "$rootDir/build-systems/feature-test-depends.gradle"
-apply from: "$rootDir/build-systems/feature-analysis-detekt.gradle"
-apply from: "$rootDir/build-systems/feature-analysis-coverage.gradle"
 
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'

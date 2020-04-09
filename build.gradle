@@ -28,6 +28,8 @@ plugins {
 
 allprojects {
     apply from: "$rootDir/build-systems/feature-analysis-ktlint.gradle"
+    apply from: "$rootDir/build-systems/feature-analysis-detekt.gradle"
+    apply from: "$rootDir/build-systems/feature-analysis-coverage.gradle"
 
     repositories {
         google()

@@ -45,43 +45,23 @@ h3 {
 
 <ul>
 <li>
-number of kt files: 10
+number of kt files: 3
 </li>
 <li>
-number of packages: 4
+number of packages: 1
 </li>
 <li>
-number of classes: 10
+number of classes: 2
 </li>
 <li>
-number of functions: 27
+number of functions: 2
 </li>
 <li>
-number of properties: 19
+number of properties: 1
 </li>
 </ul>
 
 <h2>Findings</h2>
-<h3>complexity</h3>
-<div class="rule-container">
-<span class="rule">
-TooManyFunctions
-</span>
-<span class="description">
-Too many functions inside a/an file/class/object/interface always indicate a violation of the single responsibility principle. Maybe the file/class/object/interface wants to manage too many things at once. Extract functionality which clearly belongs together.
-</span>
-</div>
-<ul>
-<li>
-<span class="location">
-/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/mainapp/src/main/java/com/irfanirawansukirman/codebasemodularity/presentation/MainActivity.kt:25:1
-</span>
-<br />
-<span class="message">
-Class 'MainActivity' with '14' functions detected. Defined threshold inside classes is set to '11'
-</span>
-</li>
-</ul>
 <h3>empty-blocks</h3>
 <div class="rule-container">
 <span class="rule">
@@ -94,40 +74,40 @@ Empty block of code detected. As they serve no purpose they should be removed.
 <ul>
 <li>
 <span class="location">
-/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/mainapp/src/androidTest/java/com/irfanirawansukirman/codebasemodularity/ExampleInstrumentedTest.kt:3:1
+/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/network/src/androidTest/java/com/irfanirawansukirman/network/ExampleInstrumentedTest.kt:3:1
 </span>
 <br />
 <span class="message">
 The class or object  ExampleInstrumentedTest is empty.
 </span>
 </li>
+<li>
+<span class="location">
+/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/network/src/test/java/com/irfanirawansukirman/network/ExampleUnitTest.kt:3:1
+</span>
+<br />
+<span class="message">
+The class or object  ExampleUnitTest is empty.
+</span>
+</li>
 </ul>
 <h3>style</h3>
 <div class="rule-container">
 <span class="rule">
-WildcardImport
+MagicNumber
 </span>
 <span class="description">
-Wildcard imports should be replaced with imports using fully qualified class names. Wildcard imports can lead to naming conflicts. A library update can introduce naming clashes with your classes which results in compilation errors.
+Report magic numbers. Magic number is a numeric literal that is not defined as a constant and hence it's unclear what the purpose of this number is. It's better to declare such numbers as constants and give them a proper name. By default, -1, 0, 1, and 2 are not considered to be magic numbers.
 </span>
 </div>
 <ul>
 <li>
 <span class="location">
-/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/mainapp/src/main/java/com/irfanirawansukirman/codebasemodularity/presentation/MainActivity.kt:9:1
+/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/network/src/main/java/com/irfanirawansukirman/network/Network.kt:16:23
 </span>
 <br />
 <span class="message">
-com.irfanirawansukirman.abstraction.util.ext.* is a wildcard import. Replace it with fully qualified imports.
-</span>
-</li>
-<li>
-<span class="location">
-/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/mainapp/src/main/java/com/irfanirawansukirman/codebasemodularity/presentation/MainActivity.kt:11:1
-</span>
-<br />
-<span class="message">
-com.irfanirawansukirman.abstraction.util.state.ViewState.Status.* is a wildcard import. Replace it with fully qualified imports.
+This expression contains a magic number. Consider defining it to a well named constant.
 </span>
 </li>
 </ul>

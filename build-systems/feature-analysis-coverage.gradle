@@ -52,8 +52,8 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDevDebugUnitTest', 'c
 
 sonarqube {
     properties {
-        property "sonar.projectName", "android-codebase-modularity"
-        property "sonar.projectKey", "android-codebase-modularity"
+        property "sonar.projectName", "mycodebase"
+        property "sonar.projectKey", "mycodebase"
         property "sonar.tests", ["src/test/java"]
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.jacoco.reportPath", "**/jacoco/*.exec"
