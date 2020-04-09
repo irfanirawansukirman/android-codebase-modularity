@@ -10,7 +10,7 @@ open class CoroutineContextProvider {
     open val unconfined: CoroutineContext by lazy { Dispatchers.Unconfined }
 }
 
-class TestCoroutineContextProvider: CoroutineContextProvider() {
+class TestCoroutineContextProvider : CoroutineContextProvider() {
     override val main: CoroutineContext
         get() = Dispatchers.Unconfined
 

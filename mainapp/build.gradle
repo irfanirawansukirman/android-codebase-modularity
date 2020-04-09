@@ -6,7 +6,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: "io.gitlab.arturbosch.detekt"
 
 repositories {
     maven { url 'https://maven.google.com' }
@@ -41,6 +40,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
+            testCoverageEnabled true
             minifyEnabled false
         }
     }
@@ -72,8 +72,12 @@ android {
     }
 
     testOptions {
-        unitTests.includeAndroidResources true
-        unitTests.returnDefaultValues = true
+        animationsDisabled true
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
     }
 
     signingConfigs {
@@ -147,26 +151,9 @@ dependencies {
     kapt utils.deeplinkProcessor
 }
 
-detekt {
-    toolVersion = "1.0.0-RC14"
-    input = files("$projectDir")
-    config = files("$project.projectDir/detekt-config.yml")
-    filters = ".*/resources/.*,.*/tmp/.*"
-    baseline = file("$project.projectDir/baseline.xml")
-    reports {
-        xml {
-            enabled = true
-            destination = file("$project.projectDir/detekt-report.xml")
-        }
-        html {
-            enabled = true
-            destination = file("$project.projectDir/detekt-report.html")
-        }
-    }
-    parallel = true
-}
-
 apply from: "$rootDir/build-systems/feature-test-depends.gradle"
+apply from: "$rootDir/build-systems/feature-analysis-detekt.gradle"
+apply from: "$rootDir/build-systems/feature-analysis-coverage.gradle"
 
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'

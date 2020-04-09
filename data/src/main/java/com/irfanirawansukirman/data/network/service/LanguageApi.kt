@@ -8,5 +8,4 @@ interface LanguageApi {
 
     @GET("questions")
     suspend fun getLanguage(): Response<LanguageResponse>
-
 }

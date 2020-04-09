@@ -7,5 +7,4 @@ import com.irfanirawansukirman.domain.repository.LanguageRepository
 class LanguageUseCaseImpl(private val languageRepository: LanguageRepository) : LanguageUseCase {
 
     override suspend fun invoke(): Result<LanguangeMapper> = languageRepository.getLanguage()
-
 }

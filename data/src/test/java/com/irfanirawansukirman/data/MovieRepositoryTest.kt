@@ -4,11 +4,6 @@ import com.irfanirawansukirman.data.common.util.Connectivity
 import com.irfanirawansukirman.data.network.service.MovieApi
 import com.irfanirawansukirman.data.repository.MoviesRepositoryImpl
 import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.times
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
-import kotlinx.coroutines.runBlocking
-import org.junit.Test
 
 class MovieRepositoryTest {
 

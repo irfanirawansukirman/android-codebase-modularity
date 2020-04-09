@@ -15,5 +15,4 @@ class MoviesRepositoryImpl(private val movieApi: MovieApi) :
     override suspend fun getMovies(apiKey: String, sortBy: String): Result<MovieInfoMapper> {
         return fetchData(dataProvider = { movieApi.getMovies(apiKey, sortBy).getData() })
     }
-
 }

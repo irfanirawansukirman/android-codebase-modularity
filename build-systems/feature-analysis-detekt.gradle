@@ -1,0 +1,18 @@
+detekt {
+    toolVersion = "1.0.0-RC14"
+    input = files("$projectDir")
+    config = files("$rootDir/quality-systems/config/detekt-config.yml")
+    filters = ".*/resources/.*,.*/tmp/.*"
+    baseline = file("$rootDir/quality-systems/config/baseline.xml")
+    reports {
+        xml {
+            enabled = false
+            destination = file("$rootDir/quality-systems/report/detekt-report.xml")
+        }
+        html {
+            enabled = true
+            destination = file("$rootDir/quality-systems/report/detekt-report.html")
+        }
+    }
+    parallel = true
+}

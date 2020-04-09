@@ -30,7 +30,8 @@ inline fun <T : Any> Response<T>.onFailure(action: (HttpError) -> Unit) {
 
 inline fun <T : RoomMapper<R>, R : DomainMapper<U>, U : Any> Response<T>.getData(
     cacheAction: (R) -> Unit,
-    fetchFromCacheAction: () -> R): Result<U> {
+    fetchFromCacheAction: () -> R
+): Result<U> {
     try {
         onSuccess {
             val databaseEntity = it.mapToRoomEntity()

@@ -11,6 +11,7 @@ import com.irfanirawansukirman.abstraction.util.state.ViewState
 import com.irfanirawansukirman.abstraction.util.state.ViewState.Status.*
 import com.irfanirawansukirman.codebasemodularity.R
 import com.irfanirawansukirman.codebasemodularity.databinding.ActivityMainBinding
+import com.irfanirawansukirman.data.BuildConfig
 import com.irfanirawansukirman.data.common.util.Connectivity
 import com.irfanirawansukirman.data.network.model.MoviesResult
 import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
@@ -104,7 +105,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     private fun getMoviesList() {
-        viewModel.getMoviesList()
+        viewModel.getMoviesList(BuildConfig.MOVIE_API_KEY, "popularity.desc")
     }
 
     private fun renderMoviesList(viewState: ViewState<MovieInfoMapper>) {

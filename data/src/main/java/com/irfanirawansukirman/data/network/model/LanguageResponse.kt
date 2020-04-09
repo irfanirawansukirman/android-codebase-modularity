@@ -5,7 +5,6 @@ import com.irfanirawansukirman.domain.model.response.LanguangeMapper
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data class LanguageResponse(
     @SerialName("choices")

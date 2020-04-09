@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.irfanirawansukirman.abstraction.util.state.ViewState
-import com.irfanirawansukirman.data.BuildConfig
 import com.irfanirawansukirman.data.common.base.BaseVM
 import com.irfanirawansukirman.data.common.coroutine.CoroutineContextProvider
 import com.irfanirawansukirman.domain.interaction.movies.MoviesUseCase
@@ -14,7 +13,7 @@ import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
 import kotlinx.coroutines.launch
 
 interface MainContract {
-    fun getMoviesList()
+    fun getMoviesList(apiKey: String, sortBy: String)
 }
 
 class MainVM(
@@ -26,11 +25,11 @@ class MainVM(
     val movieInfoState: LiveData<ViewState<MovieInfoMapper>>
         get() = _movieInfoState
 
-    override fun getMoviesList() {
+    override fun getMoviesList(apiKey: String, sortBy: String) {
         _movieInfoState.value = ViewState.loading()
 
         viewModelScope.launch(coroutineContextProvider.main) {
-            moviesUseCase.getMovies(BuildConfig.MOVIE_API_KEY, "popularity.desc")
+            moviesUseCase.getMovies(apiKey, sortBy)
                 .onSuccess { _movieInfoState.value = ViewState.success(it) }
                 .onFailure { _movieInfoState.value = ViewState.error(it.throwable) }
         }

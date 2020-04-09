@@ -52,7 +52,7 @@ class MainVMTest {
         whenever(useCase.getMovies("", "")).thenReturn(Success(MovieInfoMapper(moviesList)))
 
         // when
-        viewModel.getMoviesList()
+        viewModel.getMoviesList("", "")
 
         // then
         assertEquals(ViewState.Status.SUCCESS, viewModel.movieInfoState.value?.status)
@@ -64,7 +64,7 @@ class MainVMTest {
         whenever(useCase.getMovies("", "")).thenReturn(Failure(HttpError(Throwable(""))))
 
         // when
-        viewModel.getMoviesList()
+        viewModel.getMoviesList("", "")
 
         // then
         assertEquals(ViewState.Status.ERROR, viewModel.movieInfoState.value?.status)
@@ -76,7 +76,7 @@ class MainVMTest {
         whenever(useCase.getMovies("", "")).thenReturn(Success(MovieInfoMapper(moviesList)))
 
         // when
-        viewModel.getMoviesList()
+        viewModel.getMoviesList("", "")
 
         // then
         assertEquals(

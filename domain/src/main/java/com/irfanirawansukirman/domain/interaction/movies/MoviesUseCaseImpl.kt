@@ -9,5 +9,4 @@ class MoviesUseCaseImpl(private val moviesRepository: MoviesRepository) : Movies
 
     override suspend fun getMovies(apiKey: String, sortBy: String) =
         moviesRepository.getMovies(apiKey, sortBy)
-
 }
