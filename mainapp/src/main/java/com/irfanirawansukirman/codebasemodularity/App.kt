@@ -2,6 +2,7 @@ package com.irfanirawansukirman.codebasemodularity
 
 import android.app.Application
 import androidx.multidex.MultiDexApplication
+import com.facebook.FacebookSdk
 import com.irfanirawansukirman.codebasemodularity.di.appModule
 import com.irfanirawansukirman.codebasemodularity.di.presentationModule
 import com.irfanirawansukirman.data.di.connectivityModule
@@ -30,6 +31,8 @@ class App : MultiDexApplication() {
             if (BuildConfig.DEBUG) androidLogger(Level.DEBUG)
             modules(appModules + domainModules + dataModules)
         }
+
+        FacebookSdk.sdkInitialize(applicationContext)
     }
 
     companion object {

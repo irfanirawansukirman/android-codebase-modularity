@@ -122,6 +122,7 @@ dependencies {
      * Base n' Common Put Here
      */
     implementation project(":libraries:abstraction")
+    implementation project(":libraries:medsocauth")
 
     implementation diLibrary.koinAndoid
     implementation diLibrary.koinVM

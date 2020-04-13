@@ -1,7 +1,10 @@
 package com.irfanirawansukirman.codebasemodularity.presentation
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.widget.Toolbar
+import com.facebook.CallbackManager
 import com.irfanirawansukirman.abstraction.base.BaseActivity
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.MOVIE_TITLE
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_CHAT
@@ -15,6 +18,7 @@ import com.irfanirawansukirman.data.BuildConfig
 import com.irfanirawansukirman.data.common.util.Connectivity
 import com.irfanirawansukirman.data.network.model.MoviesResult
 import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
+import com.irfanirawansukirman.medsocauth.FacebookAuthUtil
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
@@ -22,6 +26,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
     MultiplePermissionsListener {
@@ -31,6 +36,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private val connectivity: Connectivity by inject()
 
     private lateinit var mainAdapter: MainAdapter
+    private lateinit var callbackManager: CallbackManager
+    private lateinit var facebookAuthUtil: FacebookAuthUtil
 
     override fun loadObservers() {
         viewModel.movieInfoState.subscribe(this, ::renderMoviesList)
@@ -47,10 +54,43 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     override fun setupViewListener() {
-        progress.setOnRefreshListener {
-            clearMoviesList()
-            init()
+        if (!::callbackManager.isInitialized) {
+            callbackManager = CallbackManager.Factory.create()
         }
+
+        if (!::facebookAuthUtil.isInitialized) {
+            facebookAuthUtil = FacebookAuthUtil()
+        }
+
+        facebookAuthUtil.setupFacebookCallback(callbackManager)
+
+        mViewBinding.apply {
+            progress.setOnRefreshListener {
+                clearMoviesList()
+                init()
+            }
+            btnFacebook.setOnClickListener {
+                facebookAuthUtil.login(this@MainActivity, {
+                    Log.d("FACEBOOK SUCCESS ", it.avatar)
+                }, {
+                    Log.e("FACEBOOK FAILED ", it)
+                })
+            }
+            btnLogout.setOnClickListener {
+                facebookAuthUtil.logout { state ->
+                    if (state) showToast(this@MainActivity, "Logout is successfully")
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun bindToolbar(): Toolbar? = mViewBinding.root.findViewById(R.id.toolbar)
@@ -122,4 +162,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             ERROR -> progress.finish()
         }
     }
+
 }

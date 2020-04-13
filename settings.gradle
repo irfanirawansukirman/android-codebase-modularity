@@ -8,6 +8,8 @@ include ':features:home'
 include ':features:chat'
 include ':features:emptypage'
 
+include ':locationsandmaps'
+
 // data, domain, etc
 include ':data'
 include ':domain'
@@ -16,5 +18,4 @@ include ':domain'
 include ':libraries:abstraction'
 include ':libraries:network'
 include ':libraries:easyimage'
-include ':libraries:medsocauthentication'
-include ':libraries:locationsandmaps'
+include ':libraries:medsocauth'
