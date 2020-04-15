@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.widget.Toolbar
 import com.facebook.CallbackManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
 import com.irfanirawansukirman.abstraction.base.BaseActivity
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.MOVIE_TITLE
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_CHAT
@@ -19,6 +21,7 @@ import com.irfanirawansukirman.data.common.util.Connectivity
 import com.irfanirawansukirman.data.network.model.MoviesResult
 import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
 import com.irfanirawansukirman.medsocauth.FacebookAuthUtil
+import com.irfanirawansukirman.medsocauth.GoogleAuthUtil
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
@@ -38,6 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private lateinit var mainAdapter: MainAdapter
     private lateinit var callbackManager: CallbackManager
     private lateinit var facebookAuthUtil: FacebookAuthUtil
+    private lateinit var googleAuthUtil: GoogleAuthUtil
 
     override fun loadObservers() {
         viewModel.movieInfoState.subscribe(this, ::renderMoviesList)
@@ -62,12 +66,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             facebookAuthUtil = FacebookAuthUtil()
         }
 
+        if (!::googleAuthUtil.isInitialized) {
+            googleAuthUtil = GoogleAuthUtil()
+        }
+
         facebookAuthUtil.setupFacebookCallback(callbackManager)
+        googleAuthUtil.setupGsoClient(this, getString(R.string.default_web_client_id))
 
         mViewBinding.apply {
             progress.setOnRefreshListener {
                 clearMoviesList()
                 init()
+            }
+            btnGoogle.setOnClickListener {
+                googleAuthUtil.login(this@MainActivity, 1234)
             }
             btnFacebook.setOnClickListener {
                 facebookAuthUtil.login(this@MainActivity, {
@@ -78,7 +90,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             }
             btnLogout.setOnClickListener {
                 facebookAuthUtil.logout { state ->
-                    if (state) showToast(this@MainActivity, "Logout is successfully")
+                    if (state) showToast(this@MainActivity, "Logout facebook is successfully")
+                }
+                googleAuthUtil.logout(this@MainActivity) { state ->
+                    if (state) showToast(this@MainActivity, "Logout google is successfully")
                 }
             }
         }
@@ -89,8 +104,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         resultCode: Int,
         data: Intent?
     ) {
-        callbackManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            1234 -> {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+                try {
+                    // Google Sign In was successful, authenticate with Firebase
+                    val account = task.getResult(ApiException::class.java)
+                    account?.let {
+                        googleAuthUtil.firebaseAuthWithGoogle(this, it, { user ->
+                            Log.d("FIREBASE LOGIN ", "${user.id} ${user.name}")
+                        }, {
+
+                        })
+                    }
+                } catch (e: ApiException) {
+                    // Google Sign In failed, update UI appropriately
+                    Log.w("Main Activity", "Google sign in failed", e)
+                    // ...
+                }
+            }
+            else -> {
+                callbackManager.onActivityResult(requestCode, resultCode, data)
+            }
+        }
     }
 
     override fun bindToolbar(): Toolbar? = mViewBinding.root.findViewById(R.id.toolbar)

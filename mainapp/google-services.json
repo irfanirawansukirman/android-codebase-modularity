@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "8654550446-6vq6jslsa5juugsro260mpki12nfuolg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.irfanirawansukirman.codebasemodularity",
+            "certificate_hash": "95dc416eaa939cbf19888eb613f70db2e03f7552"
+          }
+        },
+        {
           "client_id": "8654550446-if4o7rmu1t2j7de0fhvtst8pae5rqmq1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -36,7 +44,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "8654550446-03l5rli0vagqr2qebmihkrdpqlb08ifj.apps.googleusercontent.com",
+              "client_id": "8654550446-ta2as4ukmd24jjrs7dnpdgmcp194u708.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -51,6 +59,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "8654550446-enqmc9v4o7h8mtm2u14f825uajr73bp2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.irfanirawansukirman.codebasemodularity.dev",
+            "certificate_hash": "95dc416eaa939cbf19888eb613f70db2e03f7552"
+          }
+        },
         {
           "client_id": "8654550446-4o0j0ut6q83dic20khcfb4bsgpnvgagf.apps.googleusercontent.com",
           "client_type": 1,
@@ -73,7 +89,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "8654550446-03l5rli0vagqr2qebmihkrdpqlb08ifj.apps.googleusercontent.com",
+              "client_id": "8654550446-ta2as4ukmd24jjrs7dnpdgmcp194u708.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

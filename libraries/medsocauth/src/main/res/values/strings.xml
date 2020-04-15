@@ -3,4 +3,9 @@
     <string name="facebook_app_id">2273407162964080</string>
     <string name="fb_login_protocol_scheme">fb2273407162964080</string>
 
+    <!--    <string name="google_client_id">8654550446-ta2as4ukmd24jjrs7dnpdgmcp194u708.apps.googleusercontent.com</string>-->
+    <!--    <string name="google_secret_key">VafM2CF90UlT61lRGlPLBsaz</string>-->
+
+    <string name="google_client_id">8654550446-03l5rli0vagqr2qebmihkrdpqlb08ifj.apps.googleusercontent.com</string>
+    <string name="google_secret_key">VpiNxny5UQOTO1ebk9OLilI0</string>
 </resources>

@@ -26,7 +26,7 @@ class FacebookAuthUtil {
 
     fun login(
         context: AppCompatActivity,
-        onSuccessLogin: (FacebookResponse) -> Unit,
+        onSuccessLogin: (MedsocResponse) -> Unit,
         onFailedLogin: (String) -> Unit
     ) {
         LoginManager.getInstance().apply {
@@ -47,7 +47,7 @@ class FacebookAuthUtil {
                                 val avatar =
                                     "https://graph.facebook.com/$id/picture?type=large"
                                 onSuccessLogin(
-                                    FacebookResponse(
+                                    MedsocResponse(
                                         id,
                                         name,
                                         email,

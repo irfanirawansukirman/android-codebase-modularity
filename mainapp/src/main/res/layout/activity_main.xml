@@ -8,6 +8,12 @@
     <include layout="@layout/toolbar_with_single_text" />
 
     <Button
+        android:id="@+id/btnGoogle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Google"/>
+
+    <Button
         android:id="@+id/btnFacebook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

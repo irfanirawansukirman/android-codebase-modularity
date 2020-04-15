@@ -1,6 +1,6 @@
 package com.irfanirawansukirman.medsocauth
 
-data class FacebookResponse(
+data class MedsocResponse(
     val id: String,
     val name: String,
     val email: String,

@@ -31,7 +31,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    api 'com.google.firebase:firebase-core:17.3.0'
+    // Google Login
+    api 'com.google.android.gms:play-services-auth:18.0.0'
+    api 'com.google.firebase:firebase-auth:19.3.0'
 
     // Required only if Facebook login support is required
     // Find the latest Facebook SDK releases here: https://goo.gl/Ce5L94
