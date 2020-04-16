@@ -194,6 +194,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 val data = viewState.data?.movieList?.asListOfType<MoviesResult>()
                 data?.let {
                     mainAdapter.setupMoviesList(it)
+
+                    // save data to local for caching
+                    viewModel.saveMoviesList(it)
                 }
             }
             ERROR -> progress.finish()

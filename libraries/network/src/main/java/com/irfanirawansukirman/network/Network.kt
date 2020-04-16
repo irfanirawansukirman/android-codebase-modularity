@@ -26,7 +26,6 @@ fun createOkHttpClient(vararg interceptors: Interceptor): OkHttpClient {
         .build()
 }
 
-@UnstableDefault
 inline fun <reified T> createApiService(okHttpClient: OkHttpClient, url: String): T {
     val retrofit = Retrofit.Builder()
         .baseUrl(url)

@@ -19,7 +19,7 @@ abstract class BaseRepository<T : Any, R : DomainMapper<T>> : KoinComponent {
     /**
      * Use this when communicating only with the api service
      */
-    protected suspend fun fetchData(dataProvider: suspend () -> Result<T>): Result<T> {
+    protected suspend fun fetchApi(dataProvider: suspend () -> Result<T>): Result<T> {
         return if (connectivity.isNetworkAvailable()) {
             withContext(contextProvider.io) {
                 dataProvider()
@@ -30,25 +30,17 @@ abstract class BaseRepository<T : Any, R : DomainMapper<T>> : KoinComponent {
     }
 
     /**
-     * Use this if you need to cache data after fetching it from the api, or retrieve something from cache
+     * Use this when communicating with local database
      */
-    protected suspend fun fetchData(
-        apiDataProvider: suspend () -> Result<T>,
-        dbDataProvider: suspend () -> R
-    ): Result<T> {
-        return if (connectivity.isNetworkAvailable()) {
-            withContext(contextProvider.io) {
-                apiDataProvider()
-            }
-        } else {
-            withContext(contextProvider.io) {
-                val dbResult = dbDataProvider()
-                if (dbResult != null) Success(dbResult.mapToDomainModel()) else Failure(
-                    HttpError(
-                        Throwable("")
-                    )
+    protected suspend fun fetchLocal(dbDataProvider: suspend () -> R): Result<T> {
+        return withContext(contextProvider.io) {
+            val dbResult = dbDataProvider()
+            if (dbResult != null) Success(dbResult.mapToDomainModel()) else Failure(
+                HttpError(
+                    Throwable("")
                 )
-            }
+            )
         }
     }
+
 }

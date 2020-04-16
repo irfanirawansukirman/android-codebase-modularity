@@ -6,6 +6,7 @@ import com.facebook.FacebookSdk
 import com.irfanirawansukirman.codebasemodularity.di.appModule
 import com.irfanirawansukirman.codebasemodularity.di.presentationModule
 import com.irfanirawansukirman.data.di.connectivityModule
+import com.irfanirawansukirman.data.di.databaseModule
 import com.irfanirawansukirman.data.di.networkModule
 import com.irfanirawansukirman.data.di.repositoryModule
 import com.irfanirawansukirman.domain.di.interactionModule
@@ -43,4 +44,4 @@ class App : MultiDexApplication() {
 
 val appModules = listOf(presentationModule, appModule)
 val domainModules = listOf(interactionModule)
-val dataModules = listOf(networkModule, repositoryModule, connectivityModule)
+val dataModules = listOf(networkModule, repositoryModule, connectivityModule, databaseModule)

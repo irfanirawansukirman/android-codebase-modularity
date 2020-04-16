@@ -150,6 +150,8 @@ dependencies {
     // Deeplink for navigating between page
     implementation utils.deeplinkDispatch
     kapt utils.deeplinkProcessor
+
+    // debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 }
 
 apply from: "$rootDir/build-systems/feature-test-depends.gradle"

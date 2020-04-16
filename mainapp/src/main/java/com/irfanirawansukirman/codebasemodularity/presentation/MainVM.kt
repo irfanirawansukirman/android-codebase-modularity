@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.irfanirawansukirman.abstraction.util.state.ViewState
 import com.irfanirawansukirman.data.common.base.BaseVM
 import com.irfanirawansukirman.data.common.coroutine.CoroutineContextProvider
+import com.irfanirawansukirman.data.network.model.MoviesResult
 import com.irfanirawansukirman.domain.interaction.movies.MoviesUseCase
 import com.irfanirawansukirman.domain.model.onFailure
 import com.irfanirawansukirman.domain.model.onSuccess
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
 
 interface MainContract {
     fun getMoviesList(apiKey: String, sortBy: String)
+    fun saveMoviesList(data: List<MoviesResult>)
 }
 
 class MainVM(
@@ -27,11 +29,15 @@ class MainVM(
 
     override fun getMoviesList(apiKey: String, sortBy: String) {
         _movieInfoState.value = ViewState.loading()
-
         viewModelScope.launch(coroutineContextProvider.main) {
             moviesUseCase.getMovies(apiKey, sortBy)
                 .onSuccess { _movieInfoState.value = ViewState.success(it) }
                 .onFailure { _movieInfoState.value = ViewState.error(it.throwable) }
         }
     }
+
+    override fun saveMoviesList(data: List<MoviesResult>) {
+
+    }
+
 }
