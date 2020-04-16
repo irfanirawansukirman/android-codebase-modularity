@@ -48,6 +48,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     override fun onFirstLaunch(savedInstanceState: Bundle?) {
+        initAuthUtil()
         setupMoviesAdapterAndNavigate()
         setupMoviesList()
         init()
@@ -58,21 +59,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     override fun setupViewListener() {
-        if (!::callbackManager.isInitialized) {
-            callbackManager = CallbackManager.Factory.create()
-        }
-
-        if (!::facebookAuthUtil.isInitialized) {
-            facebookAuthUtil = FacebookAuthUtil()
-        }
-
-        if (!::googleAuthUtil.isInitialized) {
-            googleAuthUtil = GoogleAuthUtil()
-        }
-
-        facebookAuthUtil.setupFacebookCallback(callbackManager)
-        googleAuthUtil.setupGsoClient(this, getString(R.string.default_web_client_id))
-
         mViewBinding.apply {
             progress.setOnRefreshListener {
                 clearMoviesList()
@@ -115,7 +101,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         googleAuthUtil.firebaseAuthWithGoogle(this, it, { user ->
                             Log.d("FIREBASE LOGIN ", "${user.id} ${user.name}")
                         }, {
-
+                            Log.e("FIREBASE ERROR ", it)
                         })
                     }
                 } catch (e: ApiException) {
@@ -158,6 +144,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 "Connection is lost"
             )
         }
+    }
+
+    private fun initAuthUtil() {
+        if (!::callbackManager.isInitialized) {
+            callbackManager = CallbackManager.Factory.create()
+        }
+
+        if (!::facebookAuthUtil.isInitialized) {
+            facebookAuthUtil = FacebookAuthUtil()
+        }
+
+        if (!::googleAuthUtil.isInitialized) {
+            googleAuthUtil = GoogleAuthUtil()
+        }
+
+        facebookAuthUtil.setupFacebookCallback(callbackManager)
+        googleAuthUtil.setupGsoClient(this, getString(R.string.default_web_client_id))
+
     }
 
     private fun setupMoviesAdapterAndNavigate() {

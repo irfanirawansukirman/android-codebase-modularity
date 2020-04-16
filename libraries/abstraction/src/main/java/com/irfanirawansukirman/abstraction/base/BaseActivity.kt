@@ -26,8 +26,8 @@ abstract class BaseActivity<VB : ViewBinding>(private val viewBinder: (LayoutInf
         setContentView(mViewBinding.root)
         makeStatusBarTransparent()
         setupToolbar()
-        setupViewListener()
         onFirstLaunch(savedInstanceState)
+        setupViewListener()
         loadObservers()
     }
 
