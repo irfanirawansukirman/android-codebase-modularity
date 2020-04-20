@@ -203,7 +203,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     viewModel.saveMoviesList(it)
                 }
             }
-            ERROR -> progress.finish()
+            ERROR -> {
+                progress.finish()
+                viewState.error?.message?.let {
+                    Log.d("ERROR BRO ", it)
+                }
+            }
         }
     }
 

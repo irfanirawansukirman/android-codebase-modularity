@@ -1,12 +1,2 @@
 apply from: "$rootDir/build-systems/feature-app-depends.gradle"
 apply from: "$rootDir/build-systems/feature-test-depends.gradle"
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
-dependencies {
-    // Koin extended & experimental features
-    implementation "org.koin:koin-core-ext:2.0.1"
-    // Koin for Unit tests
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation "org.koin:koin-test:2.0.1"
-}

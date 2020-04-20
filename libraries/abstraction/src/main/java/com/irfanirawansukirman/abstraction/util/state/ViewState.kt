@@ -18,13 +18,5 @@ data class ViewState<T>(val status: Status, val data: T?, val error: Throwable?)
         fun <T> loading(): ViewState<T> {
             return ViewState(Status.LOADING, null, null)
         }
-
-//        fun <T> finish(): ViewState<T> {
-//            return ViewState(Status.FINISH, null, null)
-//        }
-//
-//        fun <T> connectionLost(): ViewState<T> {
-//            return ViewState(Status.CONNECTION_LOST, null, null)
-//        }
     }
 }

@@ -4,6 +4,7 @@ import com.irfanirawansukirman.domain.model.Failure
 import com.irfanirawansukirman.domain.model.HttpError
 import com.irfanirawansukirman.domain.model.Result
 import com.irfanirawansukirman.domain.model.Success
+import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
@@ -40,7 +41,11 @@ inline fun <T : RoomMapper<R>, R : DomainMapper<U>, U : Any> Response<T>.getData
         }
         onFailure {
             val cachedModel = fetchFromCacheAction()
-            if (cachedModel != null) Success(cachedModel.mapToDomainModel()) else Failure(HttpError(Throwable("")))
+            if (cachedModel != null) Success(cachedModel.mapToDomainModel()) else Failure(
+                HttpError(
+                    Throwable("")
+                )
+            )
         }
         return Failure(HttpError(Throwable("")))
     } catch (e: IOException) {
@@ -55,8 +60,42 @@ fun <T : DomainMapper<R>, R : Any> Response<T>.getData(): Result<R> {
     try {
         onSuccess { return Success(it.mapToDomainModel()) }
         onFailure { return Failure(it) }
-        return Failure(HttpError(Throwable("")))
-    } catch (e: IOException) {
-        return Failure(HttpError(Throwable("")))
+        return Failure(HttpError(Throwable("Can't get data from API"), 214))
+    } catch (e: Throwable) {
+        return when (e) {
+            is IOException -> Failure(HttpError(Throwable("Error I/O"), 212))
+            is HttpException -> {
+                val code: Int
+                val message: String
+                when (e.code()) {
+                    400 -> {
+                        code = 400
+                        message = "Bad request"
+                    }
+                    401 -> {
+                        code = 401
+                        message = "Unauthorised"
+                    }
+                    403 -> {
+                        code = 403
+                        message = "Forbidden"
+                    }
+                    404 -> {
+                        code = 404
+                        message = "Service not found"
+                    }
+                    500 -> {
+                        code = 500
+                        message = "Internal server error"
+                    }
+                    else -> {
+                        code = 0
+                        message = "Something went wrong"
+                    }
+                }
+                Failure(HttpError(Throwable(message), code))
+            }
+            else -> Failure(HttpError(Throwable(e.message), 213))
+        }
     }
 }

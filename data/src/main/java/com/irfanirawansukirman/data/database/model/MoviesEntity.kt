@@ -14,8 +14,6 @@ data class MoviesEntity(
     val adult: Boolean?,
     @ColumnInfo(name = "backdrop_path")
     val backdropPath: String?,
-    @ColumnInfo(name = "genre_ids")
-    val genreIds: List<Int>?,
     @ColumnInfo(name = "original_language")
     val originalLanguage: String?,
     @ColumnInfo(name = "original_title")

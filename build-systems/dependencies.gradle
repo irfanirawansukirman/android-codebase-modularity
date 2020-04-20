@@ -37,6 +37,7 @@ ext {
     swipeRefreshLibV = '1.0.0'
     navigationLibV = '2.1.0'
     legacySupportV4LibV = '1.0.0'
+    roomLibV = '2.2.5'
     //==================================
     androidSupportLibrary = [
             appCompatX      : "androidx.appcompat:appcompat:${supportXLibraryV}", // appCompat v7
@@ -46,7 +47,10 @@ ext {
             cardX           : "androidx.cardview:cardview:${cardXLibV}",
             constraintX     : "androidx.constraintlayout:constraintlayout:${constraintXLibV}",
             coordinatorX    : "com.android.support:coordinatorlayout:${coordinatorXLibV}",
-            legacySupportV4X: "androidx.legacy:legacy-support-v4:${legacySupportV4LibV}"
+            legacySupportV4X: "androidx.legacy:legacy-support-v4:${legacySupportV4LibV}",
+
+            roomRuntime     : "androidx.room:room-runtime:${roomLibV}",
+            roomCompiler    : "androidx.room:room-compiler:${roomLibV}"
     ]
     //==================================
 
@@ -95,7 +99,7 @@ ext {
     ]
     //==================================
 
-    gpsAuthLibV = '17.0.0'
+    gpsAuthLibV = '18.0.0'
     //==================================
     gPlayLibrary = [
             gpsAuth: "com.google.android.gms:play-services-auth:${gpsAuthLibV}"
@@ -103,13 +107,13 @@ ext {
     //==================================
 
     fbreCrashLibV = '17.0.0-beta03'
-    fbAuthLibV = '19.0.0'
+    fbAuthLibV = '19.3.0'
     fbAnalLibV = '17.3.0'
     //==================================
     firebaseLibrary = [
-            fbAuth: "com.google.firebase:firebase-auth:${fbAuthLibV}",
+            fbAuth : "com.google.firebase:firebase-auth:${fbAuthLibV}",
             fbCrash: "com.google.firebase:firebase-crashlytics:${fbreCrashLibV}",
-            fbAnal: "com.google.firebase:firebase-analytics:${fbAnalLibV}"
+            fbAnal : "com.google.firebase:firebase-analytics:${fbAnalLibV}"
     ]
     //==================================
 
@@ -216,7 +220,7 @@ ext {
             dexterPermission : "com.karumi:dexter:${dexterV}",
 
             // multidex
-            supportMultidex : "com.android.support:multidex:${multidexV}"
+            supportMultidex  : "com.android.support:multidex:${multidexV}"
     ]
     //==================================
 
