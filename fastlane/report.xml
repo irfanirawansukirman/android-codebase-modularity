@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.011788">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: assembleRelease" time="55.416987">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: Switch to android upload_to_slack lane" time="0.001021">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: echo Uploading MyApp-prodRelease-1.0.0#1-22042020.apk to Slack" time="0.005483">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: curl https://slack.com/api/files.upload -F token=&quot;xoxb-962721503554-1078221762899-80Om0n3tmlZNHECDGk6PSBE5&quot; -F channels=&quot;android-deploy-qa-test&quot; -F title=&quot;MyApp-prodRelease-1.0.0#1-22042020.apk&quot; -F filename=&quot;MyApp-prodRelease-1.0.0#1-22042020.apk&quot; -F file=@/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/mainapp/build/outputs/apk/prod/release/MyApp-prodRelease-1.0.0#1-22042020.apk" time="7.154323">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: slack" time="0.857595">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>

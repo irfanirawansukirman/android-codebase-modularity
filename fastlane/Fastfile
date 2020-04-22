@@ -1,0 +1,78 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+
+  # Runs before all tasks
+  before_all do
+
+   # Add SLACK_URL & make it accessible to all lanes
+   ENV["SLACK_URL"]
+  end
+
+  desc "Run unit tests"
+  lane :unit_tests do |options|
+    gradle(task: "test")
+  end
+
+  desc "Build a debug APK"
+  lane :debug_build do
+    gradle(task: "clean assembleDebug")
+  end
+
+  desc "Build a signed release APK & deploy to slack"
+  lane :slack_apk_build do
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => "lazio12345.jks",
+        "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
+        "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+        "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+      }
+    )
+    upload_to_slack()
+    slack(message: ":rocket: *Build Successful!* :rocket:")
+  end
+
+  desc "Upload APK to Slack channel"
+  private_lane :upload_to_slack do |options|
+    file_path = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    file_name = file_path.gsub(/\/.*\//,"")
+    access_token = ENV["ACCESS_TOKEN"]
+    channel_name = "android-deploy-qa-test"
+
+    sh "echo Uploading " + file_name + " to Slack"
+    sh "curl https://slack.com/api/files.upload -F token=\"" + access_token + "\" -F channels=\"" + channel_name + "\" -F title=\"" + file_name + "\" -F filename=\"" + file_name + "\" -F file=@" + file_path
+  end
+
+  # Runs after all tasks. This block is called only when the executed lane is successful
+  after_all do |lane|
+
+    # Slack action
+    # slack(message: ":rocket: Successful Deployment! :rocket:")
+  end
+
+  error do |lane, exception|
+    slack(
+      message: exception.message,
+      success: false
+      )
+  end
+end
