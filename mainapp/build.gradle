@@ -103,7 +103,7 @@ android {
             def flavor = variant.name
             def versionName = variant.versionName
             def versionCode = variant.versionCode
-            def appTitle = 'your app name'
+            def appTitle = 'MyApp'
             def appBuildDate = new Date().format("ddMMyyyy")
             outputFileName = "${appTitle}-${flavor}-${versionName}#${versionCode}-${appBuildDate}.apk"
         }
