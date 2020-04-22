@@ -1,0 +1,34 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="pl.aprilapps.easyphotopicker"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+8-->/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+10
+11    <application>
+11-->/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:4:5-14:19
+12        <provider
+12-->/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:5:9-13:20
+13            android:name="pl.aprilapps.easyphotopicker.EasyImageFileProvider"
+13-->/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:6:13-50
+14            android:authorities="${applicationId}.easyphotopicker.fileprovider"
+14-->/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:7:13-80
+15            android:exported="false"
+15-->/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:8:13-37
+16            android:grantUriPermissions="true" >
+16-->/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:9:13-47
+17            <meta-data
+17-->/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:10:13-12:63
+18                android:name="android.support.FILE_PROVIDER_PATHS"
+18-->/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:11:17-67
+19                android:resource="@xml/easyimage_filepaths" />
+19-->/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:12:17-60
+20        </provider>
+21    </application>
+22
+23</manifest>

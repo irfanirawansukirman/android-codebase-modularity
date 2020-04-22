@@ -161,7 +161,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         facebookAuthUtil.setupFacebookCallback(callbackManager)
         googleAuthUtil.setupGsoClient(this, getString(R.string.default_web_client_id))
-
     }
 
     private fun setupMoviesAdapterAndNavigate() {
@@ -198,15 +197,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 val data = viewState.data?.movieList?.asListOfType<MoviesResult>()
                 data?.let {
                     mainAdapter.setupMoviesList(it)
-
-                    // save data to local for caching
-                    viewModel.saveMoviesList(it)
                 }
             }
             ERROR -> {
                 progress.finish()
                 viewState.error?.message?.let {
-                    Log.d("ERROR BRO ", it)
+                    showToast(this, it)
                 }
             }
         }

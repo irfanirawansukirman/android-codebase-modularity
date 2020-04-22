@@ -1,0 +1,55 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:1:1-16:12
+INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:1:1-16:12
+INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:1:1-16:12
+INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:1:1-16:12
+INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:1:1-16:12
+INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:1:1-16:12
+INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:1:1-16:12
+	package
+		ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:1:11-49
+		INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+		INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+		ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:1:1-16:12
+		INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+		ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:1:1-16:12
+		INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:2:5-63
+application
+ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:4:5-14:19
+provider#pl.aprilapps.easyphotopicker.EasyImageFileProvider
+ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:5:9-13:20
+	android:grantUriPermissions
+		ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:9:13-47
+	android:authorities
+		ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:7:13-80
+	android:exported
+		ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:8:13-37
+	android:name
+		ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:6:13-50
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:10:13-12:63
+	android:resource
+		ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:12:17-60
+	android:name
+		ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml:11:17-67
+uses-sdk
+INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+		ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+		INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+		ADDED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
+		INJECTED from /Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/libraries/easyimage/src/main/AndroidManifest.xml
