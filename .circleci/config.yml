@@ -97,7 +97,7 @@ jobs:
       - *ruby_dependencies
       - *save_gradle_cache
       - *save_gems_cache
-      - *decode_gservices_key
+#      - *decode_gservices_key
       - run:
           name: Run unit tests
           command: bundle exec fastlane unit_tests
@@ -118,7 +118,7 @@ jobs:
       - *ruby_dependencies
       - *save_gradle_cache
       - *save_gems_cache
-      - *decode_android_key
+#      - *decode_android_key
       - run:
           name: Upload APK to Slack Channel
           command: bundle exec fastlane slack_apk_build
@@ -133,7 +133,7 @@ jobs:
       - *ruby_dependencies
       - *save_gradle_cache
       - *save_gems_cache
-      - *decode_android_key
+#      - *decode_android_key
       - *firebase_cli_install
       - run:
           name: Deploy latest Beta build to Firebase App Distribution
