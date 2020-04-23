@@ -5,32 +5,32 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.008632">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.001147">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: assembleRelease" time="65.043525">
+      <testcase classname="fastlane.lanes" name="1: assembleRelease" time="44.926683">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: Switch to android upload_to_slack lane" time="0.001093">
+      <testcase classname="fastlane.lanes" name="2: Switch to android upload_to_slack lane" time="0.001239">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: echo Uploading MyApp-prodRelease-1.0.0#1-23042020.apk to Slack" time="0.007959">
+      <testcase classname="fastlane.lanes" name="3: echo Uploading MyApp-prodRelease-1.0.0#1-23042020.apk to Slack" time="0.006085">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: curl https://slack.com/api/files.upload -F token=&quot;xoxb-962721503554-964043805059-gI8j9naMYXkmXBKlht2ggD3z&quot; -F channels=&quot;android-deploy-qa-test&quot; -F title=&quot;MyApp-prodRelease-1.0.0#1-23042020.apk&quot; -F filename=&quot;MyApp-prodRelease-1.0.0#1-23042020.apk&quot; -F file=@/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/mainapp/build/outputs/apk/prod/release/MyApp-prodRelease-1.0.0#1-23042020.apk" time="7.290319">
+      <testcase classname="fastlane.lanes" name="4: curl https://slack.com/api/files.upload -F token=&quot;xoxb-962721503554-964043805059-XFMdcTDeBwO6ko7CFxaJ3StA&quot; -F channels=&quot;android-deploy-qa-test&quot; -F title=&quot;MyApp-prodRelease-1.0.0#1-23042020.apk&quot; -F filename=&quot;MyApp-prodRelease-1.0.0#1-23042020.apk&quot; -F file=@/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/mainapp/build/outputs/apk/prod/release/MyApp-prodRelease-1.0.0#1-23042020.apk" time="6.84624">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: slack" time="0.917018">
+      <testcase classname="fastlane.lanes" name="5: slack" time="0.810404">
         
       </testcase>
     

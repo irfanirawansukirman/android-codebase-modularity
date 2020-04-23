@@ -26,6 +26,11 @@ Build a debug APK
 fastlane android slack_apk_build
 ```
 Build a signed release APK & deploy to slack
+### android distribute
+```
+fastlane android distribute
+```
+Deploy latest Beta build to Firebase App Distribution
 
 ----
 
