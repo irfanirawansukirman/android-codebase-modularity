@@ -70,4 +70,27 @@ platform :android do
       success: false
       )
   end
+
+  # use like this `fastlane distribute group:only-me`
+  desc "Deploy latest Beta build to Firebase App Distribution"
+  lane :distribute do |options|
+    if options[:group]
+      build_android_app(
+        task: "assemble",
+        flavor: "prod",
+        build_type: "release"
+      )
+
+      firebase_app_distribution(
+          app: ENV['FIREBASE_APP_ID_ANDROID'],
+          groups: options[:group],
+          release_notes: "Fastlane Droid Release Notes Updated 1.0.1",
+          firebase_cli_path: "/usr/local/bin/firebase",
+          firebase_cli_token: ENV['FIREBASE_CI_TOKEN']
+      )
+    else
+      UI.user_error!("Missing group name!")
+    end
+  end
+
 end
