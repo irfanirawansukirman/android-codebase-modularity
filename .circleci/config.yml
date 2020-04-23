@@ -66,7 +66,7 @@ references:
   decode_android_key: &decode_android_key
     run:
       name: Decode Android Keystore
-      command: echo $KEYSTORE_PATH | base64 -d | tee tee keystore.jks app/keystore.jks >/dev/null
+      command: echo $KEYSTORE_PATH | base64 -d | tee tee lazio12345.jks mainapp/lazio12345.jks >/dev/null
 
   # ---------------------------------------------------------------------------------------------------------------------
   # DECODE FIREBASE GOOGLE_SERVICE_JSON FILE AND WRITE IT TO A FILE
