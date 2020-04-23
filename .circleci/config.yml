@@ -66,7 +66,7 @@ references:
   decode_android_key: &decode_android_key
     run:
       name: Decode Android Keystore
-      command: echo $KEYSTORE_PATH | base64 -d | tee mainapp/lazio12345.jks >/dev/null
+      command: echo $KEYSTORE_PATH | base64 -d | tee tee keystore.jks app/keystore.jks >/dev/null
 
   # ---------------------------------------------------------------------------------------------------------------------
   # DECODE FIREBASE GOOGLE_SERVICE_JSON FILE AND WRITE IT TO A FILE
@@ -144,6 +144,17 @@ workflows:
   workflow:
 
     # Jobs that will run when you push to your repo
-    jobs:
-      - slack_deployment
-      - firebase_app_distribution
+    # Normal case
+#    jobs:
+#      - test_unit
+#      - slack_deployment:
+#          requires:
+#            - test_unit
+#      - firebase_app_distribution:
+#          requires:
+#            - test_unit
+
+    # Kepepet case
+     jobs:
+       - slack_deployment
+       - firebase_app_distribution
