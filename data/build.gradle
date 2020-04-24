@@ -59,6 +59,7 @@ dependencies {
 
     implementation androidSupportLibrary.appCompatX
     implementation androidSupportLibrary.roomRuntime
+    implementation androidSupportLibrary.roomKtx
     kapt androidSupportLibrary.roomCompiler
 
     implementation aacLibrary.lifecycleVmExt

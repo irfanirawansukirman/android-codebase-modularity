@@ -3,6 +3,7 @@ package com.irfanirawansukirman.codebasemodularity
 import android.app.Application
 import androidx.multidex.MultiDexApplication
 import com.facebook.FacebookSdk
+import com.facebook.stetho.Stetho
 import com.irfanirawansukirman.codebasemodularity.di.appModule
 import com.irfanirawansukirman.codebasemodularity.di.presentationModule
 import com.irfanirawansukirman.data.di.connectivityModule
@@ -34,6 +35,7 @@ class App : MultiDexApplication() {
         }
 
         FacebookSdk.sdkInitialize(applicationContext)
+        Stetho.initializeWithDefaults(this)
     }
 
     companion object {

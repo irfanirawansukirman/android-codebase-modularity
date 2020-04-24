@@ -1,6 +1,8 @@
 package com.irfanirawansukirman.data.network.model
 
+import com.irfanirawansukirman.data.database.model.MoviesEntity
 import com.irfanirawansukirman.data.network.base.DomainMapper
+import com.irfanirawansukirman.data.network.base.RoomMapper
 import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -50,4 +52,7 @@ data class MoviesResult(
     val voteAverage: Double?,
     @SerialName("vote_count")
     val voteCount: Int?
-)
+) : RoomMapper<MoviesEntity> {
+    override fun mapToRoomEntity() =
+        MoviesEntity(id, backdropPath, originalTitle, overview, posterPath)
+}

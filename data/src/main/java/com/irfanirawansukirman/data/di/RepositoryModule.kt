@@ -7,6 +7,6 @@ import com.irfanirawansukirman.domain.repository.MoviesRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    factory<MoviesRepository> { MoviesRepositoryImpl(get()) }
+    factory<MoviesRepository> { MoviesRepositoryImpl(get(), get()) }
     factory<LanguageRepository> { LanguageRepositoryImpl(get()) }
 }

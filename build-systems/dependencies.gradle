@@ -50,7 +50,8 @@ ext {
             legacySupportV4X: "androidx.legacy:legacy-support-v4:${legacySupportV4LibV}",
 
             roomRuntime     : "androidx.room:room-runtime:${roomLibV}",
-            roomCompiler    : "androidx.room:room-compiler:${roomLibV}"
+            roomCompiler    : "androidx.room:room-compiler:${roomLibV}",
+            roomKtx         : "androidx.room:room-ktx:${roomLibV}"
     ]
     //==================================
 
