@@ -5,32 +5,57 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.001147">
+      <testcase classname="fastlane.lanes" name="00: default_platform" time="0.001075">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: assembleRelease" time="44.926683">
+      <testcase classname="fastlane.lanes" name="01: assembleRelease" time="78.362952">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: Switch to android upload_to_slack lane" time="0.001239">
+      <testcase classname="fastlane.lanes" name="02: bundleRelease" time="40.591043">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: echo Uploading MyApp-prodRelease-1.0.0#1-23042020.apk to Slack" time="0.006085">
+      <testcase classname="fastlane.lanes" name="03: Switch to android upload_apk_to_slack lane" time="0.001037">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: curl https://slack.com/api/files.upload -F token=&quot;xoxb-962721503554-964043805059-XFMdcTDeBwO6ko7CFxaJ3StA&quot; -F channels=&quot;android-deploy-qa-test&quot; -F title=&quot;MyApp-prodRelease-1.0.0#1-23042020.apk&quot; -F filename=&quot;MyApp-prodRelease-1.0.0#1-23042020.apk&quot; -F file=@/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/mainapp/build/outputs/apk/prod/release/MyApp-prodRelease-1.0.0#1-23042020.apk" time="6.84624">
+      <testcase classname="fastlane.lanes" name="04: echo Uploading MyApp-prodRelease-1.0.0#1-24042020.apk to Slack" time="0.005329">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: slack" time="0.810404">
+      <testcase classname="fastlane.lanes" name="05: curl https://slack.com/api/files.upload -F token=&quot;xoxb-962721503554-964043805059-AJGcI0uOCNbJkge43l7dxulI&quot; -F channels=&quot;android-deploy-qa-test&quot; -F title=&quot;MyApp-prodRelease-1.0.0#1-24042020.apk&quot; -F filename=&quot;MyApp-prodRelease-1.0.0#1-24042020.apk&quot; -F file=@/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/mainapp/build/outputs/apk/prod/release/MyApp-prodRelease-1.0.0#1-24042020.apk" time="7.023562">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="06: Switch to android upload_aab_to_slack lane" time="0.001637">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="07: echo Uploading mainapp-prod-release.aab to Slack" time="0.006707">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="08: curl https://slack.com/api/files.upload -F token=&quot;xoxb-962721503554-964043805059-AJGcI0uOCNbJkge43l7dxulI&quot; -F channels=&quot;android-deploy-qa-test&quot; -F title=&quot;mainapp-prod-release.aab&quot; -F filename=&quot;mainapp-prod-release.aab&quot; -F file=@/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/mainapp/build/outputs/bundle/prodRelease/mainapp-prod-release.aab" time="7.566213">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="09: slack" time="0.948051">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="10: slack" time="0.887891">
         
       </testcase>
     

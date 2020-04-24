@@ -21,16 +21,11 @@ or alternatively using `brew cask install fastlane`
 fastlane android debug_build
 ```
 Build a debug APK
-### android slack_apk_build
+### android slack_release_files_build
 ```
-fastlane android slack_apk_build
+fastlane android slack_release_files_build
 ```
-Build a signed release APK & deploy to slack
-### android distribute
-```
-fastlane android distribute
-```
-Deploy latest Beta build to Firebase App Distribution
+Build a signed release files [APK,AAB] & deploy to slack
 
 ----
 

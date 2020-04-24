@@ -29,8 +29,8 @@ platform :android do
     gradle(task: "clean assembleDebug")
   end
 
-  desc "Build a signed release APK & deploy to slack"
-  lane :slack_apk_build do
+  desc "Build a signed release files [APK,AAB] & deploy to slack"
+  lane :slack_release_files_build do
     gradle(
       task: "assemble",
       build_type: "Release",
@@ -42,13 +42,37 @@ platform :android do
         "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
       }
     )
-    upload_to_slack()
-    slack(message: ":rocket: *Build Successful!* :rocket:")
+
+    gradle(
+      task: "bundle",
+      build_type: "Release",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => ENV['KEYSTORE_PATH'],
+        "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
+        "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+        "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+      }
+    )
+    upload_apk_to_slack()
+    upload_aab_to_slack()
+    slack(message: ":rocket: *Build Files is Successful!* :rocket:")
   end
 
   desc "Upload APK to Slack channel"
-  private_lane :upload_to_slack do |options|
+  private_lane :upload_apk_to_slack do |options|
     file_path = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    file_name = file_path.gsub(/\/.*\//,"")
+    access_token = ENV["ACCESS_TOKEN"]
+    channel_name = "android-deploy-qa-test"
+
+    sh "echo Uploading " + file_name + " to Slack"
+    sh "curl https://slack.com/api/files.upload -F token=\"" + access_token + "\" -F channels=\"" + channel_name + "\" -F title=\"" + file_name + "\" -F filename=\"" + file_name + "\" -F file=@" + file_path
+  end
+
+  desc "Upload AAB to Slack channel"
+  private_lane :upload_aab_to_slack do |options|
+    file_path = lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]
     file_name = file_path.gsub(/\/.*\//,"")
     access_token = ENV["ACCESS_TOKEN"]
     channel_name = "android-deploy-qa-test"
@@ -69,28 +93,6 @@ platform :android do
       message: exception.message,
       success: false
       )
-  end
-
-  # use like this `fastlane distribute group:only-me`
-  desc "Deploy latest Beta build to Firebase App Distribution"
-  lane :distribute do |options|
-    if options[:group]
-      build_android_app(
-        task: "assemble",
-        flavor: "prod",
-        build_type: "release"
-      )
-
-      firebase_app_distribution(
-          app: ENV['FIREBASE_APP_ID_ANDROID'],
-          groups: options[:group],
-          release_notes: "Fastlane Droid Release Notes Updated 1.0.1",
-          firebase_cli_path: "/usr/local/bin/firebase",
-          firebase_cli_token: ENV['FIREBASE_CI_TOKEN']
-      )
-    else
-      UI.user_error!("Missing group name!")
-    end
   end
 
 end

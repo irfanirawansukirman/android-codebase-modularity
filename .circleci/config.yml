@@ -157,4 +157,3 @@ workflows:
     # Kepepet case
      jobs:
        - slack_deployment
-#       - firebase_app_distribution
