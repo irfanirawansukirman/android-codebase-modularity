@@ -12,16 +12,7 @@ class MoviesRepositoryImpl(
     private val moviesDao: MoviesDao
 ) : MoviesRepository {
 
-    override suspend fun getMovies(apiKey: String, sortBy: String): Result<MovieInfoMapper> {
-        val response = movieApi.getMovies(apiKey, sortBy).body()
-        response?.let { data ->
-            data.results?.let { movies ->
-                movies.forEach { movie ->
-                    moviesDao.insertMovie(movie.mapToRoomEntity())
-                }
-            }
-        }
-        return movieApi.getMovies(apiKey, sortBy).getData()
-    }
+    override suspend fun getMovies(apiKey: String, sortBy: String): Result<MovieInfoMapper> =
+        movieApi.getMovies(apiKey, sortBy).getData()
 
 }

@@ -24,6 +24,31 @@ platform :android do
    ENV["SLACK_URL"]
   end
 
+  desc "Run Test"
+    lane :run_test do
+      gradle(task: "clean test")
+  end
+
+  desc "Run Internal Lint"
+    lane :run_check do
+      gradle(task: "clean check")
+  end
+
+  desc "Run Dev Debug Jacoco Unit Test"
+    lane :run_debug_jacoco_unit_test do
+      gradle(task: "clean testDevDebugUnitTest")
+  end
+
+  desc "Run Test"
+    lane :run_detekt do
+      gradle(task: "clean detekt")
+  end
+
+  desc "Run Test"
+    lane :run_sonarqube do
+      gradle(task: "clean sonarqube")
+  end
+
   desc "Build a debug APK"
   lane :debug_build do
     gradle(task: "clean assembleDebug")

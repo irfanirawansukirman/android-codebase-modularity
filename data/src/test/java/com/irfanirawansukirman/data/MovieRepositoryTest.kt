@@ -1,5 +1,6 @@
 package com.irfanirawansukirman.data
 
+import com.irfanirawansukirman.data.database.dao.MoviesDao
 import com.irfanirawansukirman.data.network.model.MoviesResponse
 import com.irfanirawansukirman.data.network.model.MoviesResult
 import com.irfanirawansukirman.data.network.service.MovieApi
@@ -15,7 +16,8 @@ import retrofit2.Response
 class MovieRepositoryTest {
 
     private val movieApi: MovieApi = mock()
-    private val moviesRepository = MoviesRepositoryImpl(movieApi)
+    private val moviesDao: MoviesDao = mock()
+    private val moviesRepository = MoviesRepositoryImpl(movieApi, moviesDao)
 
     private val apiKey = "dummyApiKey"
     private val sortBy = "dummySort"
