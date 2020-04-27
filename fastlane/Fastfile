@@ -26,8 +26,7 @@ platform :android do
 
   desc "Run Test"
     lane :run_test do
-      gradle(task: "clean test")
-      beta()
+      distribute()
   end
 
   desc "Run Internal Lint"
@@ -51,24 +50,29 @@ platform :android do
   desc "Run Test"
     lane :run_sonarqube do
       gradle(task: "clean sonarqube -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=cf97b3df98b4b54e143af533d126cc83a7544db6")
-      beta()
   end
 
-  # Fastfile actions accept additional configuration, but
-  # don't worry, fastlane will prompt you for required
-  # info which you can add here later
-  lane :beta do
-    # build the release variant
-    build_android_app(task: "assembleRelease")
+  # use like this `fastlane distribute group:only-me`
+  desc "Deploy latest Beta build to Firebase App Distribution"
+    lane :distribute do |options|
+      if options[:group]
+        build_android_app(
+          task: "assemble",
+          flavor: "prod",
+          build_type: "release"
+        )
 
-    # upload to Beta by Crashlytics
-    crashlytics(
-      # keys for organization: Andromax
-      api_token: "261e27dc5baae72193fd64e849234ca4bcf6971d",
-      build_secret: "6a55850a03e3fd0d2717a5a64608fe49d0c142a68c0f44793c92ba6bd522087e"
-    )
-    slack(message: ":rocket: Successful Deployment! :rocket:")
-  end
+        firebase_app_distribution(
+          app: ENV['FIREBASE_APP_ID_ANDROID'],
+          groups: options[:group],
+          release_notes: "Fastlane Droid Release Notes Updated 1.0.1",
+          firebase_cli_path: "/usr/local/bin/firebase",
+          firebase_cli_token: ENV['FIREBASE_CI_TOKEN']
+      )
+      else
+        UI.user_error!("Missing group name!")
+      end
+    end
 
   # Runs after all tasks. This block is called only when the executed lane is successful
   after_all do |lane|
