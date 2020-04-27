@@ -136,7 +136,67 @@ jobs:
       #      - *decode_android_key
       - run:
           name: Upload APK to Slack Channel
-          command: bundle exec fastlane slack_apk_build
+          command: bundle exec fastlane run_test
+
+  run_check:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *android_dependencies
+      - *ruby_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      #      - *decode_android_key
+      - run:
+          name: Upload APK to Slack Channel
+          command: bundle exec fastlane run_check
+
+  run_debug_jacoco_unit_test:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *android_dependencies
+      - *ruby_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      #      - *decode_android_key
+      - run:
+          name: Upload APK to Slack Channel
+          command: bundle exec fastlane run_debug_jacoco_unit_test
+
+  run_detekt:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *android_dependencies
+      - *ruby_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      #      - *decode_android_key
+      - run:
+          name: Upload APK to Slack Channel
+          command: bundle exec fastlane run_detekt
+
+  run_sonarqube:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *android_dependencies
+      - *ruby_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      #      - *decode_android_key
+      - run:
+          name: Upload APK to Slack Channel
+          command: bundle exec fastlane run_sonarqube
 
   firebase_app_distribution:
     <<: *android_config
