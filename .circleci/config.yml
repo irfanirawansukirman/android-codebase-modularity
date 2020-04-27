@@ -135,7 +135,7 @@ jobs:
       - *save_gems_cache
       #      - *decode_android_key
       - run:
-          name: Upload APK to Slack Channel
+          name: Flow Test
           command: bundle exec fastlane run_test
 
   run_check:
@@ -232,7 +232,3 @@ workflows:
     # Kepepet case
      jobs:
        - run_test
-       - run_check
-       - run_debug_jacoco_unit_test
-       - run_detekt
-       - run_sonarqube

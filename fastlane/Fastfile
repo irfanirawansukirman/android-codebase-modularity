@@ -27,21 +27,25 @@ platform :android do
   desc "Run Test"
     lane :run_test do
       gradle(task: "clean test")
+      run_check()
   end
 
   desc "Run Internal Lint"
     lane :run_check do
       gradle(task: "clean check")
+      run_debug_jacoco_unit_test()
   end
 
   desc "Run Dev Debug Jacoco Unit Test"
     lane :run_debug_jacoco_unit_test do
       gradle(task: "clean testDevDebugUnitTest")
+      run_detekt()
   end
 
   desc "Run Test"
     lane :run_detekt do
       gradle(task: "clean detekt")
+      run_sonarqube()
   end
 
   desc "Run Test"
