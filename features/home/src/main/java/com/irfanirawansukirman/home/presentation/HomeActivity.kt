@@ -76,21 +76,13 @@ class HomeActivity : BaseActivity<HomeActivityBinding>(HomeActivityBinding::infl
         permission: PermissionRequest?,
         token: PermissionToken?
     ) {
-        val permissionType = when (permission?.name) {
-            CAMERA_NAME -> "kamera"
-            CALL_NAME -> "telepon"
-            else -> "penyimpnanan"
-        }
+        val permissionType = getPermissionType(permission?.name ?: "default")
         showRationaleCameraDialog(token, permissionType)
     }
 
     override fun onPermissionDenied(response: PermissionDeniedResponse?) {
         response?.let {
-            val permissionType = when (it.permissionName) {
-                CAMERA_NAME -> "kamera"
-                CALL_NAME -> "telepon"
-                else -> "penyimpnanan"
-            }
+            val permissionType = getPermissionType(it.permissionName)
             if (it.isPermanentlyDenied) {
                 showToast(
                     this,
@@ -162,6 +154,12 @@ class HomeActivity : BaseActivity<HomeActivityBinding>(HomeActivityBinding::infl
 
     private fun showImageSelected(imagePath: String) {
         viewModel.setupImagePath(imagePath)
+    }
+
+    private fun getPermissionType(name: String) = when (name) {
+        CAMERA_NAME -> "kamera"
+        CALL_NAME -> "telepon"
+        else -> "penyimpnanan"
     }
 
 }
