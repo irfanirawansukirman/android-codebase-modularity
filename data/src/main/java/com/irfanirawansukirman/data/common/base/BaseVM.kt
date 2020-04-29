@@ -10,7 +10,7 @@ import kotlinx.coroutines.withTimeout
 abstract class BaseVM(private val coroutineContextProvider: CoroutineContextProvider) :
     ViewModel() {
 
-    fun executeCase(
+    fun executeCaseWithTimeout(
         execute: suspend () -> Unit,
         timeOutException: (Throwable) -> Unit,
         errorException: (Throwable) -> Unit
@@ -23,6 +23,19 @@ abstract class BaseVM(private val coroutineContextProvider: CoroutineContextProv
                 }
             } catch (e: TimeoutCancellationException) {
                 timeOutException(Throwable("Request Timeout")) // 408 for error code
+            } catch (e: Exception) {
+                errorException(Throwable(e.message ?: "Something Went Wrong")) // 500 for error code
+            }
+        }
+    }
+
+    fun executeCase(
+        execute: suspend () -> Unit,
+        errorException: (Throwable) -> Unit
+    ) {
+        viewModelScope.launch(coroutineContextProvider.main) {
+            try {
+                execute()
             } catch (e: Exception) {
                 errorException(Throwable(e.message ?: "Something Went Wrong")) // 500 for error code
             }

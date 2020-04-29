@@ -14,6 +14,9 @@ interface MoviesDao {
     suspend fun insertMovie(movie: MoviesEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMovie(movies: List<MoviesEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBulkMovies(movies: List<MoviesEntity>)
 
     @Query("SELECT * FROM $MOVIES")
@@ -21,5 +24,8 @@ interface MoviesDao {
 
     @Query("SELECT * FROM $MOVIES WHERE id = :movieId LIMIT 1")
     suspend fun getMovie(movieId: Int): MoviesEntity
+
+    @Query("DELETE FROM $MOVIES")
+    suspend fun deleteLocalMovies()
 
 }

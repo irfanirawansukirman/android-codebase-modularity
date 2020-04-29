@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import com.irfanirawansukirman.data.MOVIES
 import com.irfanirawansukirman.data.network.base.DomainMapper
 import com.irfanirawansukirman.domain.model.info.MovieInfo
+import kotlinx.serialization.SerialInfo
 
 @Entity(tableName = MOVIES)
 data class MoviesEntity(

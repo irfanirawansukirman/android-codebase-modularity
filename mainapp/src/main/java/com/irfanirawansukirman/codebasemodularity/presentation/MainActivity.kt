@@ -44,7 +44,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private lateinit var googleAuthUtil: GoogleAuthUtil
 
     override fun loadObservers() {
-        viewModel.movieInfoState.subscribe(this, ::renderMoviesList)
+        viewModel.apply {
+            movieInfoState.subscribe(this@MainActivity, ::renderMoviesList)
+            moviesLocalState.subscribe(this@MainActivity, ::showSaveMoviesState)
+        }
     }
 
     override fun onFirstLaunch(savedInstanceState: Bundle?) {
@@ -196,11 +199,41 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
                 val data = viewState.data?.movieList?.asListOfType<MoviesResult>()
                 data?.let {
+                    // show movies to ui
                     mainAdapter.setupMoviesList(it)
+
+                    // save movies to local database
+                    saveMoviesList(it)
                 }
             }
             ERROR -> {
                 progress.finish()
+
+                viewState.error?.message?.let {
+                    showToast(this, it)
+                }
+            }
+        }
+    }
+
+    private fun saveMoviesList(movie: List<MoviesResult>) {
+        viewModel.saveMoviesList(movie)
+    }
+
+    private fun showSaveMoviesState(viewState: ViewState<Boolean>) {
+        when (viewState.status) {
+            LOADING -> progress.loading()
+            SUCCESS -> {
+                progress.finish()
+
+                val state = viewState.data
+                state?.let {
+                    showToast(this, if (it) "Success" else "Failed")
+                }
+            }
+            ERROR -> {
+                progress.finish()
+
                 viewState.error?.message?.let {
                     showToast(this, it)
                 }

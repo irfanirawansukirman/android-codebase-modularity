@@ -5,13 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import com.irfanirawansukirman.abstraction.util.state.ViewState
 import com.irfanirawansukirman.data.common.base.BaseVM
 import com.irfanirawansukirman.data.common.coroutine.CoroutineContextProvider
+import com.irfanirawansukirman.data.network.model.MoviesResult
 import com.irfanirawansukirman.domain.interaction.movies.MoviesUseCase
+import com.irfanirawansukirman.domain.model.info.MovieInfo
 import com.irfanirawansukirman.domain.model.onFailure
 import com.irfanirawansukirman.domain.model.onSuccess
 import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
 
 interface MainContract {
     fun getMoviesList(apiKey: String, sortBy: String)
+    fun saveMoviesList(movies: List<MoviesResult>)
 }
 
 class MainVM(
@@ -22,9 +25,13 @@ class MainVM(
     val movieInfoState: LiveData<ViewState<MovieInfoMapper>>
         get() = _movieInfoState
 
+    private val _moviesLocalState = MutableLiveData<ViewState<Boolean>>()
+    val moviesLocalState: LiveData<ViewState<Boolean>>
+        get() = _moviesLocalState
+
     override fun getMoviesList(apiKey: String, sortBy: String) {
         _movieInfoState.value = ViewState.loading()
-        executeCase({
+        executeCaseWithTimeout({
             moviesUseCase.getMovies(apiKey, sortBy)
                 .onSuccess { _movieInfoState.value = ViewState.success(it) }
                 .onFailure { _movieInfoState.value = ViewState.error(it.throwable) }
@@ -32,6 +39,29 @@ class MainVM(
             _movieInfoState.value = ViewState.error(it)
         }, {
             _movieInfoState.value = ViewState.error(it)
+        })
+    }
+
+    override fun saveMoviesList(movies: List<MoviesResult>) {
+        _moviesLocalState.value = ViewState.loading()
+        executeCase({
+            val moviesMap = movies.map {
+                MovieInfo(
+                    it.id,
+                    it.backdropPath,
+                    it.originalTitle,
+                    it.overview,
+                    it.posterPath
+                )
+            }
+            moviesUseCase.apply {
+                deleteLocalMovies()
+                saveLocalMovies(moviesMap)
+                    .onSuccess { _moviesLocalState.value = ViewState.success(true) }
+                    .onFailure { _moviesLocalState.value = ViewState.error(it.throwable) }
+            }
+        }, {
+            _moviesLocalState.value = ViewState.error(it)
         })
     }
 }

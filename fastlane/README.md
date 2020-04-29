@@ -16,36 +16,21 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## Android
-### android run_test
+### android test
 ```
-fastlane android run_test
-```
-Run Test
-### android run_check
-```
-fastlane android run_check
-```
-Run Internal Lint
-### android run_debug_jacoco_unit_test
-```
-fastlane android run_debug_jacoco_unit_test
-```
-Run Dev Debug Jacoco Unit Test
-### android run_detekt
-```
-fastlane android run_detekt
+fastlane android test
 ```
 Run Test
-### android run_sonarqube
+### android debug_build
 ```
-fastlane android run_sonarqube
+fastlane android debug_build
 ```
-Run Test
-### android distribute
+Build a debug APK
+### android slack_release_files_build
 ```
-fastlane android distribute
+fastlane android slack_release_files_build
 ```
-Deploy latest Beta build to Firebase App Distribution
+Build a signed release files [APK,AAB] & deploy to slack
 
 ----
 
