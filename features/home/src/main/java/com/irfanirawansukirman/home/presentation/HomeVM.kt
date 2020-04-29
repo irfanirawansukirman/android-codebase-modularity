@@ -35,7 +35,7 @@ class HomeVM(
 
     override fun getLanguage() {
         _languageState.value = ViewState.loading()
-        executeCase({
+        executeCaseWithTimeout({
             languageUseCase()
                 .onSuccess { _languageState.value = ViewState.success(it) }
                 .onFailure { _languageState.value = ViewState.error(it.throwable) }

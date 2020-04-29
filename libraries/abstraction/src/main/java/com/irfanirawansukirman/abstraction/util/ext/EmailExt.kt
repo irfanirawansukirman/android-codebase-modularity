@@ -9,11 +9,3 @@ fun isEmailValid(email: String): Boolean {
     )
     return emailPattern.matcher(email.trim()).matches()
 }
-
-fun isPhoneValid(phone: String): Boolean {
-    val phonePattern = Pattern.compile(
-        "[+]?[0-9]+"
-    )
-
-    return phonePattern.matcher(phone).matches()
-}

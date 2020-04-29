@@ -165,11 +165,12 @@ ext {
 
     chuckDebugLibV = '1.1.0'
     chuckReleaseLibV = '1.1.0'
+    stethoLibV = '1.5.1'
     //==================================
     debugging = [
             chuckDebug  : "com.readystatesoftware.chuck:library:${chuckDebugLibV}",
-            chuckRelease: "com.readystatesoftware.chuck:library-no-op:${chuckReleaseLibV}"
-            // stethoDebug : "com.facebook.stetho:stetho:${stetho}" // deprecated. Change it with fbflipper
+            chuckRelease: "com.readystatesoftware.chuck:library-no-op:${chuckReleaseLibV}",
+            stethoDebug : "com.facebook.stetho:stetho:${stethoLibV}" // deprecated. Change it with fbflipper
     ]
     //==================================
 

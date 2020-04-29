@@ -3,6 +3,7 @@ package com.irfanirawansukirman.home.presentation
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.irfanirawansukirman.abstraction.base.BaseFragment
+import com.irfanirawansukirman.abstraction.util.Const.Permission.CALL
 import com.irfanirawansukirman.abstraction.util.Const.Permission.CAMERA
 import com.irfanirawansukirman.abstraction.util.Const.Permission.WRITE_STORAGE
 import com.irfanirawansukirman.abstraction.util.ext.*
@@ -39,6 +40,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeActivity>(HomeFragmen
             btnGallery.setOnClickListener {
                 pickPictureFromGallery()
             }
+            btnCall.setOnClickListener {
+                directCall()
+            }
         }
     }
 
@@ -65,6 +69,19 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeActivity>(HomeFragmen
             }
         }
     }
+
+    private fun directCall() {
+        getMyParentActivity().apply {
+            if (!hasCallPermission()) {
+                requestSinglePermission(CALL, this, this)
+            } else {
+                // openCall("+6289628157908")
+                openWifiSettings()
+            }
+        }
+    }
+
+
 
     private fun showImageSelected(imagePath: String) {
         mViewBinding.imgHome.loadImage(imagePath)

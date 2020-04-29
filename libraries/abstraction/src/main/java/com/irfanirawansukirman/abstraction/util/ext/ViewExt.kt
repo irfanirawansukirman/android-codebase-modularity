@@ -4,13 +4,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.irfanirawansukirman.abstraction.util.view.ThrottledOnClickListener
 
-fun View.defaultDisable() {
+fun View.disable() {
     isEnabled = false
 }
 
-fun View.defaultEnable() {
+fun View.enable() {
     isEnabled = true
 }
+
+fun View.getEnableView() = isEnabled
 
 fun View.visible() {
     if (this.visibility == View.GONE || this.visibility == View.INVISIBLE) this.visibility =

@@ -19,6 +19,12 @@
         android:layout_height="wrap_content"
         android:text="Gallery" />
 
+    <Button
+        android:id="@+id/btnCall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Direct Call" />
+
     <ImageView
         android:id="@+id/imgHome"
         android:layout_width="match_parent"

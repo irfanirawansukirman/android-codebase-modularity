@@ -38,5 +38,6 @@ object Const {
         const val READ_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE
         const val FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
         const val COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION
+        const val CALL = Manifest.permission.CALL_PHONE // direct call
     }
 }

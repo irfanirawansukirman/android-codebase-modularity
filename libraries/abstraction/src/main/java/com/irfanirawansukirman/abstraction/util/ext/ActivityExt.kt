@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.irfanirawansukirman.abstraction.R
 import com.irfanirawansukirman.abstraction.util.Const.Code.REQUEST_CODE
+import com.irfanirawansukirman.abstraction.util.Const.Permission.CALL
 import com.irfanirawansukirman.abstraction.util.Const.Permission.CAMERA
 import com.irfanirawansukirman.abstraction.util.Const.Permission.FINE_LOCATION
 import com.irfanirawansukirman.abstraction.util.Const.Permission.WRITE_STORAGE
@@ -95,7 +96,7 @@ fun AppCompatActivity.overridePendingTransitionExit() {
 
 private lateinit var easyImage: EasyImage
 
-fun AppCompatActivity.createEasyImageBuilder(context: Context): EasyImage {
+fun createEasyImageBuilder(context: Context): EasyImage {
     if (!::easyImage.isInitialized) {
         easyImage = EasyImage.Builder(context)
             .setCopyImagesToPublicGalleryFolder(false)
@@ -107,11 +108,16 @@ fun AppCompatActivity.createEasyImageBuilder(context: Context): EasyImage {
     return easyImage
 }
 
-fun AppCompatActivity.getEasyImage() = easyImage
+fun getEasyImage() = easyImage
 
 fun AppCompatActivity.openCamera() = easyImage.openCameraForImage(this)
 
 fun AppCompatActivity.openGallery() = easyImage.openGallery(this)
+
+fun AppCompatActivity.openCall(phoneNumber: String, isDirectCall: Boolean? = true) =
+    intentCall(phoneNumber, isDirectCall, packageManager, this)
+
+fun AppCompatActivity.openWifiSettings() = intentWirelessSettings(this)
 
 /*
  * List of self permissions
@@ -124,3 +130,6 @@ fun AppCompatActivity.hasWriteExtStoragePermission(): Boolean =
 
 fun AppCompatActivity.hasLocationPermission(): Boolean =
     ContextCompat.checkSelfPermission(this, FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+
+fun AppCompatActivity.hasCallPermission(): Boolean =
+    ContextCompat.checkSelfPermission(this, CALL) == PackageManager.PERMISSION_GRANTED
