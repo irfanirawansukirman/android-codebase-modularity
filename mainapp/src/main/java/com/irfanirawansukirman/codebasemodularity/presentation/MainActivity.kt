@@ -67,17 +67,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 clearMoviesList()
                 init()
             }
-            btnGoogle.setOnClickListener {
+            btnGoogle.setOnSingleClickListener {
                 googleAuthUtil.login(this@MainActivity, 1234)
             }
-            btnFacebook.setOnClickListener {
+            btnFacebook.setOnSingleClickListener {
                 facebookAuthUtil.login(this@MainActivity, {
                     Log.d("FACEBOOK SUCCESS ", it.avatar)
                 }, {
                     Log.e("FACEBOOK FAILED ", it)
                 })
             }
-            btnLogout.setOnClickListener {
+            btnLogout.setOnSingleClickListener {
                 facebookAuthUtil.logout { state ->
                     if (state) showToast(this@MainActivity, "Logout facebook is successfully")
                 }

@@ -14,6 +14,8 @@ interface HomeContract {
     fun getLanguage()
 
     fun setupImagePath(imagePath: String)
+
+    fun openCall()
 }
 
 class HomeVM(
@@ -28,6 +30,10 @@ class HomeVM(
     private val _languageState = MutableLiveData<ViewState<LanguangeMapper>>()
     val languageState: LiveData<ViewState<LanguangeMapper>>
         get() = _languageState
+
+    private val _callState = MutableLiveData<Boolean>()
+    val callState: LiveData<Boolean>
+        get() = _callState
 
     override fun setupImagePath(imagePath: String) {
         this._imagePath.value = imagePath
@@ -44,6 +50,10 @@ class HomeVM(
         }, {
             _languageState.value = ViewState.error(it)
         })
+    }
+
+    override fun openCall() {
+        _callState.value = true
     }
 
 }

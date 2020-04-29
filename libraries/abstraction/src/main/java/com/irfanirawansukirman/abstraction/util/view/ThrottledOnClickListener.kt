@@ -11,7 +11,7 @@ import java.util.*
  *
  *  * @param minimumIntervalMsec The minimum allowed time between clicks - any click sooner than this after a previous click will be rejected
  */
-private const val minimumInterval = 1000L
+private const val minimumInterval = 350L
 
 class ThrottledOnClickListener(private val onClick: (view: View) -> Unit) : View.OnClickListener {
     private val lastClickMap: MutableMap<View, Long> = WeakHashMap()

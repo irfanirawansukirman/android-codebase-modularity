@@ -17,8 +17,13 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeActivity>(HomeFragmen
 
     private val viewModel: HomeVM by sharedViewModel()
 
+    private var phoneNumber = ""
+
     override fun loadObservers() {
-        viewModel.imagePath.subscribe(viewLifecycleOwner, ::showImageSelected)
+        viewModel.apply {
+            imagePath.subscribe(viewLifecycleOwner, ::showImageSelected)
+            callState.subscribe(viewLifecycleOwner, ::navigateCall)
+        }
     }
 
     override fun onFirstLaunch(savedInstanceState: Bundle?) {
@@ -31,17 +36,18 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeActivity>(HomeFragmen
 
     override fun setupViewListener() {
         mViewBinding.apply {
-            btnCamera.setOnClickListener {
+            btnCamera.setOnSingleClickListener {
                 getMyParentActivity().apply {
                     takePictureFromCamera()
                     // addFragment(this.mViewBinding.frameContainer.id, BlankFragment(), true)
                 }
             }
-            btnGallery.setOnClickListener {
+            btnGallery.setOnSingleClickListener {
                 pickPictureFromGallery()
             }
-            btnCall.setOnClickListener {
-                directCall()
+            btnCall.setOnSingleClickListener {
+                phoneNumber = "+6289628157908"
+                directCall(phoneNumber)
             }
         }
     }
@@ -70,21 +76,23 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeActivity>(HomeFragmen
         }
     }
 
-    private fun directCall() {
+    private fun directCall(phoneNumber: String) {
         getMyParentActivity().apply {
             if (!hasCallPermission()) {
                 requestSinglePermission(CALL, this, this)
             } else {
-                // openCall("+6289628157908")
-                openWifiSettings()
+                openCall(phoneNumber)
             }
         }
     }
 
 
-
     private fun showImageSelected(imagePath: String) {
         mViewBinding.imgHome.loadImage(imagePath)
+    }
+
+    private fun navigateCall(state: Boolean) {
+        if (state) getMyParentActivity().openCall(phoneNumber)
     }
 
 }

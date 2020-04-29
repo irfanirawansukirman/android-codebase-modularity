@@ -3,6 +3,7 @@ package com.irfanirawansukirman.codebasemodularity.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.irfanirawansukirman.abstraction.util.ext.setOnSingleClickListener
 import com.irfanirawansukirman.codebasemodularity.databinding.ItemMainBinding
 import com.irfanirawansukirman.data.network.model.MoviesResult
 
@@ -30,7 +31,7 @@ class MainAdapter(private val selectedMovies: (MoviesResult, Int) -> Unit) :
         fun bindItem(item: MoviesResult, position: Int) {
             itemMainBinding.apply {
                 txtTitle.text = item.originalTitle
-                root.setOnClickListener {
+                root.setOnSingleClickListener {
                     selectedMovies(item, position)
                 }
             }

@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.irfanirawansukirman.abstraction.base.BaseActivity
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_MOVIE
+import com.irfanirawansukirman.abstraction.util.Const.Permission.CALL_NAME
 import com.irfanirawansukirman.abstraction.util.Const.Permission.CAMERA_NAME
 import com.irfanirawansukirman.abstraction.util.ext.*
 import com.irfanirawansukirman.abstraction.util.state.ViewState
@@ -19,7 +20,6 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
-import kotlinx.android.synthetic.main.home_activity.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import pl.aprilapps.easyphotopicker.DefaultCallback
@@ -60,30 +60,47 @@ class HomeActivity : BaseActivity<HomeActivityBinding>(HomeActivityBinding::infl
 
     override fun onPermissionGranted(response: PermissionGrantedResponse?) {
         response?.let {
-            if (it.permissionName == CAMERA_NAME) { // open camera
-                openCamera()
-            } else { // open gallery
-                openGallery()
+            when (it.permissionName) {
+                CAMERA_NAME -> openCamera()
+                CALL_NAME -> openCall()
+                else -> openGallery()
             }
         }
+    }
+
+    private fun openCall() {
+        viewModel.openCall()
     }
 
     override fun onPermissionRationaleShouldBeShown(
         permission: PermissionRequest?,
         token: PermissionToken?
     ) {
-        showRationaleCameraDialog(token)
+        val permissionType = when (permission?.name) {
+            CAMERA_NAME -> "kamera"
+            CALL_NAME -> "telepon"
+            else -> "penyimpnanan"
+        }
+        showRationaleCameraDialog(token, permissionType)
     }
 
     override fun onPermissionDenied(response: PermissionDeniedResponse?) {
         response?.let {
+            val permissionType = when (it.permissionName) {
+                CAMERA_NAME -> "kamera"
+                CALL_NAME -> "telepon"
+                else -> "penyimpnanan"
+            }
             if (it.isPermanentlyDenied) {
                 showToast(
                     this,
-                    "Masuk ke setting aplikasi untuk mengizinkan penggunaan kamera secara manual"
+                    "Masuk ke setting aplikasi untuk mengizinkan penggunaan $permissionType secara manual"
                 )
             } else {
-                showToast(this, "Fitur tidak akan berjalan semestinya jika kamera tidak diizinkan")
+                showToast(
+                    this,
+                    "Fitur tidak akan berjalan semestinya jika $permissionType tidak diizinkan"
+                )
             }
         }
     }
@@ -132,11 +149,11 @@ class HomeActivity : BaseActivity<HomeActivityBinding>(HomeActivityBinding::infl
         }
     }
 
-    private fun showRationaleCameraDialog(token: PermissionToken?) {
+    private fun showRationaleCameraDialog(token: PermissionToken?, permissionType: String) {
         showAlertDialog(
             this,
             "Permission",
-            "Anda harus mengizinkan penggunaan kamera untuk fitur ini",
+            "Anda harus mengizinkan penggunaan $permissionType untuk fitur ini",
             "Batal",
             "Izinkan",
             token
