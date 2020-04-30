@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.irfanirawansukirman.abstraction.util.ext.setOnSingleClickListener
 import com.irfanirawansukirman.codebasemodularity.databinding.ItemMainBinding
 import com.irfanirawansukirman.data.network.model.MoviesResult
+import com.irfanirawansukirman.domain.model.info.MovieInfo
 
-class MainAdapter(private val selectedMovies: (MoviesResult, Int) -> Unit) :
+class MainAdapter(private val selectedMovies: (MovieInfo, Int) -> Unit) :
     RecyclerView.Adapter<MainAdapter.ItemHolder>() {
 
-    private val moviesList = arrayListOf<MoviesResult>()
+    private val moviesList = arrayListOf<MovieInfo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ItemHolder(
         ItemMainBinding.inflate(
@@ -28,7 +29,7 @@ class MainAdapter(private val selectedMovies: (MoviesResult, Int) -> Unit) :
 
     inner class ItemHolder(private val itemMainBinding: ItemMainBinding) :
         RecyclerView.ViewHolder(itemMainBinding.root) {
-        fun bindItem(item: MoviesResult, position: Int) {
+        fun bindItem(item: MovieInfo, position: Int) {
             itemMainBinding.apply {
                 txtTitle.text = item.originalTitle
                 root.setOnSingleClickListener {
@@ -38,7 +39,7 @@ class MainAdapter(private val selectedMovies: (MoviesResult, Int) -> Unit) :
         }
     }
 
-    fun setupMoviesList(data: List<MoviesResult>) {
+    fun setupMoviesList(data: List<MovieInfo>) {
         moviesList.apply {
             if (isNotEmpty()) clear()
             addAll(data)

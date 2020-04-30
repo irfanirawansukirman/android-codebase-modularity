@@ -12,7 +12,7 @@ class MoviesUseCaseImpl(private val moviesRepository: MoviesRepository) : Movies
     override suspend fun getLocalMovies(): Result<List<MovieInfo>> =
         moviesRepository.getLocalMovies()
 
-    override suspend fun saveLocalMovies(movies: List<MovieInfo>) =
+    override suspend fun saveLocalMovies(movies: List<MovieInfo>): Result<Boolean> =
         moviesRepository.saveLocalMovies(movies)
 
     override suspend fun deleteLocalMovies() =

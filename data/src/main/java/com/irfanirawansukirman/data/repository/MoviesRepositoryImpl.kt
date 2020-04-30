@@ -1,5 +1,6 @@
 package com.irfanirawansukirman.data.repository
 
+import android.util.Log
 import com.irfanirawansukirman.data.database.dao.MoviesDao
 import com.irfanirawansukirman.data.database.model.MoviesEntity
 import com.irfanirawansukirman.data.network.base.getData
@@ -23,11 +24,11 @@ class MoviesRepositoryImpl(
     override suspend fun getLocalMovies(): Result<List<MovieInfo>> {
         val localMovies = moviesDao.getAllMovies()
         val localMoviesMap =
-            mutableListOf<MovieInfo>().apply { localMovies?.forEach { it.mapToDomainModel() } }
+            mutableListOf<MovieInfo>().apply { localMovies?.forEach { add(it.mapToDomainModel()) } }
         return if (localMovies.isNullOrEmpty()) {
             Failure(
                 HttpError(
-                    Throwable("${MoviesRepositoryImpl::class.java.simpleName} saveLocalMovies() => Data is empty"),
+                    Throwable("${MoviesRepositoryImpl::class.java.simpleName} getLocalMovies() => Data is empty"),
                     204
                 )
             )

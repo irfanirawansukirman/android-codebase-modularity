@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.widget.Toolbar
+import com.bumptech.glide.Glide
 import com.facebook.CallbackManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.irfanirawansukirman.abstraction.base.BaseActivity
+import com.irfanirawansukirman.abstraction.util.Const.Code.REQUEST_CODE
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.MOVIE_TITLE
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_CHAT
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.TO_MOVIE
@@ -19,6 +21,7 @@ import com.irfanirawansukirman.codebasemodularity.databinding.ActivityMainBindin
 import com.irfanirawansukirman.data.BuildConfig
 import com.irfanirawansukirman.data.common.util.Connectivity
 import com.irfanirawansukirman.data.network.model.MoviesResult
+import com.irfanirawansukirman.domain.model.info.MovieInfo
 import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
 import com.irfanirawansukirman.medsocauth.FacebookAuthUtil
 import com.irfanirawansukirman.medsocauth.GoogleAuthUtil
@@ -45,15 +48,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun loadObservers() {
         viewModel.apply {
-            movieInfoState.subscribe(this@MainActivity, ::renderMoviesList)
-            moviesLocalState.subscribe(this@MainActivity, ::showSaveMoviesState)
+            movieRemoteGetState.subscribe(this@MainActivity, ::renderMoviesState)
+            moviesLocalSaveState.subscribe(this@MainActivity, ::showSaveMoviesState)
+            moviesLocalGetState.subscribe(this@MainActivity, ::renderLocalMovies)
         }
     }
 
     override fun onFirstLaunch(savedInstanceState: Bundle?) {
         initAuthUtil()
         setupMoviesAdapterAndNavigate()
-        setupMoviesList()
+        setupMovies()
         init()
     }
 
@@ -64,20 +68,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     override fun setupViewListener() {
         mViewBinding.apply {
             progress.setOnRefreshListener {
-                clearMoviesList()
+                clearMovies()
                 init()
             }
             btnGoogle.setOnSingleClickListener {
-                googleAuthUtil.login(this@MainActivity, 1234)
+                googleAuthUtil.login(this@MainActivity, REQUEST_CODE)
             }
             btnFacebook.setOnSingleClickListener {
                 facebookAuthUtil.login(this@MainActivity, {
-                    Log.d("FACEBOOK SUCCESS ", it.avatar)
+                    showProfile(it.avatar, it.name)
                 }, {
                     Log.e("FACEBOOK FAILED ", it)
                 })
             }
             btnLogout.setOnSingleClickListener {
+                clearProfile()
+
                 facebookAuthUtil.logout { state ->
                     if (state) showToast(this@MainActivity, "Logout facebook is successfully")
                 }
@@ -95,14 +101,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     ) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            1234 -> {
+            REQUEST_CODE -> {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(data)
                 try {
                     // Google Sign In was successful, authenticate with Firebase
                     val account = task.getResult(ApiException::class.java)
                     account?.let {
                         googleAuthUtil.firebaseAuthWithGoogle(this, it, { user ->
-                            Log.d("FIREBASE LOGIN ", "${user.id} ${user.name}")
+                            showProfile(user.avatar, user.name)
                         }, {
                             Log.e("FIREBASE ERROR ", it)
                         })
@@ -110,7 +116,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 } catch (e: ApiException) {
                     // Google Sign In failed, update UI appropriately
                     Log.w("Main Activity", "Google sign in failed", e)
-                    // ...
                 }
             }
             else -> {
@@ -138,7 +143,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     private fun init() {
         if (connectivity.isNetworkAvailable()) {
-            getMoviesList()
+            if (getLocalMoviesSize() == 0) getMovies() else getLocalMovies()
         } else {
             progress.finish()
 
@@ -146,6 +151,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 this,
                 "Connection is lost"
             )
+
+            getLocalMovies()
         }
     }
 
@@ -176,22 +183,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     }
 
-    private fun setupMoviesList() {
+    private fun setupMovies() {
         mViewBinding.recyclerMain.apply {
             linearList(this@MainActivity)
             adapter = mainAdapter
         }
     }
 
-    private fun clearMoviesList() {
+    private fun clearMovies() {
         mainAdapter.resetMoviesList()
     }
 
-    private fun getMoviesList() {
-        viewModel.getMoviesList(BuildConfig.MOVIE_API_KEY, "popularity.desc")
+    private fun getMovies() {
+        viewModel.getMovies(BuildConfig.MOVIE_API_KEY, "popularity.desc")
     }
 
-    private fun renderMoviesList(viewState: ViewState<MovieInfoMapper>) {
+    private fun renderMoviesState(viewState: ViewState<MovieInfoMapper>) {
         when (viewState.status) {
             LOADING -> progress.loading()
             SUCCESS -> {
@@ -199,11 +206,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
                 val data = viewState.data?.movieList?.asListOfType<MoviesResult>()
                 data?.let {
-                    // show movies to ui
-                    mainAdapter.setupMoviesList(it)
-
                     // save movies to local database
-                    saveMoviesList(it)
+                    saveMovies(it)
                 }
             }
             ERROR -> {
@@ -216,8 +220,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     }
 
-    private fun saveMoviesList(movie: List<MoviesResult>) {
-        viewModel.saveMoviesList(movie)
+    private fun saveMovies(movie: List<MoviesResult>) {
+        viewModel.saveMovies(movie)
     }
 
     private fun showSaveMoviesState(viewState: ViewState<Boolean>) {
@@ -226,9 +230,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             SUCCESS -> {
                 progress.finish()
 
-                val state = viewState.data
-                state?.let {
-                    showToast(this, if (it) "Success" else "Failed")
+                val data = viewState.data
+                data?.let {
+                    if (it) {
+                        // after success save movies to local database
+                        // get local movies and show it to ui
+                        getLocalMovies()
+                    } else {
+                        // do anything if failed saving into local database
+                    }
                 }
             }
             ERROR -> {
@@ -238,6 +248,74 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     showToast(this, it)
                 }
             }
+        }
+    }
+
+    private fun getLocalMoviesSize() = viewModel.moviesLocalGetState.value?.data?.size ?: 0
+
+    private fun getLocalMovies() {
+        viewModel.getLocalMovies()
+    }
+
+    private fun renderLocalMovies(viewState: ViewState<List<MovieInfo>>) {
+        when (viewState.status) {
+            LOADING -> progress.loading()
+            SUCCESS -> {
+                progress.finish()
+
+                val data = viewState.data
+                data?.let {
+                    // show movies to ui
+                    mainAdapter.setupMoviesList(it)
+                }
+            }
+            ERROR -> {
+                progress.finish()
+
+                viewState.error?.message?.let {
+                    showToast(this, it)
+                }
+            }
+        }
+    }
+
+    private fun <T> renderDataState(viewState: ViewState<T>, blockExecute : () -> Unit) {
+        when (viewState.status) {
+            LOADING -> progress.loading()
+            SUCCESS -> {
+                progress.finish()
+
+                blockExecute()
+            }
+            ERROR -> {
+                progress.finish()
+
+                viewState.error?.message?.let {
+                    showToast(this, it)
+                }
+            }
+        }
+    }
+
+    private fun showProfile(avatar: String, name: String) {
+        mViewBinding.apply {
+            Glide.with(imgAvatar)
+                .load(avatar)
+                .circleCrop()
+                .into(imgAvatar)
+
+            txtName.text = name
+        }
+    }
+
+    private fun clearProfile() {
+        mViewBinding.apply {
+            Glide.with(imgAvatar)
+                .load("")
+                .error(android.R.color.transparent)
+                .into(imgAvatar)
+
+            txtName.text = null
         }
     }
 

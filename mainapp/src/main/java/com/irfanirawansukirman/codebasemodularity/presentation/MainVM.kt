@@ -13,37 +13,43 @@ import com.irfanirawansukirman.domain.model.onSuccess
 import com.irfanirawansukirman.domain.model.response.MovieInfoMapper
 
 interface MainContract {
-    fun getMoviesList(apiKey: String, sortBy: String)
-    fun saveMoviesList(movies: List<MoviesResult>)
+    fun getMovies(apiKey: String, sortBy: String)
+
+    fun saveMovies(movies: List<MoviesResult>)
+    fun getLocalMovies()
 }
 
 class MainVM(
     private val moviesUseCase: MoviesUseCase, coroutineContextProvider: CoroutineContextProvider
 ) : BaseVM(coroutineContextProvider), MainContract {
 
-    private val _movieInfoState = MutableLiveData<ViewState<MovieInfoMapper>>()
-    val movieInfoState: LiveData<ViewState<MovieInfoMapper>>
-        get() = _movieInfoState
+    private val _movieRemoteGetState = MutableLiveData<ViewState<MovieInfoMapper>>()
+    val movieRemoteGetState: LiveData<ViewState<MovieInfoMapper>>
+        get() = _movieRemoteGetState
 
-    private val _moviesLocalState = MutableLiveData<ViewState<Boolean>>()
-    val moviesLocalState: LiveData<ViewState<Boolean>>
-        get() = _moviesLocalState
+    private val _moviesLocalSaveState = MutableLiveData<ViewState<Boolean>>()
+    val moviesLocalSaveState: LiveData<ViewState<Boolean>>
+        get() = _moviesLocalSaveState
 
-    override fun getMoviesList(apiKey: String, sortBy: String) {
-        _movieInfoState.value = ViewState.loading()
+    private val _moviesLocalGetState = MutableLiveData<ViewState<List<MovieInfo>>>()
+    val moviesLocalGetState: LiveData<ViewState<List<MovieInfo>>>
+        get() = _moviesLocalGetState
+
+    override fun getMovies(apiKey: String, sortBy: String) {
+        _movieRemoteGetState.value = ViewState.loading()
         executeCaseWithTimeout({
             moviesUseCase.getMovies(apiKey, sortBy)
-                .onSuccess { _movieInfoState.value = ViewState.success(it) }
-                .onFailure { _movieInfoState.value = ViewState.error(it.throwable) }
+                .onSuccess { _movieRemoteGetState.value = ViewState.success(it) }
+                .onFailure { _movieRemoteGetState.value = ViewState.error(it.throwable) }
         }, {
-            _movieInfoState.value = ViewState.error(it)
+            _movieRemoteGetState.value = ViewState.error(it)
         }, {
-            _movieInfoState.value = ViewState.error(it)
+            _movieRemoteGetState.value = ViewState.error(it)
         })
     }
 
-    override fun saveMoviesList(movies: List<MoviesResult>) {
-        _moviesLocalState.value = ViewState.loading()
+    override fun saveMovies(movies: List<MoviesResult>) {
+        _moviesLocalSaveState.value = ViewState.loading()
         executeCase({
             val moviesMap = movies.map {
                 MovieInfo(
@@ -57,11 +63,22 @@ class MainVM(
             moviesUseCase.apply {
                 deleteLocalMovies()
                 saveLocalMovies(moviesMap)
-                    .onSuccess { _moviesLocalState.value = ViewState.success(true) }
-                    .onFailure { _moviesLocalState.value = ViewState.error(it.throwable) }
+                    .onSuccess { _moviesLocalSaveState.value = ViewState.success(it) }
+                    .onFailure { _moviesLocalSaveState.value = ViewState.error(it.throwable) }
             }
         }, {
-            _moviesLocalState.value = ViewState.error(it)
+            _moviesLocalSaveState.value = ViewState.error(it)
+        })
+    }
+
+    override fun getLocalMovies() {
+        _moviesLocalGetState.value = ViewState.loading()
+        executeCase({
+            moviesUseCase.getLocalMovies()
+                .onSuccess { _moviesLocalGetState.value = ViewState.success(it) }
+                .onFailure { _moviesLocalGetState.value = ViewState.error(it.throwable) }
+        }, {
+            _moviesLocalGetState.value = ViewState.error(it)
         })
     }
 }

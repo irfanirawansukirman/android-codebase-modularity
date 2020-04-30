@@ -39,7 +39,7 @@ dependencies {
     implementation kotlinLibrary.languagePluginX
     implementation kotlinLibrary.serializableX
 
-    implementation imageLoader.glide
+    api imageLoader.glide
     kapt imageLoader.glidCompiler
 
     implementation androidSupportLibrary.designX
