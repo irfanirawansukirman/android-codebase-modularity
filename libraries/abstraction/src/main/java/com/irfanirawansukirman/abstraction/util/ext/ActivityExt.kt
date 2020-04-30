@@ -110,14 +110,20 @@ fun createEasyImageBuilder(context: Context): EasyImage {
 
 fun getEasyImage() = easyImage
 
-fun AppCompatActivity.openCamera() = easyImage.openCameraForImage(this)
+fun AppCompatActivity.openCamera() =
+    easyImage.openCameraForImage(this)
 
-fun AppCompatActivity.openGallery() = easyImage.openGallery(this)
+fun AppCompatActivity.openGallery() =
+    easyImage.openGallery(this)
 
 fun AppCompatActivity.openCall(phoneNumber: String, isDirectCall: Boolean? = true) =
     intentCall(phoneNumber, isDirectCall, packageManager, this)
 
-fun AppCompatActivity.openWifiSettings() = intentWirelessSettings(this)
+fun AppCompatActivity.openWifiSettings() =
+    intentWirelessSettings(this)
+
+fun AppCompatActivity.sendMessageToWhatsapp(targetPhoneNumber: String, message: String) =
+    sendDirectMessage(this, targetPhoneNumber, message)
 
 /*
  * List of self permissions
