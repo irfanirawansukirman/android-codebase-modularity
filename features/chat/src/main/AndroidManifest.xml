@@ -3,9 +3,10 @@
     package="com.irfanirawansukirman.chat">
 
     <application>
+        <activity android:name=".LoginActivity"/>
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"/>
+            android:name=".channel.ChannelActivity"
+            android:label="@string/title_activity_login" />
     </application>
 
 </manifest>

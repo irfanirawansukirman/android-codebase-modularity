@@ -21,7 +21,7 @@ ext {
             nameTitleDev: "Your App Title - Dev",
             nameVersion : "1.0.0",
             buildNumber : 1,
-            sdkMin      : 16,
+            sdkMin      : 21,
             sdkTarget   : 29,
             buildToolsV : "29.0.3",
             flavorMode  : "mode",
