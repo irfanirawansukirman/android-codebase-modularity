@@ -5,35 +5,35 @@
 ![GitHub watchers](https://img.shields.io/github/watchers/irfanirawansukirman/android-codebase-modularity?style=social)
 
 ## Description
-MarvelHeroes is a demo application based on modern Android application tech-stacks and MVVM architecture.
+Lorem is a demo application based on modern Android application tech-stacks and MVVM architecture.
 Fetching data from the network and integrating persisted data in the database via repository pattern.
 
 ## Quick start
-This is a normal flutter app. You should follow the instructions in the [official documentation](https://flutter.io/docs/get-started/install).
-This project uses **BLoC** (business logic component) to separate the business logic with UI itself.
-It's recommended to do self-study about it before jumping into the project [here](https://bloclibrary.dev/).
-And also on this project uses **Modularization** approach to separate each feature ([core](https://github.com/rrifafauzikomara/MovieCatalogue/tree/master/core), [shared](https://github.com/rrifafauzikomara/MovieCatalogue/tree/master/shared), [ui](https://github.com/rrifafauzikomara/MovieCatalogue/tree/master/lib/ui) modules).
-You can do self-study about it in [here](https://medium.com/@rifafauzi6/mastering-flutter-modularization-in-several-ways-c5db5ff5a54a).
+This is a normal lorem app. You should follow the instructions in the [official documentation](https://google.com).
+This project uses **Lorem** (business logic component) to separate the business logic with UI itself.
+It's recommended to do self-study about it before jumping into the project [here](https://google.com/).
+And also on this project uses **Modularization** approach to separate each feature ([core](https://google.com), [shared](https://google.com), [ui](https://google.com) modules).
+You can do self-study about it in [here](https://google.com).
 
 ## Modularization Structure 🔥
 
     # Root Project
     .
-    ├── core                   # Name of module (new package)
-    │   ├── bloc               # Business logic component.
-    │   └── network            # Remote Data Handlers
-    |       ├── api            # Retrofit API for remote end point, model using Equatable.
-    │       └── repository     # Single source of data and for handling data from network to cache.
+    ├── lorem                   # Name of module (new package)
+    │   ├── lorem               # Business logic component.
+    │   └── lorem            # Remote Data Handlers
+    |       ├── lorem            # Retrofit API for remote end point, model using Equatable.
+    │       └── lorem     # Single source of data and for handling data from network to cache.
     |
-    ├── lib                    # Name of module (default from Flutter)
-    │   └── ui                 # Activity/View layer
+    ├── lorem                    # Name of module (default from lorem)
+    │   └── lorem                 # Activity/View layer
     |
-    └── shared                 # Name of module (new package)
-        ├── common             # Common shared.
-        │   ├── helpers        # Custom function, extension, etc which can be used repeatedly on each method.
-        │   ├── styles         # Custom style that will be used on each widget.
-        │   └── utils          # Utility classes.
-        └── widget             # Custom widget which can be used repeatedly.
+    └── lorem                 # Name of module (new package)
+        ├── lorem             # Common shared.
+        │   ├── lorem        # Custom function, extension, etc which can be used repeatedly on each method.
+        │   ├── lorem         # Custom style that will be used on each widget.
+        │   └── lorem          # Utility classes.
+        └── lorem             # Custom widget which can be used repeatedly.
 
 ## Tech stack & Open-source libraries
 - Minimum SDK level 21
@@ -53,3 +53,29 @@ You can do self-study about it in [here](https://medium.com/@rifafauzi6/masterin
 - [OkHttp3](https://github.com/square/okhttp) - implementing interceptor, logging and mocking web server.
 - [Glide](https://github.com/bumptech/glide) - loading images.
 - [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization) - kotlin multiplatform / multi-format serialization.
+
+## License
+
+```
+MIT License
+
+Copyright (c) [2020] [Irfan Irawan Sukirman]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
