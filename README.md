@@ -1,4 +1,5 @@
 # Android Codebase Modularity
+# Readme is under construction ...
 
 ![GitHub stars](https://img.shields.io/github/stars/irfanirawansukirman/android-codebase-modularity?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/irfanirawansukirman/android-codebase-modularity?style=social)
