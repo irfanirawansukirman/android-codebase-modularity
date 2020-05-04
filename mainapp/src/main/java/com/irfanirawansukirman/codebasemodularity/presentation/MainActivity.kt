@@ -82,13 +82,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 })
             }
             btnLogout.setOnSingleClickListener {
-                clearProfile()
-
                 facebookAuthUtil.logout { state ->
-                    if (state) showToast(this@MainActivity, "Logout facebook is successfully")
+                    if (state) {
+                        showToast(this@MainActivity, "Logout facebook is successfully")
+                        clearProfile()
+                    }
                 }
                 googleAuthUtil.logout(this@MainActivity) { state ->
-                    if (state) showToast(this@MainActivity, "Logout google is successfully")
+                    if (state) {
+                        showToast(this@MainActivity, "Logout google is successfully")
+                        clearProfile()
+                    }
                 }
             }
         }
@@ -279,7 +283,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     }
 
-    private fun <T> renderDataState(viewState: ViewState<T>, blockExecute : () -> Unit) {
+    private fun <T> renderDataState(viewState: ViewState<T>, blockExecute: () -> Unit) {
         when (viewState.status) {
             LOADING -> progress.loading()
             SUCCESS -> {

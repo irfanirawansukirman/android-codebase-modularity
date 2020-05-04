@@ -11,6 +11,7 @@ import com.irfanirawansukirman.abstraction.util.ext.showToast
 import com.irfanirawansukirman.chat.databinding.LoginActivityBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 
+@DeepLink(TO_CHAT)
 class LoginActivity : BaseActivity<LoginActivityBinding>(LoginActivityBinding::inflate) {
 
     val vm: LoginVM by viewModel()

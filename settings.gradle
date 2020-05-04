@@ -1,12 +1,11 @@
 rootProject.name='Codebase Modularity'
 
 // feature - base
-include ':mainapp', ':libraries:chat21engine'
+include ':mainapp'
 
 // feature modular
 include ':features:home'
 include ':features:chat'
-include ':features:emptypage'
 
 // data, domain, etc
 include ':data'
