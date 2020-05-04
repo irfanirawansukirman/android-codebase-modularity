@@ -20,21 +20,21 @@ You can do self-study about it in [here](https://google.com).
 
     # Root Project
     .
-    ├── lorem                   # Name of module (new package)
-    │   ├── lorem               # Business logic component.
-    │   └── lorem            # Remote Data Handlers
-    |       ├── lorem            # Retrofit API for remote end point, model using Equatable.
+    ├── lorem             # Name of module (new package)
+    │   ├── lorem         # Business logic component.
+    │   └── lorem         # Remote Data Handlers
+    |       ├── lorem     # Retrofit API for remote end point, model using Equatable.
     │       └── lorem     # Single source of data and for handling data from network to cache.
     |
-    ├── lorem                    # Name of module (default from lorem)
-    │   └── lorem                 # Activity/View layer
+    ├── lorem             # Name of module (default from lorem)
+    │   └── lorem         # Activity/View layer
     |
-    └── lorem                 # Name of module (new package)
-        ├── lorem             # Common shared.
-        │   ├── lorem        # Custom function, extension, etc which can be used repeatedly on each method.
-        │   ├── lorem         # Custom style that will be used on each widget.
-        │   └── lorem          # Utility classes.
-        └── lorem             # Custom widget which can be used repeatedly.
+    └── lorem             # Name of module (new package)
+        ├── lorem         # Common shared.
+        │   ├── lorem     # Custom function, extension, etc which can be used repeatedly on each method.
+        │   ├── lorem     # Custom style that will be used on each widget.
+        │   └── lorem     # Utility classes.
+        └── lorem         # Custom widget which can be used repeatedly.
 
 ## Tech stack & Open-source libraries
 - Minimum SDK level 21
