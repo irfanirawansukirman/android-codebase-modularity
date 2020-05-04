@@ -43,7 +43,7 @@ You can do self-study about it in [here](https://google.com).
   - LiveData - notify domain layer data to views.
   - Lifecycle - dispose of observing data when lifecycle state changes.
   - ViewModel - UI related data holder, lifecycle aware.
-  - Room Persistence - construct a database using the abstract layer.
+  - Room Persistence - construct a database using the interface layer.
 - Architecture
   - MVVM Architecture (View - View Binding - ViewModel - Model)
   - Repository pattern
