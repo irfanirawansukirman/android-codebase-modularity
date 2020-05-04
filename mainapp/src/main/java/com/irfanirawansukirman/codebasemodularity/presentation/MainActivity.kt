@@ -283,7 +283,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     }
 
-    private fun <T> renderDataState(viewState: ViewState<T>, blockExecute: () -> Unit) {
+    private fun <T> renderDataState(viewState: ViewState<T>, blockExecute : () -> Unit) {
         when (viewState.status) {
             LOADING -> progress.loading()
             SUCCESS -> {
