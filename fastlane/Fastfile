@@ -20,8 +20,8 @@ platform :android do
   # Runs before all tasks
   before_all do
 
-   # Add SLACK_URL & make it accessible to all lanes
-   ENV["SLACK_URL"]
+  # Add SLACK_URL & make it accessible to all lanes
+  ENV["SLACK_URL"]
   end
 
   desc "Run Test"
