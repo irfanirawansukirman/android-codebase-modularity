@@ -48,9 +48,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun loadObservers() {
         viewModel.apply {
-            movieRemoteGetState.subscribe(this@MainActivity, ::renderMoviesState)
-            moviesLocalSaveState.subscribe(this@MainActivity, ::showSaveMoviesState)
-            moviesLocalGetState.subscribe(this@MainActivity, ::renderLocalMovies)
+            getMoviesRemoteState().subscribe(this@MainActivity, ::renderMoviesState)
+            getMoviesLocalSaveState().subscribe(this@MainActivity, ::showSaveMoviesState)
+            getMoviesLocalState().subscribe(this@MainActivity, ::renderLocalMovies)
         }
     }
 
@@ -255,7 +255,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     }
 
-    private fun getLocalMoviesSize() = viewModel.moviesLocalGetState.value?.data?.size ?: 0
+    private fun getLocalMoviesSize() = viewModel.getMoviesLocalState().value?.data?.size ?: 0
 
     private fun getLocalMovies() {
         viewModel.getLocalMovies()

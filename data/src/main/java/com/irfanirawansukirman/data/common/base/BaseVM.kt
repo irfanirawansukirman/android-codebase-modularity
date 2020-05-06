@@ -3,12 +3,18 @@ package com.irfanirawansukirman.data.common.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.irfanirawansukirman.data.common.coroutine.CoroutineContextProvider
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
 
 abstract class BaseVM(private val coroutineContextProvider: CoroutineContextProvider) :
     ViewModel() {
+
+    // if you want using coroutine exception handlers without try/catch block
+    private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
+
+    }
 
     fun executeCaseWithTimeout(
         execute: suspend () -> Unit,
