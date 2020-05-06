@@ -3,11 +3,14 @@ package com.irfanirawansukirman.codebasemodularity.presentation
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.facebook.CallbackManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.irfanirawansukirman.abstraction.base.BaseActivity
 import com.irfanirawansukirman.abstraction.util.Const.Code.REQUEST_CODE
 import com.irfanirawansukirman.abstraction.util.Const.Navigation.MOVIE_TITLE
@@ -46,6 +49,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private lateinit var facebookAuthUtil: FacebookAuthUtil
     private lateinit var googleAuthUtil: GoogleAuthUtil
 
+    private var APP_UPDATE_AVAILABLE = "app_update_available"
+
+    private lateinit var remoteConfig: FirebaseRemoteConfig
+
     override fun loadObservers() {
         viewModel.apply {
             getMoviesRemoteState().subscribe(this@MainActivity, ::renderMoviesState)
@@ -55,10 +62,65 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     override fun onFirstLaunch(savedInstanceState: Bundle?) {
+        // Get Remote Config instance.
+        // [START get_remote_config_instance]
+        remoteConfig = FirebaseRemoteConfig.getInstance()
+        // [END get_remote_config_instance]
+
+        // Create a Remote Config Setting to enable developer mode, which you can use to increase
+        // the number of fetches available per hour during development. Also use Remote Config
+        // Setting to set the minimum fetch interval.
+        // [START enable_dev_mode]
+        val configSettings = FirebaseRemoteConfigSettings.Builder()
+            .setMinimumFetchIntervalInSeconds(0)
+            .build()
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        // [END enable_dev_mode]
+
+        // Set default Remote Config parameter values. An app uses the in-app default values, and
+        // when you need to adjust those defaults, you set an updated value for only the values you
+        // want to change in the Firebase console. See Best Practices in the README for more
+        // information.
+        // [START set_default_values]
+        remoteConfig.setDefaultsAsync(R.xml.firebase_defaults)
+        // [END set_default_values]
+
+        fetchWelcome()
+
         initAuthUtil()
         setupMoviesAdapterAndNavigate()
         setupMovies()
         init()
+    }
+
+    /**
+     * Fetch a welcome message from the Remote Config service, and then activate it.
+     */
+    private fun fetchWelcome() {
+        // [START fetch_config_with_callback]
+        remoteConfig.fetchAndActivate()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    displayWelcomeMessage()
+                } else {
+                    Toast.makeText(this, "Fetch failed",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+        // [END fetch_config_with_callback]
+    }
+
+    /**
+     * Display a welcome message in all caps if welcome_message_caps is set to true. Otherwise,
+     * display a welcome message as fetched from welcome_message.
+     */
+    // [START display_welcome_message]
+    private fun displayWelcomeMessage() {
+        // [START get_config_values]
+        val welcomeMessage = remoteConfig.getString(APP_UPDATE_AVAILABLE)
+        // [END get_config_values]
+
+        if (welcomeMessage == "yes") showToast(this, "haha") else showToast(this, "hihi")
     }
 
     override fun continuousCall() {
