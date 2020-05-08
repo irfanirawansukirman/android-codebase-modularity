@@ -1,16 +1,30 @@
 image: jangrewe/gitlab-ci-android
 
 stages:
-  - test
+#  - test
+#  - staticCodeTest
+#  - sonarqubeTest
   - devReleaseApkBuild
   - prodReleaseApkBuild
   - prodReleaseAabBuild
 
 # debug state
-test:
-  stage: test
-  script:
-    - ./gradlew --stacktrace clean test
+#test:
+#  stage: test
+#  script:
+#    - ./gradlew --stacktrace clean testDevDebugUnitTest
+
+# static code test state
+#staticCodeTest:
+#  stage: staticCodeTest
+#  script:
+#    - ./gradlew --stacktrace clean detekt
+
+# sonarqube test state
+#sonarqubeTest:
+#  stage: sonarqubeTest
+#  script:
+#    - ./gradlew --stacktrace clean sonarqube
 
 # development apk release state
 devReleaseApkBuild:
