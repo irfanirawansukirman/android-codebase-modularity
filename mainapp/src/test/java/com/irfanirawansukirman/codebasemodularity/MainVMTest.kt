@@ -52,7 +52,7 @@ class MainVMTest {
         whenever(useCase.getMovies("", "")).thenReturn(Success(MovieInfoMapper(moviesList)))
 
         // when
-        viewModel.getMoviesRemoteState()
+        viewModel.getMovies("", "")
 
         // then
         assertEquals(ViewState.Status.SUCCESS, viewModel.getMoviesRemoteState().value?.status)
@@ -64,18 +64,19 @@ class MainVMTest {
         whenever(useCase.getMovies("", "")).thenReturn(Failure(HttpError(Throwable(""))))
 
         // when
-        viewModel.getMoviesRemoteState()
+        viewModel.getMovies("", "")
 
         // then
         assertEquals(ViewState.Status.ERROR, viewModel.getMoviesRemoteState().value?.status)
     }
 
+    @Test
     fun `getMovieList with expected list`() = runBlocking {
         // given
         whenever(useCase.getMovies("", "")).thenReturn(Success(MovieInfoMapper(moviesList)))
 
         // when
-        viewModel.getMoviesRemoteState()
+        viewModel.getMovies("", "")
 
         // then
         assertEquals(
