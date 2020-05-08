@@ -2,22 +2,39 @@ image: jangrewe/gitlab-ci-android
 
 stages:
   - test
-  - build
+  - devReleaseApkBuild
+  - prodReleaseApkBuild
+  - prodReleaseAabBuild
 
 # debug state
 test:
   stage: test
   script:
-    - ./gradlew --stacktrace clean assembleDevDebug
+    - ./gradlew --stacktrace clean test
+
+# development apk release state
+devReleaseApkBuild:
+  stage: devReleaseApkBuild
+  script:
+    - ./gradlew --stacktrace clean assembleDevRelease
   artifacts:
     paths:
-      - mainapp/build/outputs/apk/dev/debug/
+      - mainapp/build/outputs/apk/dev/release/
 
-# release state
-#build:
-#  stage: build
-#  script:
-#    - ./gradlew --stacktrace clean assembleRelease
-#  artifacts:
-#    paths:
-#      - app/build/outputs/
+# production apk release state
+prodReleaseApkBuild:
+  stage: prodReleaseApkBuild
+  script:
+    - ./gradlew --stacktrace clean assembleProdRelease
+  artifacts:
+    paths:
+      - mainapp/build/outputs/apk/prod/release/
+
+# production aab release state
+prodReleaseAabBuild:
+  stage: prodReleaseAabBuild
+  script:
+    - ./gradlew --stacktrace clean bundleProdRelease
+  artifacts:
+    paths:
+      - mainapp/build/outputs/bundle/prodRelease/
