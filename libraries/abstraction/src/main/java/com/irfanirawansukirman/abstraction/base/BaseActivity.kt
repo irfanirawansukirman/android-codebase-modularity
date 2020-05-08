@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
-import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.irfanirawansukirman.abstraction.R
 import com.irfanirawansukirman.abstraction.util.ext.makeStatusBarTransparent
