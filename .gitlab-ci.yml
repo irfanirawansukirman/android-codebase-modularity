@@ -8,10 +8,10 @@ stages:
 test:
   stage: test
   script:
-    - ./gradlew --stacktrace clean assembleDebug
+    - ./gradlew --stacktrace clean assembleDevDebug
   artifacts:
     paths:
-      - mainapp/build/outputs/
+      - mainapp/build/outputs/apk/dev/debug/
 
 # release state
 #build:
