@@ -11,6 +11,16 @@ repositories {
     maven { url 'https://maven.google.com' }
 }
 
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     compileSdkVersion appConfig.sdkTarget
     buildToolsVersion appConfig.buildToolsV
@@ -33,8 +43,19 @@ android {
         multiDexEnabled true
     }
 
+    signingConfigs {
+        release {
+            keyAlias "lazio12345"
+            keyPassword "lazio12345"
+            storeFile file("lazio12345.jks")
+            storePassword "lazio12345"
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
+
             debuggable false
 
             // Enables code shrinking, obfuscation, and optimization for only
@@ -89,12 +110,6 @@ android {
             jacoco {
                 includeNoLocationClasses = true
             }
-        }
-    }
-
-    signingConfigs {
-        release {
-
         }
     }
 
