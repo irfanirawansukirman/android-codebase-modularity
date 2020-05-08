@@ -11,7 +11,7 @@ test:
     - ./gradlew --stacktrace clean assembleDebug
   artifacts:
     paths:
-      - app/build/outputs/
+      - mainapp/build/outputs/
 
 # release state
 #build:
