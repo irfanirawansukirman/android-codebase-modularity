@@ -12,7 +12,7 @@ repositories {
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion appConfig.sdkTarget
     buildToolsVersion appConfig.buildToolsV
 
     defaultConfig {
@@ -37,7 +37,7 @@ android {
         release {
             keyAlias "lazio12345"
             keyPassword "lazio12345"
-            storeFile file("lazio12345.jks")
+            storeFile file("/Users/irfanirawansukirman/AndroidStudioProjects/android-codebase-modularity/mainapp/lazio12345.jks")
             storePassword "lazio12345"
         }
     }
@@ -58,6 +58,8 @@ android {
             // the Android Gradle plugin. To learn more, go to the section about
             // R8 configuration files.
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.release
         }
         debug {
             debuggable true
@@ -67,8 +69,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
@@ -82,13 +84,11 @@ android {
     flavorDimensions appConfig.flavorMode
     productFlavors {
         dev {
-            signingConfig signingConfigs.release
             dimension appConfig.flavorMode
             applicationIdSuffix appConfig.idSuffixDev
             resValue "string", "app_name", appConfig.nameTitleDev
         }
         prod {
-            signingConfig signingConfigs.release
             dimension appConfig.flavorMode
             resValue "string", "app_name", appConfig.nameTitle
         }

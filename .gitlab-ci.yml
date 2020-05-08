@@ -30,25 +30,31 @@ stages:
 devReleaseApkBuild:
   stage: devReleaseApkBuild
   script:
-    - ./gradlew --stacktrace clean assembleDevRelease
+#    - ./gradlew --stacktrace clean assembleDevRelease
+    - ./gradlew --stacktrace clean assembleDevDebug
   artifacts:
     paths:
-      - mainapp/build/outputs/apk/dev/release/
+#      - mainapp/build/outputs/apk/dev/release/
+      - mainapp/build/outputs/apk/dev/debug/
 
 # production apk release state
 prodReleaseApkBuild:
   stage: prodReleaseApkBuild
   script:
-    - ./gradlew --stacktrace clean assembleProdRelease
+#    - ./gradlew --stacktrace clean assembleProdRelease
+    - ./gradlew --stacktrace clean assembleProdDebug
   artifacts:
     paths:
-      - mainapp/build/outputs/apk/prod/release/
+#      - mainapp/build/outputs/apk/prod/release/
+      - mainapp/build/outputs/apk/prod/debug/
 
 # production aab release state
 prodReleaseAabBuild:
   stage: prodReleaseAabBuild
   script:
-    - ./gradlew --stacktrace clean bundleProdRelease
+#    - ./gradlew --stacktrace clean bundleProdRelease
+    - ./gradlew --stacktrace clean bundleProdDebug
   artifacts:
     paths:
-      - mainapp/build/outputs/bundle/prodRelease/
+#      - mainapp/build/outputs/bundle/prodRelease/
+      - mainapp/build/outputs/bundle/

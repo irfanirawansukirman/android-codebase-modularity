@@ -36,7 +36,6 @@ class App : MultiDexApplication() {
 
         FacebookSdk.sdkInitialize(applicationContext)
         Stetho.initializeWithDefaults(this)
-
     }
 
     companion object {
