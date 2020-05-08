@@ -44,8 +44,6 @@ android {
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
-
             debuggable false
 
             // Enables code shrinking, obfuscation, and optimization for only
@@ -84,11 +82,13 @@ android {
     flavorDimensions appConfig.flavorMode
     productFlavors {
         dev {
+            signingConfig signingConfigs.release
             dimension appConfig.flavorMode
             applicationIdSuffix appConfig.idSuffixDev
             resValue "string", "app_name", appConfig.nameTitleDev
         }
         prod {
+            signingConfig signingConfigs.release
             dimension appConfig.flavorMode
             resValue "string", "app_name", appConfig.nameTitle
         }
