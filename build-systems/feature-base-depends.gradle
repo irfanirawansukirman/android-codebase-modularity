@@ -22,7 +22,7 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdkVersion appConfig.sdkTarget
+    compileSdkVersion 29
     buildToolsVersion appConfig.buildToolsV
 
     defaultConfig {
