@@ -23,4 +23,5 @@ class MoviesUseCaseTest {
             verify(moviesRepository).getMovies(apiKey, sortBy)
         }
     }
+    
 }
