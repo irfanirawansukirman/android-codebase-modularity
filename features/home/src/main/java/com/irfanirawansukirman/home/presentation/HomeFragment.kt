@@ -86,7 +86,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeActivity>(HomeFragmen
         }
     }
 
-
     private fun showImageSelected(imagePath: String) {
         mViewBinding.imgHome.loadImage(imagePath)
     }

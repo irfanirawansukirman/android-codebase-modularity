@@ -14,7 +14,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 class LoginFragment :
     BaseFragment<FragmentLoginBinding, LoginActivity>(FragmentLoginBinding::inflate) {
 
-    val vm: LoginVM by sharedViewModel()
+    private val vm: LoginVM by sharedViewModel()
 
     override fun loadObservers() {
         vm.outputNumber.observe(viewLifecycleOwner, Observer { angka ->

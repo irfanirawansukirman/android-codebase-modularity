@@ -1,40 +1,12 @@
 # Android Codebase Modularity
-# Readme is under construction ...
 
 ![GitHub stars](https://img.shields.io/github/stars/irfanirawansukirman/android-codebase-modularity?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/irfanirawansukirman/android-codebase-modularity?style=social)
 ![GitHub watchers](https://img.shields.io/github/watchers/irfanirawansukirman/android-codebase-modularity?style=social)
 
 ## Description
-Lorem is a demo application based on modern Android application tech-stacks and MVVM architecture.
+This is a demo movie app based on modern Android application tech-stacks and MVVM architecture.
 Fetching data from the network and integrating persisted data in the database via repository pattern.
-
-## Quick start
-This is a normal lorem app. You should follow the instructions in the [official documentation](https://google.com).
-This project uses **Lorem** (business logic component) to separate the business logic with UI itself.
-It's recommended to do self-study about it before jumping into the project [here](https://google.com/).
-And also on this project uses **Modularization** approach to separate each feature ([core](https://google.com), [shared](https://google.com), [ui](https://google.com) modules).
-You can do self-study about it in [here](https://google.com).
-
-## Modularization Structure 🔥
-
-    # Root Project
-    .
-    ├── lorem             # Name of module (new package)
-    │   ├── lorem         # Business logic component.
-    │   └── lorem         # Remote Data Handlers
-    |       ├── lorem     # Retrofit API for remote end point, model using Equatable.
-    │       └── lorem     # Single source of data and for handling data from network to cache.
-    |
-    ├── lorem             # Name of module (default from lorem)
-    │   └── lorem         # Activity/View layer
-    |
-    └── lorem             # Name of module (new package)
-        ├── lorem         # Common shared.
-        │   ├── lorem     # Custom function, extension, etc which can be used repeatedly on each method.
-        │   ├── lorem     # Custom style that will be used on each widget.
-        │   └── lorem     # Utility classes.
-        └── lorem         # Custom widget which can be used repeatedly.
 
 ## Tech stack & Open-source libraries
 - Minimum SDK level 21
@@ -47,13 +19,14 @@ You can do self-study about it in [here](https://google.com).
 - Architecture
   - MVVM Architecture (View - View Binding - ViewModel - Model)
   - Repository pattern
-  - Clean Architecture
-  - Modularization
+  - [Clean Architecture](https://five.agency/android-architecture-part-1-every-new-beginning-is-hard/) - Part 1 until Part 5
+  - [Modularization](https://proandroiddev.com/intro-to-app-modularization-42411e4c421e) - Intro app modularization 
 - [Koin](https://github.com/InsertKoinIO/koin) - dependency injection.
 - [Retrofit2](https://github.com/square/retrofit) - construct the REST APIs.
 - [OkHttp3](https://github.com/square/okhttp) - implementing interceptor, logging and mocking web server.
 - [Glide](https://github.com/bumptech/glide) - loading images.
 - [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization) - kotlin multiplatform / multi-format serialization.
+- [CI Gitlab](https://medium.com/kode-dan-kodean/menggunakan-gitlab-ci-untuk-build-android-apk-405217cf525d) - Android CI using Gitlab Runner.
 
 ## License
 
